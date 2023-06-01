@@ -6,7 +6,7 @@
 /*   By: yajallal <yajallal@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/01 17:11:24 by yajallal          #+#    #+#             */
-/*   Updated: 2023/06/01 19:19:53 by yajallal         ###   ########.fr       */
+/*   Updated: 2023/06/01 21:25:13 by yajallal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,4 +33,33 @@ t_map *add_new_node(char *line, char config,t_map *map)
 		head->next = new_node;
 	}
 	return(map);
+}
+
+t_map	*delete_node(t_map *head, char *str)
+{
+	t_map	*node;
+	t_map	*remove;
+
+	node = head;
+	if (!head)
+		return (NULL);
+	if (!ft_strcmp(head->line, str))
+	{
+		remove = head;
+		head = head->next;
+		return (head);
+	}
+	while (node->next)
+	{
+		if (ft_strcmp(head->line, str))
+		{
+			remove = node->next;
+			node->next = node->next->next;
+			free(remove->line);
+			free(remove);
+		}
+		if (node->next)
+			node = node->next;
+	}
+	return (head);
 }
