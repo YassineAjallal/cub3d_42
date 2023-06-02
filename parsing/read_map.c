@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read_map.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yajallal <yajallal@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: mkhairou <mkhairou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/01 16:38:31 by yajallal          #+#    #+#             */
-/*   Updated: 2023/06/01 21:41:09 by yajallal         ###   ########.fr       */
+/*   Updated: 2023/06/02 13:04:50 by mkhairou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ void print(t_map *map)
 		ft_putchar_fd(head->cnofig, 1);
 		ft_putstr_fd(" : ", 1);
 		ft_putstr_fd(head->line, 1);
-		ft_putchar_fd('\n', 1);
 		head = head->next;
 	}
 }
@@ -62,7 +61,7 @@ t_map *read_map(char *map_file)
 int main(int ac, char *av[])
 {
 	t_map *map;
-
+	(void)ac;
 	map = read_map(av[1]);
 	// print(map);
 	check_map_config(map);
