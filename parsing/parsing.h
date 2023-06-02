@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mkhairou <mkhairou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yajallal <yajallal@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/01 16:38:46 by yajallal          #+#    #+#             */
-/*   Updated: 2023/06/02 14:09:53 by mkhairou         ###   ########.fr       */
+/*   Updated: 2023/06/02 17:37:46 by yajallal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,4 +57,17 @@ t_map *config_list(char **split);
 void check_map_config(t_map *map);
 
 void print(t_map *map);
+
+int	get_map_len(t_map *map);
+char **get_map(t_map *map);
+
+int ft_strlen2d(char **str);
+
+int check_walls(char *line);
+int check_empty_line(char *line);
+int check_characters(char **map);
+int first_last_wall(char *line);
+int space_border(char **map, int i, int j);
+int map_closed(char **map);
+int check_valid_map(char **map);
 #endif

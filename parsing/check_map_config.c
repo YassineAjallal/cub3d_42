@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_map_config.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mkhairou <mkhairou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yajallal <yajallal@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/01 21:08:11 by yajallal          #+#    #+#             */
-/*   Updated: 2023/06/02 13:13:55 by mkhairou         ###   ########.fr       */
+/*   Updated: 2023/06/02 15:56:04 by yajallal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ int	allint(char **a)
 	{
 		j = 0;
 		if(a[i + 1])
-			tmp = ft_strtrim(a[i], ",\n");
+			tmp = ft_strtrim(a[i], " \n");
 		else
 			tmp = ft_strtrim(a[i], "\n");
 		while (tmp[j])
@@ -103,7 +103,7 @@ void check_valid_config(t_map *config)
 	{
 		if (tmp->cnofig == 'C')
 		{
-			split = ft_split(tmp->line, ' ');
+			split = ft_split(tmp->line, ',');
 			if (ft_isalpha(tmp->line[0]) == 0)
 				error_print("invalid map\n");
 			if (!ft_strcmp(split[0], "F") || !ft_strcmp(split[0], "C"))
