@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yajallal <yajallal@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: mkhairou <mkhairou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/01 16:38:46 by yajallal          #+#    #+#             */
-/*   Updated: 2023/06/01 21:37:24 by yajallal         ###   ########.fr       */
+/*   Updated: 2023/06/02 14:09:53 by mkhairou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,9 @@
 #include <unistd.h>
 #include <stdio.h>
 #include <fcntl.h>
+#include <math.h>
+
+#define pi 3.1415926535
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 42
@@ -24,12 +27,19 @@
 
 void error_print(char *error_msg);
 
+typedef struct s_player
+{
+	int		x;
+	int		y;
+	float	v;
+} t_player;
+
 typedef struct s_map
 {
 	char *line;
 	char cnofig;
 	struct s_map *next;
-	
+
 } t_map;
 
 char	*get_next_line(int fd);
