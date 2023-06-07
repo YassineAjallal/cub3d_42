@@ -8,9 +8,9 @@
 float pa,pdx,pdy;
 #define FOV_ANGLE (60 * (PI / 180))
 
-int x = 50;
-int y = 100;
-int view = 200;
+int x = 640;
+int y = 360;
+int view = 700;
 void *ptr;
 void *win;
 void *img;
@@ -28,83 +28,22 @@ int ft_s(int s0, int s1)
 		return (1);
 	return (-1);
 }
+void dda_line(int x0, int y0, int x1, int y1, void *mlx, void *win) {
+    int dx = x1 - x0;
+    int dy = y1 - y0;
+    int steps = abs(dx) > abs(dy) ? abs(dx) : abs(dy); // Determine the number of steps
 
-void my_line1(int x0, int y0, int x1, int y1, void *mlx, void *win, int color)
-{
-	int dx;
-	int dy;
-	int err;
-	int e2;
+    float xIncrement = dx / (float)steps; // Calculate the increment value for x
+    float yIncrement = dy / (float)steps; // Calculate the increment value for y
 
-	dx = abs(x1 - x0);
-	dy = abs(y1 - y0);
-	if (dx > dy)
-		err = dx / 2;
-	else
-		err = -dy / 2;
-	while (1)
-	{
-		mlx_pixel_put(mlx, win,x0, y0, color);
-		if (map[y0 / 40][x0 / 40] == '1')
-			break;
-		if ( x0== x1 && y0 == y1)
-			break;
-		e2 = err;
-		if (e2 > -dx)
-		{
-			err -= dy;
-			x0 += ft_s(x0, x1);
-		}
-		if (e2 < dy)
-		{
-			err += dx;
-			y0 += ft_s(y0, y1);
-		}
-	}
+    float x = x0, y = y0; // Starting point
 
-}
+    for (int i = 0; i <= steps; i++) {
+        mlx_pixel_put(mlx, win, x, y, 0xffffff); // Output the coordinates
 
-void my_line(int x0, int y0, int x1, int y1, void *mlx, void *win, int color)
-{
-	int dx;
-	int dy;
-	int px = 0;
-	int new_x = 0;
-	int err;
-	int e2;
-
-	dx = abs(x1 - x0);
-	dy = abs(y1 - y0);
-	if (dx > dy)
-		err = dx / 2;
-	else
-		err = -dy / 2;
-	while (1)
-	{
-		// if (map[y0 / 40][x0 / 40] == '1')
-		// 	break;
-		mlx_pixel_put(mlx, win,x0, y0, color);
-		new_x++;
-		if (new_x - px == 10)
-		{
-			px = new_x;
-			my_line1(x, y , x0, y0, mlx, win, 0xffffff);
-		}
-		if ( x0== x1 && y0 == y1)
-			break;
-		e2 = err;
-		if (e2 > -dx)
-		{
-			err -= dy;
-			x0 += ft_s(x0, x1);
-		}
-		if (e2 < dy)
-		{
-			err += dx;
-			y0 += ft_s(y0, y1);
-		}
-	}
-
+        x += xIncrement; // Increment x
+        y += yIncrement; // Increment y
+    }
 }
 
 void draw_fov()
@@ -117,9 +56,9 @@ void draw_fov()
     int target_y1 = y + sin(angle) * view;
 	int target_x2 = x + cos(end_angle) * view;
     int target_y2 = y + sin(end_angle) * view;
-	my_line(target_x1, target_y1, target_x2, target_y2, ptr, win, 0xFFFFFF);
-	my_line(x, y, target_x1, target_y1, ptr, win, 0xFFFFFF);
-	my_line(x, y, target_x2, target_y2, ptr, win, 0xFFFFFF);
+	dda_line(target_x1, target_y1, target_x2, target_y2, ptr, win);
+	dda_line(x, y, target_x1, target_y1, ptr, win);
+	dda_line(x, y, target_x2, target_y2, ptr, win);
     // while (angle <= end_angle)
     // {
 	// 	target_x = x + cos(angle) * view;
@@ -134,7 +73,7 @@ void draw_fov()
 	// int target_x2 = x + cos(end_angle) * view;
     // int target_y2 = y + sin(end_angle) * view;
 
-	my_line(target_x1, target_y1, target_x2, target_y2, ptr, win, 0xFFFFFF);
+	// my_line(target_x1, target_y1, target_x2, target_y2, ptr, win, 0xFFFFFF);
 }
 
 int	key_hook(int keycode, void *param)
@@ -181,26 +120,26 @@ int	key_hook(int keycode, void *param)
 		}
 	// }
 	mlx_clear_window(ptr, win);
-	int i = 0;
-	int j = 0;
+	// int i = 0;
+	// int j = 0;
 	// mlx_put_image_to_window(ptr, win, img, x, y);
-	while (i < 5)
-	{
-		j = 0;
-		while (j < 5)
-		{
-			if (map[i][j] == '1')
-			{
-				mlx_put_image_to_window(ptr, win, img, j * 40, i * 40);
-			}
-			if (map[i][j] == 'p')
-			{
-				mlx_pixel_put(ptr, win, x , y, 0xFFFFFF);
-			}// mlx_pixel_put(ptr, win, j * 10, i * 10, 0xFFFFFF);
-			j++;
-		}
-		i++;
-	}
+	// while (i < 5)
+	// {
+	// 	j = 0;
+	// 	while (j < 5)
+	// 	{
+	// 		if (map[i][j] == '1')
+	// 		{
+	// 			mlx_put_image_to_window(ptr, win, img, j * 40, i * 40);
+	// 		}
+	// 		if (map[i][j] == 'p')
+	// 		{
+	// 			mlx_pixel_put(ptr, win, x , y, 0xFFFFFF);
+	// 		}// mlx_pixel_put(ptr, win, j * 10, i * 10, 0xFFFFFF);
+	// 		j++;
+	// 	}
+	// 	i++;
+	// }
 	draw_fov();
 	return (0);
 }
@@ -215,27 +154,28 @@ int main(int argc, char const *argv[])
 	pdy = sin(pa) * 5;
 	int i = 0;
 	int j = 0;
+
+	// mlx_put_image_to_window(ptr, win, img, 640, 700);
 	// mlx_put_image_to_window(ptr, win, img, x, y);
-	while (i < 5)
-	{
-		j = 0;
-		while (j < 5)
-		{
-			if (map[i][j] == '1')
-			{
-				mlx_put_image_to_window(ptr, win, img, j * 40, i * 40);
-			}
-			if (map[i][j] == 'p')
-			{
-				x = j * 40;
-				y = i * 40;
-				mlx_pixel_put(ptr, win, j * 40, i * 40, 0xFFFFFF);
-			}
-			j++;
-		}
-		i++;
-	}
-	// mlx_pixel_put(ptr, win, x, y, 0xFFFFFF);
+	// while (i < 5)
+	// {
+	// 	j = 0;
+	// 	while (j < 5)
+	// 	{
+	// 		if (map[i][j] == '1')
+	// 		{
+	// 		}
+	// 		if (map[i][j] == 'p')
+	// 		{
+	// 			x = j * 40;
+	// 			y = i * 40;
+	// 			mlx_pixel_put(ptr, win, j * 40, i * 40, 0xFFFFFF);
+	// 		}
+	// 		j++;
+	// 	}
+	// 	i++;
+	// }
+	mlx_pixel_put(ptr, win, x, y, 0xFFFFFF);
 	mlx_hook(win, 2, 0, key_hook, NULL);
 	mlx_loop(ptr);
 	return 0;

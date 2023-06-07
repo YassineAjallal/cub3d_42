@@ -1,24 +1,33 @@
-#include "/Users/mkhairou/MLX42/include/MLX42/MLX42.h"
+#include "./MLX42/include/MLX42/MLX42.h"
 #include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
 
-#define TILE_SIZE 32;
+#define TILE_SIZE 32
 #define PI 3.1415926535
 #define FOV_ANGLE (60 * (PI / 180))
 #define NUM_RAYS 640
 #define height 540
 #define ray_inc (FOV_ANGLE / NUM_RAYS)
 #define half_fov (FOV_ANGLE / 2)
+#define scale 1
+
+/*-----scale-----*/
+#define proj_width (NUM_RAYS / scale)
+#define proj_height (height / scale)
+#define proj_halfwidth (proj_width / 2)
+#define proj_halfheight (proj_height / 2)
+#define increment_angle (FOV_ANGLE / proj_width)
 
 float player_angel = (90 * (PI/180));
 float	p_x;
 float	p_y;
 
+
 int h_index = 0;
 
-char r_map[10][10]= {
+char r_map[20][10]= {
 	{'1', '1', '1', '1','1','1','1','1','1', '1'},
 	{'1', '0', '0', '0','0','0','0','0','0', '1'},
 	{'1', '0', '0', '0','0','0','0','0','0', '1'},
@@ -27,9 +36,30 @@ char r_map[10][10]= {
 	{'1', '0', '0', '0','0','0','0','0','0', '1'},
 	{'1', '0', '0', '0','0','0','0','0','0', '1'},
 	{'1', '0', 'p', '0','0','0','0','0','0', '1'},
+	{'1', '0', '0', '0','0','0','0','1','0', '1'},
+	{'1', '0', '1', '1','0','1','1','1','1', '1'},
+	{'1', '0', '0', '0','0','1','1','1','1', '1'},
 	{'1', '0', '0', '0','0','0','0','0','0', '1'},
+	{'1', '0', '0', '0','0','0','0','0','0', '1'},
+	{'1', '0', '0', '0','0','0','0','0','0', '1'},
+	{'1', '0', '0', '0','0','0','0','0','0', '1'},
+	{'1', '0', '0', '0','0','0','0','0','0', '1'},
+	{'1', '0', '0', '0','0','0','0','0','0', '1'},
+	{'1', '0', 'p', '0','0','0','0','0','0', '1'},
+	{'1', '0', '0', '0','0','0','0','1','0', '1'},
 	{'1', '1', '1', '1','1','1','1','1','1', '1'}
 };
+char bit_map[8][8] = {
+	{'1','1','1','1','1','1','1','1'},
+	{'0','0','0','1','0','0','0','1'},
+	{'1','1','1','1','1','1','1','1'},
+	{'0','1','0','0','0','1','0','0'},
+	{'1','1','1','1','1','1','1','1'},
+	{'0','0','0','1','0','0','0','1'},
+	{'1','1','1','1','1','1','1','1'},
+	{'0','1','0','0','0','1','0','0'},
+};
+
 typedef struct t_cub{
 	mlx_t 		*mlx;
 	mlx_image_t *map;
@@ -38,67 +68,85 @@ typedef struct t_cub{
 	xpm_t *xpm_w;
 }s_cub;
 
+int color_array[64 * 64];
 s_cub cub;
 
-void drawline(double X0, double Y0, double X1, double Y1, unsigned int colore)
-{
-    double dx = X1 - X0;
-    double dy = Y1 - Y0;
-
-    int steps = (int)(fabs(dx) > fabs(dy) ? fabs(dx) : fabs(dy));
-
-    double Xinc = dx / (double)steps;
-    double Yinc = dy / (double)steps;
-
-    double X = X0;
-    double Y = Y0;
-
-    for (int i = 0; i <= steps; i++)
-	{
-        int x = (int)round(X);
-        int y = (int)round(Y);
-
-        if (x >= 0 && x < NUM_RAYS && y >= 0 && y < height) {
-            mlx_put_pixel(cub.map, x, y, colore);
-        }
-
-        X += Xinc;
-        Y += Yinc;
-    }
-}
 int	rgba(int r, int g, int b, float t)
 {
 	int hex = (r << 24) | (g << 16) | (b << 8) | (int)(t * 255);
     return hex;
 }
-
-void drawline1(double X0, double Y0, double X1, double Y1, unsigned int colore)
+void parseImage(mlx_texture_t *img)
 {
-    double dx = X1 - X0;
-    double dy = Y1 - Y0;
-
-    int steps = (int)(fabs(dx) > fabs(dy) ? fabs(dx) : fabs(dy));
-
-    double Xinc = dx / (double)steps;
-    double Yinc = dy / (double)steps;
-
-    double X = X0;
-    double Y = Y0;
-
-    for (int i = 0; i <= steps; i++)
+	int i = 0;
+	int j = 0;
+	while(i < img->width * img->height1)
 	{
-        int x = (int)round(X);
-        int y = (int)round(Y);
-
-        if (x >= 0 && x < NUM_RAYS && y >= 0 && y < height) {
-            mlx_put_pixel(cub.map, x, y, cub.wall->pixels[h_index]);
-			h_index++;
-        }
-        X += Xinc;
-        Y += Yinc;
-    }
+		// printf("%d\t%d\t%d\n", img->pixels[i  + 2], img->pixels[i + 1], img->pixels[i]);
+		color_array[j] = rgba(img->pixels[i], img->pixels[i + 1], img->pixels[i + 2], 1);
+		// printf("%d\n",color_array[i]);
+		j++;
+		i += 4;
+	}
+	// exit(1);
+}
+int ft_s(int s0, int s1)
+{
+	if (s0 < s1)
+		return (1);
+	return (-1);
 }
 
+void drawline(int x0, int y0, int x1, int y1, unsigned int colore)
+{
+	int dx;
+	int dy;
+	int err;
+	int e2;
+
+	dx = abs(x1 - x0);
+	dy = abs(y1 - y0);
+	if (dx > dy)
+		err = dx / 2;
+	else
+		err = -dy / 2;
+	while (1)
+	{
+		if (x0 >= 0 && x0 < NUM_RAYS && y0 >= 0 && y0 < height) {
+            mlx_put_pixel(cub.map, x0, y0, colore);
+        }
+		if ( x0== x1 && y0 == y1)
+			break;
+		e2 = err;
+		if (e2 > -dx)
+		{
+			err -= dy;
+			x0 += ft_s(x0, x1);
+		}
+		if (e2 < dy)
+		{
+			err += dx;
+			y0 += ft_s(y0, y1);
+		}
+	}
+}
+void draw_Texture(int x,int wall_height, int textPosX)
+{
+	int yIncr = (wall_height * 2) / cub.wall->height1;
+	int y = proj_halfheight - wall_height;
+	int i = 0;
+
+	parseImage(cub.wall);
+	while(i < cub.wall->height1)
+	{
+		// if (bit_map[i][textPosX] == '1')
+			drawline(x, y, x, y + (yIncr), color_array[textPosX + i * cub.wall->width]);
+		// else
+		// 	drawline(x, y, x, y + (yIncr + 0.5), rgba(150, 126, 118, 1));
+		y += yIncr;
+		i++;
+	}
+}
 void ray_cast()
 {
 	float ray_angle;
@@ -111,7 +159,7 @@ void ray_cast()
 
 	ray_angle = player_angel - half_fov;
 	count = 0;
-	while (count < NUM_RAYS)
+	while (count < proj_width)
 	{
 		ray_x = (float)p_x;
 		ray_y = (float)p_y;
@@ -126,12 +174,11 @@ void ray_cast()
 		}
 		float distance = sqrtf((ray_x - p_x) * (ray_x - p_x) + (ray_y - p_y) * (ray_y - p_y));
 		distance = distance * cos(ray_angle - player_angel);
-		float wall_height =  floorf(((height / 2) / distance));
-		drawline(count,0,count,(height / 2)- wall_height, rgba(80, 130, 200,1));
-		drawline1(count,(height / 2)- wall_height, count, (height / 2) + wall_height, rgba(0, 86, 145,1));
-		if(h_index >= 64 *64)
-			h_index = 0;
-		drawline(count, (height / 2)+ wall_height, count, height,rgba(98, 105, 109,1));
+		float wall_height =  floorf(((proj_halfheight) / distance));
+		int textposX = (int)floorf(cub.wall->width * (ray_x + ray_y)) % cub.wall->width;
+		drawline(count,0,count,(proj_halfheight)- wall_height, rgba(80, 130, 200,1));
+		draw_Texture(count, wall_height, textposX);
+		drawline(count, (proj_halfheight)+ wall_height, count, height,rgba(98, 105, 109,1));
 		ray_angle += ray_inc;
 		count++;
 	}
@@ -152,8 +199,8 @@ void	hooks()
 		{
 			p_y = tmpy;
 			p_x = tmpx;
+			ray_cast();
 		}
-		ray_cast();
 	}
 	if(mlx_is_key_down(cub.mlx,MLX_KEY_DOWN))
 	{
@@ -165,8 +212,8 @@ void	hooks()
 		{
 			p_y = tmpy;
 			p_x = tmpx;
+			ray_cast();
 		}
-		ray_cast();
 	}
 	if(mlx_is_key_down(cub.mlx,MLX_KEY_LEFT))
 	{
@@ -181,55 +228,6 @@ void	hooks()
 
 }
 
-// void drw_player()
-// {
-// 	int radius = 15;
-//     int centerX = 15;
-//     int centerY = 15;
-// 	int y;
-// 	int x;
-
-// 	y = -radius;
-//     while (y <= radius)
-//     {
-// 		x = -radius;
-//         while ( x <= radius)
-//         {
-//             if (x * x + y * y <= radius * radius)
-//             {
-//                 int pixelX = centerX + x;
-//                 int pixelY = centerY + y;
-//                 mlx_put_pixel(cub.player, pixelX, pixelY, 0xFFFFFF);
-//             }
-// 			x++;
-//         }
-// 		y++;
-//     }
-// }
-
-
-// void	drw_all()
-// {
-// 	int i = 0;
-// 	int j;
-
-// 	while (i < 5)
-// 	{
-// 		j = 0;
-// 		while (j < 5)
-// 		{
-// 			if (r_map[i][j] == '1')
-// 				mlx_put_pixel(cub.map, j * 32, i * 32, 0xFFFFFF);
-// 			if(r_map[i][j] == '0')
-// 				mlx_put_pixel(cub.map, j * 32, i * 32, 0x000000);
-// 			// if(r_map[i][j] == 'p')
-// 			// 	drw_player();
-// 			j++;
-// 		}
-// 		i++;
-// 	}
-
-// }
 void	drw_pixels()
 {
 	// drw_all();)
@@ -285,3 +283,53 @@ int main()
 	return(0);
 }
 
+
+// void drw_player()
+// {
+// 	int radius = 15;
+//     int centerX = 15;
+//     int centerY = 15;
+// 	int y;
+// 	int x;
+
+// 	y = -radius;
+//     while (y <= radius)
+//     {
+// 		x = -radius;
+//         while ( x <= radius)
+//         {
+//             if (x * x + y * y <= radius * radius)
+//             {
+//                 int pixelX = centerX + x;
+//                 int pixelY = centerY + y;
+//                 mlx_put_pixel(cub.player, pixelX, pixelY, 0xFFFFFF);
+//             }
+// 			x++;
+//         }
+// 		y++;
+//     }
+// }
+
+
+// void	drw_all()
+// {
+// 	int i = 0;
+// 	int j;
+
+// 	while (i < 5)
+// 	{
+// 		j = 0;
+// 		while (j < 5)
+// 		{
+// 			if (r_map[i][j] == '1')
+// 				mlx_put_pixel(cub.map, j * 32, i * 32, 0xFFFFFF);
+// 			if(r_map[i][j] == '0')
+// 				mlx_put_pixel(cub.map, j * 32, i * 32, 0x000000);
+// 			// if(r_map[i][j] == 'p')
+// 			// 	drw_player();
+// 			j++;
+// 		}
+// 		i++;
+// 	}
+
+// }
