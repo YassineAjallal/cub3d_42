@@ -82,13 +82,13 @@ void parseImage(mlx_texture_t *img)
 	int j = 0;
 	while(i < img->width * img->height1)
 	{
-		// printf("%d\t%d\t%d\n", img->pixels[i  + 2], img->pixels[i + 1], img->pixels[i]);
+		printf("%d\t%d\t%d\n", img->pixels[i  + 2], img->pixels[i + 1], img->pixels[i]);
 		color_array[j] = rgba(img->pixels[i], img->pixels[i + 1], img->pixels[i + 2], 1);
-		// printf("%d\n",color_array[i]);
+		printf("%d\n",color_array[i]);
 		j++;
 		i += 4;
 	}
-	// exit(1);
+	exit(1);
 }
 int ft_s(int s0, int s1)
 {
