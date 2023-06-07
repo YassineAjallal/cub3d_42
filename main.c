@@ -1,4 +1,4 @@
-#include "./MLX42/include/MLX42/MLX42.h"
+#include "/Users/mkhairou/MLX42/include/MLX42/MLX42.h"
 #include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -12,6 +12,8 @@
 #define ray_inc (FOV_ANGLE / NUM_RAYS)
 #define half_fov (FOV_ANGLE / 2)
 #define scale 1
+
+int	test = 0;
 
 /*-----scale-----*/
 #define proj_width (NUM_RAYS / scale)
@@ -68,7 +70,7 @@ typedef struct t_cub{
 	xpm_t *xpm_w;
 }s_cub;
 
-int color_array[64 * 64];
+int color_array[(16 * 16)];
 s_cub cub;
 
 int	rgba(int r, int g, int b, float t)
@@ -80,15 +82,25 @@ void parseImage(mlx_texture_t *img)
 {
 	int i = 0;
 	int j = 0;
+<<<<<<< HEAD
 	while(i < img->width * img->height1 * 4)
 	{
 		// printf("%d\t%d\t%d\n", img->pixels[i  + 2], img->pixels[i + 1], img->pixels[i]);
 		color_array[j] = rgba(img->pixels[i], img->pixels[i + 1], img->pixels[i + 2], 1);
 		// printf("%d\n",color_array[j]);
+=======
+	while(i < (img->width * img->height1) * img->bytes_per_pixel)
+	{
+		color_array[j] = rgba(img->pixels[i], img->pixels[i + 1], img->pixels[i + 2], 1);
+>>>>>>> ea20bbf2fde6635cfc91b0d1e27f3cf91771f3fc
 		j++;
-		i += 4;
+		i += img->bytes_per_pixel;
 	}
+<<<<<<< HEAD
 	// exit(1);
+=======
+
+>>>>>>> ea20bbf2fde6635cfc91b0d1e27f3cf91771f3fc
 }
 int ft_s(int s0, int s1)
 {
@@ -130,12 +142,14 @@ void drawline(int x0, int y0, int x1, int y1, unsigned int colore)
 		}
 	}
 }
-void draw_Texture(int x,int wall_height, int textPosX)
+void draw_Texture(int x, int wall_height, int textPosX)
 {
-	int yIncr = (wall_height * 2) / cub.wall->height1;
-	int y = proj_halfheight - wall_height;
-	int i = 0;
+    int yIncr = (wall_height * 2) / cub.wall->height1;
+    int endy = proj_halfheight + wall_height;
+    int y = proj_halfheight - wall_height;
+    int i = 0;
 
+<<<<<<< HEAD
 	parseImage(cub.wall);
 	while(i < cub.wall->height1)
 	{
@@ -144,7 +158,16 @@ void draw_Texture(int x,int wall_height, int textPosX)
 		y += yIncr;
 		i++;
 	}
+=======
+    while (i < cub.wall->height1)
+    {
+        drawline(x, y, x, y + yIncr, color_array[textPosX + (i * cub.wall->width)]);
+        y += yIncr;
+        i++;
+    }
+>>>>>>> ea20bbf2fde6635cfc91b0d1e27f3cf91771f3fc
 }
+
 void ray_cast()
 {
 	float ray_angle;
@@ -173,7 +196,14 @@ void ray_cast()
 		float distance = sqrtf((ray_x - p_x) * (ray_x - p_x) + (ray_y - p_y) * (ray_y - p_y));
 		distance = distance * cos(ray_angle - player_angel);
 		int wall_height =  (int)floorf(((proj_halfheight) / distance));
+<<<<<<< HEAD
 		int textposX = (int)floorf(cub.wall->width * (ray_x + ray_y)) % cub.wall->width;
+=======
+		// int posx = (ray_y * cub.wall->width + ray_x * cub.wall->bytes_per_pixel / 8);
+		float wallWidth = cub.wall->width;
+		float posXFloat = wallWidth * (ray_x + ray_y);
+		int textposX = (int)(posXFloat - floorf(posXFloat / wallWidth) * wallWidth);
+>>>>>>> ea20bbf2fde6635cfc91b0d1e27f3cf91771f3fc
 		drawline(count,0,count,(proj_halfheight)- wall_height, rgba(80, 130, 200,1));
 		draw_Texture(count, wall_height, textposX);
 		// drawline(count,(height / 2)- wall_height, count, (height / 2) + wall_height, 0x12f2f1ff);
@@ -211,20 +241,26 @@ void	hooks()
 		{
 			p_y = tmpy;
 			p_x = tmpx;
-			ray_cast();
+
 		}
 	}
-	if(mlx_is_key_down(cub.mlx,MLX_KEY_LEFT))
+	if(mlx_is_key_down(cub.mlx,MLX_KEY_A))
 	{
 		player_angel -= 0.1;
-		ray_cast();
+		if(player_angel < 0)
+			player_angel += 2 * M_PI;
+		else if(player_angel > 2 * M_PI)
+			player_angel -= 2 * M_PI;
 	}
-	if(mlx_is_key_down(cub.mlx,MLX_KEY_RIGHT))
+	if(mlx_is_key_down(cub.mlx,MLX_KEY_D))
 	{
 		player_angel += 0.1;
-		ray_cast();
+		if(player_angel < 0)
+			player_angel += 2 * M_PI;
+		else if(player_angel > 2 * M_PI)
+			player_angel -= 2 * M_PI;
 	}
-
+	ray_cast();
 }
 
 void	drw_pixels()
@@ -258,13 +294,17 @@ void	find_player()
 int main()
 {
 	cub.mlx = mlx_init(NUM_RAYS,height,"CUB3D",0);
+<<<<<<< HEAD
 	cub.wall = mlx_load_png("./Grass_01_512.png");
+=======
+	cub.wall = mlx_load_png("./texture.png");
+>>>>>>> ea20bbf2fde6635cfc91b0d1e27f3cf91771f3fc
 	cub.map = mlx_new_image(cub.mlx,NUM_RAYS,height);
 	cub.player = mlx_new_image(cub.mlx,50,50);
 	mlx_image_to_window(cub.mlx, cub.map, 0,0);
 	mlx_image_to_window(cub.mlx, cub.player, (NUM_RAYS / 2), (height / 2));
+	parseImage(cub.wall);
 	// mlx_loop_hook(cub.mlx,drw_pixels,NULL);
-	int	i = 0;
 		// printf("%d\n",cub.wall->height1);
 		// printf("%d\n",cub.wall->width);
 	// while (i < cub.wall->height1)
