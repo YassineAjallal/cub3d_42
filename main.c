@@ -80,15 +80,15 @@ void parseImage(mlx_texture_t *img)
 {
 	int i = 0;
 	int j = 0;
-	while(i < img->width * img->height1)
+	while(i < img->width * img->height1 * 4)
 	{
-		printf("%d\t%d\t%d\n", img->pixels[i  + 2], img->pixels[i + 1], img->pixels[i]);
+		// printf("%d\t%d\t%d\n", img->pixels[i  + 2], img->pixels[i + 1], img->pixels[i]);
 		color_array[j] = rgba(img->pixels[i], img->pixels[i + 1], img->pixels[i + 2], 1);
-		printf("%d\n",color_array[i]);
+		// printf("%d\n",color_array[j]);
 		j++;
 		i += 4;
 	}
-	exit(1);
+	// exit(1);
 }
 int ft_s(int s0, int s1)
 {
@@ -139,10 +139,8 @@ void draw_Texture(int x,int wall_height, int textPosX)
 	parseImage(cub.wall);
 	while(i < cub.wall->height1)
 	{
-		// if (bit_map[i][textPosX] == '1')
+			
 			drawline(x, y, x, y + (yIncr), color_array[textPosX + i * cub.wall->width]);
-		// else
-		// 	drawline(x, y, x, y + (yIncr + 0.5), rgba(150, 126, 118, 1));
 		y += yIncr;
 		i++;
 	}
@@ -174,11 +172,12 @@ void ray_cast()
 		}
 		float distance = sqrtf((ray_x - p_x) * (ray_x - p_x) + (ray_y - p_y) * (ray_y - p_y));
 		distance = distance * cos(ray_angle - player_angel);
-		float wall_height =  floorf(((proj_halfheight) / distance));
+		int wall_height =  (int)floorf(((proj_halfheight) / distance));
 		int textposX = (int)floorf(cub.wall->width * (ray_x + ray_y)) % cub.wall->width;
 		drawline(count,0,count,(proj_halfheight)- wall_height, rgba(80, 130, 200,1));
 		draw_Texture(count, wall_height, textposX);
-		drawline(count, (proj_halfheight)+ wall_height, count, height,rgba(98, 105, 109,1));
+		// drawline(count,(height / 2)- wall_height, count, (height / 2) + wall_height, 0x12f2f1ff);
+		drawline(count, proj_halfheight + wall_height, count, height,rgba(98, 105, 109,1));
 		ray_angle += ray_inc;
 		count++;
 	}
@@ -259,7 +258,7 @@ void	find_player()
 int main()
 {
 	cub.mlx = mlx_init(NUM_RAYS,height,"CUB3D",0);
-	cub.wall = mlx_load_png("./BRICK_3B.png");
+	cub.wall = mlx_load_png("./Grass_01_512.png");
 	cub.map = mlx_new_image(cub.mlx,NUM_RAYS,height);
 	cub.player = mlx_new_image(cub.mlx,50,50);
 	mlx_image_to_window(cub.mlx, cub.map, 0,0);
