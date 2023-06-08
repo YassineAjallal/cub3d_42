@@ -13,7 +13,7 @@
 #define half_fov (FOV_ANGLE / 2)
 #define scale 1
 
-int	test = 0;
+int test = 0;
 
 /*-----scale-----*/
 #define proj_width (NUM_RAYS / scale)
@@ -22,85 +22,71 @@ int	test = 0;
 #define proj_halfheight (proj_height / 2)
 #define increment_angle (FOV_ANGLE / proj_width)
 
-float player_angel = (90 * (PI/180));
-float	p_x;
-float	p_y;
-
+float player_angel = (90 * (PI / 180));
+float p_x;
+float p_y;
 
 int h_index = 0;
 
-char r_map[20][10]= {
-	{'1', '1', '1', '1','1','1','1','1','1', '1'},
-	{'1', '0', '0', '0','0','0','0','0','0', '1'},
-	{'1', '0', '0', '0','0','0','0','0','0', '1'},
-	{'1', '0', '0', '0','0','0','0','0','0', '1'},
-	{'1', '0', '0', '0','0','0','0','0','0', '1'},
-	{'1', '0', '0', '0','0','0','0','0','0', '1'},
-	{'1', '0', '0', '0','0','0','0','0','0', '1'},
-	{'1', '0', 'p', '0','0','0','0','0','0', '1'},
-	{'1', '0', '0', '0','0','0','0','1','0', '1'},
-	{'1', '0', '1', '1','0','1','1','1','1', '1'},
-	{'1', '0', '0', '0','0','1','1','1','1', '1'},
-	{'1', '0', '0', '0','0','0','0','0','0', '1'},
-	{'1', '0', '0', '0','0','0','0','0','0', '1'},
-	{'1', '0', '0', '0','0','0','0','0','0', '1'},
-	{'1', '0', '0', '0','0','0','0','0','0', '1'},
-	{'1', '0', '0', '0','0','0','0','0','0', '1'},
-	{'1', '0', '0', '0','0','0','0','0','0', '1'},
-	{'1', '0', 'p', '0','0','0','0','0','0', '1'},
-	{'1', '0', '0', '0','0','0','0','1','0', '1'},
-	{'1', '1', '1', '1','1','1','1','1','1', '1'}
-};
+char r_map[20][10] = {
+	{'1', '1', '1', '1', '1', '1', '1', '1', '1', '1'},
+	{'1', '0', '0', '0', '0', '0', '0', '0', '0', '1'},
+	{'1', '0', '0', '0', '0', '0', '0', '0', '0', '1'},
+	{'1', '0', '0', '0', '0', '0', '0', '0', '0', '1'},
+	{'1', '0', '0', '0', '0', '0', '0', '0', '0', '1'},
+	{'1', '0', '0', '0', '0', '0', '0', '0', '0', '1'},
+	{'1', '0', '0', '0', '0', '0', '0', '0', '0', '1'},
+	{'1', '0', 'p', '0', '0', '0', '0', '0', '0', '1'},
+	{'1', '0', '0', '0', '0', '0', '0', '1', '0', '1'},
+	{'1', '0', '1', '1', '0', '1', '1', '1', '1', '1'},
+	{'1', '0', '0', '0', '0', '1', '1', '1', '1', '1'},
+	{'1', '0', '0', '0', '0', '0', '0', '0', '0', '1'},
+	{'1', '0', '0', '0', '0', '0', '0', '0', '0', '1'},
+	{'1', '0', '0', '0', '0', '0', '0', '0', '0', '1'},
+	{'1', '0', '0', '0', '0', '0', '0', '0', '0', '1'},
+	{'1', '0', '0', '0', '0', '0', '0', '0', '0', '1'},
+	{'1', '0', '0', '0', '0', '0', '0', '0', '0', '1'},
+	{'1', '0', 'p', '0', '0', '0', '0', '0', '0', '1'},
+	{'1', '0', '0', '0', '0', '0', '0', '1', '0', '1'},
+	{'1', '1', '1', '1', '1', '1', '1', '1', '1', '1'}};
 char bit_map[8][8] = {
-	{'1','1','1','1','1','1','1','1'},
-	{'0','0','0','1','0','0','0','1'},
-	{'1','1','1','1','1','1','1','1'},
-	{'0','1','0','0','0','1','0','0'},
-	{'1','1','1','1','1','1','1','1'},
-	{'0','0','0','1','0','0','0','1'},
-	{'1','1','1','1','1','1','1','1'},
-	{'0','1','0','0','0','1','0','0'},
+	{'1', '1', '1', '1', '1', '1', '1', '1'},
+	{'0', '0', '0', '1', '0', '0', '0', '1'},
+	{'1', '1', '1', '1', '1', '1', '1', '1'},
+	{'0', '1', '0', '0', '0', '1', '0', '0'},
+	{'1', '1', '1', '1', '1', '1', '1', '1'},
+	{'0', '0', '0', '1', '0', '0', '0', '1'},
+	{'1', '1', '1', '1', '1', '1', '1', '1'},
+	{'0', '1', '0', '0', '0', '1', '0', '0'},
 };
 
-typedef struct t_cub{
-	mlx_t 		*mlx;
+typedef struct t_cub
+{
+	mlx_t *mlx;
 	mlx_image_t *map;
 	mlx_image_t *player;
 	mlx_texture_t *wall;
 	xpm_t *xpm_w;
-}s_cub;
+} s_cub;
 
-int color_array[(16 * 16)];
 s_cub cub;
 
-int	rgba(int r, int g, int b, float t)
+int color_array[(64 * 64)];
+int rgba(int r, int g, int b, float t)
 {
 	int hex = (r << 24) | (g << 16) | (b << 8) | (int)(t * 255);
-    return hex;
+	return hex;
 }
 void parseImage(mlx_texture_t *img)
 {
 	int i = 0;
 	int j = 0;
-<<<<<<< HEAD
-	while(i < img->width * img->height1 * 4)
-	{
-		// printf("%d\t%d\t%d\n", img->pixels[i  + 2], img->pixels[i + 1], img->pixels[i]);
-		color_array[j] = rgba(img->pixels[i], img->pixels[i + 1], img->pixels[i + 2], 1);
-		// printf("%d\n",color_array[j]);
-=======
-	while(i < (img->width * img->height1) * img->bytes_per_pixel)
+	while (i < (img->width * img->height1) * img->bytes_per_pixel)
 	{
 		color_array[j] = rgba(img->pixels[i], img->pixels[i + 1], img->pixels[i + 2], 1);
->>>>>>> ea20bbf2fde6635cfc91b0d1e27f3cf91771f3fc
 		j++;
 		i += img->bytes_per_pixel;
 	}
-<<<<<<< HEAD
-	// exit(1);
-=======
-
->>>>>>> ea20bbf2fde6635cfc91b0d1e27f3cf91771f3fc
 }
 int ft_s(int s0, int s1)
 {
@@ -111,62 +97,45 @@ int ft_s(int s0, int s1)
 
 void drawline(int x0, int y0, int x1, int y1, unsigned int colore)
 {
-	int dx;
-	int dy;
-	int err;
-	int e2;
+    int dx = abs(x1 - x0);
+    int dy = abs(y1 - y0);
+    int sx = x0 < x1 ? 1 : -1;
+    int sy = y0 < y1 ? 1 : -1;
+    int err = dx - dy;
 
-	dx = abs(x1 - x0);
-	dy = abs(y1 - y0);
-	if (dx > dy)
-		err = dx / 2;
-	else
-		err = -dy / 2;
-	while (1)
-	{
-		if (x0 >= 0 && x0 < NUM_RAYS && y0 >= 0 && y0 < height) {
+    while (x0 != x1 || y0 != y1)
+    {
+        if (x0 >= 0 && x0 < NUM_RAYS && y0 >= 0 && y0 < height)
             mlx_put_pixel(cub.map, x0, y0, colore);
+        int err2 = 2 * err;
+        if (err2 > -dy)
+        {
+            err -= dy;
+            x0 += sx;
         }
-		if ( x0== x1 && y0 == y1)
-			break;
-		e2 = err;
-		if (e2 > -dx)
-		{
-			err -= dy;
-			x0 += ft_s(x0, x1);
-		}
-		if (e2 < dy)
-		{
-			err += dx;
-			y0 += ft_s(y0, y1);
-		}
-	}
+        if (err2 < dx)
+        {
+            err += dx;
+            y0 += sy;
+        }
+    }
 }
+
 void draw_Texture(int x, int wall_height, int textPosX)
 {
-    int yIncr = (wall_height * 2) / cub.wall->height1;
-    int endy = proj_halfheight + wall_height;
-    int y = proj_halfheight - wall_height;
-    int i = 0;
+	float yIncr = (float)wall_height * 2 / (float)cub.wall->height1;
+	float y = (float)(proj_halfheight - wall_height);
+	int i = 0;
 
-<<<<<<< HEAD
-	parseImage(cub.wall);
-	while(i < cub.wall->height1)
+	while (i < cub.wall->height1)
 	{
-			
-			drawline(x, y, x, y + (yIncr), color_array[textPosX + i * cub.wall->width]);
+		// Calculate the texture coordinate vertically
+		drawline(x, (int)y, x, (int)(y + yIncr), color_array[textPosX + (i * cub.wall->height1)]);
 		y += yIncr;
 		i++;
 	}
-=======
-    while (i < cub.wall->height1)
-    {
-        drawline(x, y, x, y + yIncr, color_array[textPosX + (i * cub.wall->width)]);
-        y += yIncr;
-        i++;
-    }
->>>>>>> ea20bbf2fde6635cfc91b0d1e27f3cf91771f3fc
 }
+
 
 void ray_cast()
 {
@@ -176,7 +145,7 @@ void ray_cast()
 	float ray_y;
 	float raycos;
 	float raysin;
-	char	wall;
+	char wall;
 
 	ray_angle = player_angel - half_fov;
 	count = 0;
@@ -195,81 +164,81 @@ void ray_cast()
 		}
 		float distance = sqrtf((ray_x - p_x) * (ray_x - p_x) + (ray_y - p_y) * (ray_y - p_y));
 		distance = distance * cos(ray_angle - player_angel);
-		int wall_height =  (int)floorf(((proj_halfheight) / distance));
-<<<<<<< HEAD
-		int textposX = (int)floorf(cub.wall->width * (ray_x + ray_y)) % cub.wall->width;
-=======
+		int wall_height = (int)floorf(((proj_halfheight) / distance));
 		// int posx = (ray_y * cub.wall->width + ray_x * cub.wall->bytes_per_pixel / 8);
 		float wallWidth = cub.wall->width;
 		float posXFloat = wallWidth * (ray_x + ray_y);
-		int textposX = (int)(posXFloat - floorf(posXFloat / wallWidth) * wallWidth);
->>>>>>> ea20bbf2fde6635cfc91b0d1e27f3cf91771f3fc
-		drawline(count,0,count,(proj_halfheight)- wall_height, rgba(80, 130, 200,1));
+		// int textposX = (int)(posXFloat - floorf(posXFloat / wallWidth) * wallWidth);
+		int textposX = (int)posXFloat % cub.wall->width;
+
+
+		// int textposX = (int) (ray_x / 2.0) % 32;
+		drawline(count, 0, count, (proj_halfheight)-wall_height, rgba(80, 130, 200, 1));
+		// drawline1(count,(height / 2)- wall_height, count, (height / 2) + wall_height, rgba(0, 86, 145,1));
+
 		draw_Texture(count, wall_height, textposX);
-		// drawline(count,(height / 2)- wall_height, count, (height / 2) + wall_height, 0x12f2f1ff);
-		drawline(count, proj_halfheight + wall_height, count, height,rgba(98, 105, 109,1));
+		drawline(count, (proj_halfheight) + wall_height, count, height, rgba(98, 105, 109, 1));
 		ray_angle += ray_inc;
 		count++;
 	}
 }
 
-void	hooks()
+void hooks()
 {
 
-	if(mlx_is_key_down(cub.mlx,MLX_KEY_ESCAPE))
+	if (mlx_is_key_down(cub.mlx, MLX_KEY_ESCAPE))
 		exit(0);
-	if(mlx_is_key_down(cub.mlx,MLX_KEY_UP))
+	if (mlx_is_key_down(cub.mlx, MLX_KEY_UP))
 	{
-		float playercos = cos(player_angel) * 0.5;
-		float playersin = sin(player_angel) * 0.5;
+		float playercos = cos(player_angel) * 0.1;
+		float playersin = sin(player_angel) * 0.1;
 		float tmpx = p_x + playercos;
 		float tmpy = p_y + playersin;
-		if(r_map[(int)floorf(tmpy)][(int)floorf(tmpx)] != '1')
+		if (r_map[(int)floorf(tmpy)][(int)floorf(tmpx)] != '1')
 		{
 			p_y = tmpy;
 			p_x = tmpx;
 			ray_cast();
 		}
 	}
-	if(mlx_is_key_down(cub.mlx,MLX_KEY_DOWN))
+	if (mlx_is_key_down(cub.mlx, MLX_KEY_DOWN))
 	{
-		float playercos = cos(player_angel) * 0.5;
-		float playersin = sin(player_angel) * 0.5;
+		float playercos = cos(player_angel) * 0.1;
+		float playersin = sin(player_angel) * 0.1;
 		float tmpx = p_x - playercos;
 		float tmpy = p_y - playersin;
-		if(r_map[(int)floorf(tmpy)][(int)floorf(tmpx)] != '1')
+		if (r_map[(int)floorf(tmpy)][(int)floorf(tmpx)] != '1')
 		{
 			p_y = tmpy;
 			p_x = tmpx;
-
 		}
 	}
-	if(mlx_is_key_down(cub.mlx,MLX_KEY_A))
+	if (mlx_is_key_down(cub.mlx, MLX_KEY_A))
 	{
-		player_angel -= 0.1;
-		if(player_angel < 0)
+		player_angel -= 0.05;
+		if (player_angel < 0)
 			player_angel += 2 * M_PI;
-		else if(player_angel > 2 * M_PI)
+		else if (player_angel > 2 * M_PI)
 			player_angel -= 2 * M_PI;
 	}
-	if(mlx_is_key_down(cub.mlx,MLX_KEY_D))
+	if (mlx_is_key_down(cub.mlx, MLX_KEY_D))
 	{
-		player_angel += 0.1;
-		if(player_angel < 0)
+		player_angel += 0.05;
+		if (player_angel < 0)
 			player_angel += 2 * M_PI;
-		else if(player_angel > 2 * M_PI)
+		else if (player_angel > 2 * M_PI)
 			player_angel -= 2 * M_PI;
 	}
 	ray_cast();
 }
 
-void	drw_pixels()
+void drw_pixels()
 {
 	// drw_all();)
 	ray_cast();
 }
 
-void	find_player()
+void find_player()
 {
 	int i = 0;
 	int j;
@@ -283,7 +252,7 @@ void	find_player()
 			{
 				p_x = j;
 				p_y = i;
-				return ;
+				return;
 			}
 			j++;
 		}
@@ -293,20 +262,16 @@ void	find_player()
 
 int main()
 {
-	cub.mlx = mlx_init(NUM_RAYS,height,"CUB3D",0);
-<<<<<<< HEAD
-	cub.wall = mlx_load_png("./Grass_01_512.png");
-=======
-	cub.wall = mlx_load_png("./texture.png");
->>>>>>> ea20bbf2fde6635cfc91b0d1e27f3cf91771f3fc
-	cub.map = mlx_new_image(cub.mlx,NUM_RAYS,height);
-	cub.player = mlx_new_image(cub.mlx,50,50);
-	mlx_image_to_window(cub.mlx, cub.map, 0,0);
-	mlx_image_to_window(cub.mlx, cub.player, (NUM_RAYS / 2), (height / 2));
+	cub.mlx = mlx_init(NUM_RAYS, height, "CUB3D", 0);
+	cub.wall = mlx_load_png("./RIVET_1A.png");
+	cub.map = mlx_new_image(cub.mlx, NUM_RAYS, height);
+	// cub.player = mlx_new_image(cub.mlx, 50, 50);
+	mlx_image_to_window(cub.mlx, cub.map, 0, 0);
+	// mlx_image_to_window(cub.mlx, cub.player, (NUM_RAYS / 2), (height / 2));
 	parseImage(cub.wall);
 	// mlx_loop_hook(cub.mlx,drw_pixels,NULL);
-		// printf("%d\n",cub.wall->height1);
-		// printf("%d\n",cub.wall->width);
+	// printf("%d\n",cub.wall->height1);
+	// printf("%d\n",cub.wall->width);
 	// while (i < cub.wall->height1)
 	// {
 
@@ -316,12 +281,11 @@ int main()
 
 	find_player();
 	ray_cast();
-	mlx_loop_hook(cub.mlx,hooks,NULL);
+	mlx_loop_hook(cub.mlx, hooks, NULL);
 	mlx_loop(cub.mlx);
 	mlx_terminate(cub.mlx);
-	return(0);
+	return (0);
 }
-
 
 // void drw_player()
 // {
@@ -348,7 +312,6 @@ int main()
 // 		y++;
 //     }
 // }
-
 
 // void	drw_all()
 // {
