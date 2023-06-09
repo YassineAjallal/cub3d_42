@@ -5,7 +5,7 @@
 #include <math.h>
 
 #define TILE_SIZE 32
-#define PI 3.1415926535
+#define PI M_PI
 #define FOV_ANGLE (60 * (PI / 180))
 #define NUM_RAYS 640
 #define height 540
@@ -22,7 +22,7 @@ int test = 0;
 #define proj_halfheight (proj_height / 2)
 #define increment_angle (FOV_ANGLE / proj_width)
 
-float player_angel = (90 * (PI / 180));
+float player_angel = (PI/2);
 float p_x;
 float p_y;
 
@@ -36,18 +36,18 @@ char r_map[20][10] = {
 	{'1', '0', '0', '0', '0', '0', '0', '0', '0', '1'},
 	{'1', '0', '0', '0', '0', '0', '0', '0', '0', '1'},
 	{'1', '0', '0', '0', '0', '0', '0', '0', '0', '1'},
-	{'1', '0', 'p', '0', '0', '0', '0', '0', '0', '1'},
-	{'1', '0', '0', '0', '0', '0', '0', '1', '0', '1'},
-	{'1', '0', '1', '1', '0', '1', '1', '1', '1', '1'},
-	{'1', '0', '0', '0', '0', '1', '1', '1', '1', '1'},
+	{'1', '0', 'E', '0', '1', '0', '0', '0', '0', '1'},
 	{'1', '0', '0', '0', '0', '0', '0', '0', '0', '1'},
 	{'1', '0', '0', '0', '0', '0', '0', '0', '0', '1'},
 	{'1', '0', '0', '0', '0', '0', '0', '0', '0', '1'},
 	{'1', '0', '0', '0', '0', '0', '0', '0', '0', '1'},
 	{'1', '0', '0', '0', '0', '0', '0', '0', '0', '1'},
 	{'1', '0', '0', '0', '0', '0', '0', '0', '0', '1'},
-	{'1', '0', 'p', '0', '0', '0', '0', '0', '0', '1'},
-	{'1', '0', '0', '0', '0', '0', '0', '1', '0', '1'},
+	{'1', '0', '0', '0', '0', '0', '0', '0', '0', '1'},
+	{'1', '0', '0', '0', '0', '0', '0', '0', '0', '1'},
+	{'1', '0', '0', '0', '0', '0', '0', '0', '0', '1'},
+	{'1', '0', '0', '0', '0', '0', '0', '0', '0', '1'},
+	{'1', '0', '0', '0', '0', '0', '0', '0', '0', '1'},
 	{'1', '1', '1', '1', '1', '1', '1', '1', '1', '1'}};
 char bit_map[8][8] = {
 	{'1', '1', '1', '1', '1', '1', '1', '1'},
@@ -65,25 +65,31 @@ typedef struct t_cub
 	mlx_t *mlx;
 	mlx_image_t *map;
 	mlx_image_t *player;
-	mlx_texture_t *wall;
+	mlx_texture_t *wallN;
+	mlx_texture_t *wallS;
+	mlx_texture_t *wallW;
+	mlx_texture_t *wallE;
 	xpm_t *xpm_w;
 } s_cub;
 
 s_cub cub;
 
-int color_array[(64 * 64)];
+int color_arrayN[(512 * 512)];
+int color_arrayS[(512 * 512)];
+int color_arrayE[(512 * 512)];
+int color_arrayW[(512 * 512)];
 int rgba(int r, int g, int b, float t)
 {
 	int hex = (r << 24) | (g << 16) | (b << 8) | (int)(t * 255);
 	return hex;
 }
-void parseImage(mlx_texture_t *img)
+void parseImage(mlx_texture_t *img, int arr[512 * 512])
 {
 	int i = 0;
 	int j = 0;
 	while (i < (img->width * img->height1) * img->bytes_per_pixel)
 	{
-		color_array[j] = rgba(img->pixels[i], img->pixels[i + 1], img->pixels[i + 2], 1);
+		arr[j] = rgba(img->pixels[i], img->pixels[i + 1], img->pixels[i + 2], 1);
 		j++;
 		i += img->bytes_per_pixel;
 	}
@@ -121,21 +127,33 @@ void drawline(int x0, int y0, int x1, int y1, unsigned int colore)
     }
 }
 
-void draw_Texture(int x, int wall_height, int textPosX)
+void draw_Texture(int x, int wall_height, int textPosX, int arr[512 * 512])
 {
-	float yIncr = (float)wall_height * 2 / (float)cub.wall->height1;
+	float yIncr = (float)wall_height * 2 / (float)cub.wallN->height1;
 	float y = (float)(proj_halfheight - wall_height);
 	int i = 0;
 
-	while (i < cub.wall->height1)
+	while (i < cub.wallN->height1)
 	{
 		// Calculate the texture coordinate vertically
-		drawline(x, (int)y, x, (int)(y + yIncr), color_array[textPosX + (i * cub.wall->height1)]);
+		drawline(x, (int)y, x, (int)(y + yIncr), arr[textPosX + (i * cub.wallN->height1)]);
 		y += yIncr;
 		i++;
 	}
 }
 
+// void check_player_view(int count, float ray_x, float ray_y, int wall_height, int textposX)
+// {
+//     if (ray_y < p_y)
+//         draw_Texture(count, wall_height, textposX, color_arrayN);
+//     else if (ray_y > p_y)
+//         draw_Texture(count, wall_height, textposX, color_arrayS);
+//     else if (ray_x > p_x)
+//         draw_Texture(count, wall_height, textposX, color_arrayE);
+//     else if (ray_x < p_x)
+//         draw_Texture(count, wall_height, textposX, color_arrayW);
+
+// }
 
 void ray_cast()
 {
@@ -156,7 +174,7 @@ void ray_cast()
 		raycos = cos(ray_angle) / 64;
 		raysin = sin(ray_angle) / 64;
 		wall = '0';
-		while (wall == '0' || wall == 'p')
+		while (wall == '0' || wall == 'N' || wall == 'S' || wall == 'E' || wall == 'W')
 		{
 			ray_x += raycos;
 			ray_y += raysin;
@@ -165,18 +183,26 @@ void ray_cast()
 		float distance = sqrtf((ray_x - p_x) * (ray_x - p_x) + (ray_y - p_y) * (ray_y - p_y));
 		distance = distance * cos(ray_angle - player_angel);
 		int wall_height = (int)floorf(((proj_halfheight) / distance));
-		// int posx = (ray_y * cub.wall->width + ray_x * cub.wall->bytes_per_pixel / 8);
-		float wallWidth = cub.wall->width;
+		// int posx = (ray_y * cub.wallN->width + ray_x * cub.wallN->bytes_per_pixel / 8);
+		float wallWidth = cub.wallN->width;
 		float posXFloat = wallWidth * (ray_x + ray_y);
 		// int textposX = (int)(posXFloat - floorf(posXFloat / wallWidth) * wallWidth);
-		int textposX = (int)posXFloat % cub.wall->width;
+		int textposX = (int)posXFloat % cub.wallN->width;
 
 
 		// int textposX = (int) (ray_x / 2.0) % 32;
 		drawline(count, 0, count, (proj_halfheight)-wall_height, rgba(80, 130, 200, 1));
 		// drawline1(count,(height / 2)- wall_height, count, (height / 2) + wall_height, rgba(0, 86, 145,1));
-
-		draw_Texture(count, wall_height, textposX);
+		if((int)floorf(ray_y) == 0)
+			draw_Texture(count, wall_height, textposX, color_arrayN);
+		else if ((int)floorf(ray_y) == 19)
+			draw_Texture(count, wall_height, textposX, color_arrayS);
+		else if((int)floorf(ray_x) == 0)
+			draw_Texture(count, wall_height, textposX, color_arrayE);
+		else if((int)floorf(ray_x) == 9)
+			draw_Texture(count, wall_height, textposX, color_arrayW);
+		else
+			check_player_view(count,ray_x,ray_y,wall_height, textposX);
 		drawline(count, (proj_halfheight) + wall_height, count, height, rgba(98, 105, 109, 1));
 		ray_angle += ray_inc;
 		count++;
@@ -198,7 +224,7 @@ void hooks()
 		{
 			p_y = tmpy;
 			p_x = tmpx;
-			ray_cast();
+
 		}
 	}
 	if (mlx_is_key_down(cub.mlx, MLX_KEY_DOWN))
@@ -248,10 +274,18 @@ void find_player()
 		j = 0;
 		while (j < 10)
 		{
-			if (r_map[i][j] == 'p')
+			if (r_map[i][j] == 'N' || r_map[i][j] == 'S' || r_map[i][j] == 'E' || r_map[i][j] == 'W')
 			{
 				p_x = j;
 				p_y = i;
+				if(r_map[i][j] == 'N')
+					player_angel = 3 * PI / 2;
+				if(r_map[i][j] == 'S')
+					player_angel = PI / 2;
+				if(r_map[i][j] == 'E')
+					player_angel = 0;
+				if(r_map[i][j] == 'W')
+					player_angel = PI;
 				return;
 			}
 			j++;
@@ -263,19 +297,26 @@ void find_player()
 int main()
 {
 	cub.mlx = mlx_init(NUM_RAYS, height, "CUB3D", 0);
-	cub.wall = mlx_load_png("./RIVET_1A.png");
+	cub.wallN = mlx_load_png("./photo-pngrepo-com.png");
+	cub.wallS = mlx_load_png("./1.png");
+	cub.wallW = mlx_load_png("./brick-wall-wall-pngrepo-com.png");
+	cub.wallE = mlx_load_png("./magnifying-glass-pngrepo-com.png");
+
 	cub.map = mlx_new_image(cub.mlx, NUM_RAYS, height);
 	// cub.player = mlx_new_image(cub.mlx, 50, 50);
 	mlx_image_to_window(cub.mlx, cub.map, 0, 0);
 	// mlx_image_to_window(cub.mlx, cub.player, (NUM_RAYS / 2), (height / 2));
-	parseImage(cub.wall);
+	parseImage(cub.wallN, color_arrayN);
+	parseImage(cub.wallS, color_arrayS);
+	parseImage(cub.wallW, color_arrayW);
+	parseImage(cub.wallE, color_arrayE);
 	// mlx_loop_hook(cub.mlx,drw_pixels,NULL);
-	// printf("%d\n",cub.wall->height1);
-	// printf("%d\n",cub.wall->width);
-	// while (i < cub.wall->height1)
+	// printf("%d\n",cub.wallN->height1);
+	// printf("%d\n",cub.wallN->width);
+	// while (i < cub.wallN->height1)
 	// {
 
-	// 	printf("%c\n",cub.wall->pixels[i]);
+	// 	printf("%c\n",cub.wallN->pixels[i]);
 	// 	i++;
 	// }
 
