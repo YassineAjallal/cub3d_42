@@ -1,4 +1,4 @@
-#include "/Users/mkhairou/MLX42/include/MLX42/MLX42.h"
+#include "MLX42/include/MLX42/MLX42.h"
 #include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -78,6 +78,8 @@ int color_arrayN[(512 * 512)];
 int color_arrayS[(512 * 512)];
 int color_arrayE[(512 * 512)];
 int color_arrayW[(512 * 512)];
+
+float distances[NUM_RAYS];
 int rgba(int r, int g, int b, float t)
 {
 	int hex = (r << 24) | (g << 16) | (b << 8) | (int)(t * 255);
@@ -142,18 +144,32 @@ void draw_Texture(int x, int wall_height, int textPosX, int arr[512 * 512])
 	}
 }
 
-// void check_player_view(int count, float ray_x, float ray_y, int wall_height, int textposX)
-// {
-//     if (ray_y < p_y)
-//         draw_Texture(count, wall_height, textposX, color_arrayN);
-//     else if (ray_y > p_y)
-//         draw_Texture(count, wall_height, textposX, color_arrayS);
-//     else if (ray_x > p_x)
-//         draw_Texture(count, wall_height, textposX, color_arrayE);
-//     else if (ray_x < p_x)
-//         draw_Texture(count, wall_height, textposX, color_arrayW);
-
-// }
+void check_player_view(int count, float ray_x, float ray_y, int wall_height, int textposX)
+{
+    if (ray_y < p_y)
+        draw_Texture(count, wall_height, textposX, color_arrayN);
+    else if (ray_y > p_y)
+        draw_Texture(count, wall_height, textposX, color_arrayS);
+    else if (ray_x > p_x)
+        draw_Texture(count, wall_height, textposX, color_arrayE);
+    else if (ray_x < p_x)
+        draw_Texture(count, wall_height, textposX, color_arrayW);
+}
+void get_min_max(float *distances, float *min, float *max)
+{
+	*min = distances[0];
+	*max = distances[0];
+	int i = 0;
+	while(i < NUM_RAYS)
+	{
+		if (distances[i] > *max)
+			*max = distances[i];
+		else if (distances[i] < *min)
+			*min = distances[i];
+		i++;
+	}
+	exit(0);
+}
 
 void ray_cast()
 {
@@ -174,25 +190,30 @@ void ray_cast()
 		raycos = cos(ray_angle) / 64;
 		raysin = sin(ray_angle) / 64;
 		wall = '0';
-		while (wall == '0' || wall == 'N' || wall == 'S' || wall == 'E' || wall == 'W')
+
+		while (wall == '0'  || wall == 'N' || wall == 'S' || wall == 'E' || wall == 'W')
 		{
 			ray_x += raycos;
 			ray_y += raysin;
 			wall = r_map[(int)floorf(ray_y)][(int)floorf(ray_x)];
 		}
+
+		int hitIndexX = (int)floorf(ray_x / 512);
+		int hitIndexY = (int)floorf(ray_y / 512);
+
+		float prev_x = ray_x - raycos;
+		float prev_y = ray_y - raysin;
+		float delta_x = ray_x - prev_x;
+		float delta_y = ray_y - prev_y;
+
 		float distance = sqrtf((ray_x - p_x) * (ray_x - p_x) + (ray_y - p_y) * (ray_y - p_y));
 		distance = distance * cos(ray_angle - player_angel);
 		int wall_height = (int)floorf(((proj_halfheight) / distance));
-		// int posx = (ray_y * cub.wallN->width + ray_x * cub.wallN->bytes_per_pixel / 8);
 		float wallWidth = cub.wallN->width;
 		float posXFloat = wallWidth * (ray_x + ray_y);
-		// int textposX = (int)(posXFloat - floorf(posXFloat / wallWidth) * wallWidth);
 		int textposX = (int)posXFloat % cub.wallN->width;
 
-
-		// int textposX = (int) (ray_x / 2.0) % 32;
 		drawline(count, 0, count, (proj_halfheight)-wall_height, rgba(80, 130, 200, 1));
-		// drawline1(count,(height / 2)- wall_height, count, (height / 2) + wall_height, rgba(0, 86, 145,1));
 		if((int)floorf(ray_y) == 0)
 			draw_Texture(count, wall_height, textposX, color_arrayN);
 		else if ((int)floorf(ray_y) == 19)
@@ -202,7 +223,73 @@ void ray_cast()
 		else if((int)floorf(ray_x) == 9)
 			draw_Texture(count, wall_height, textposX, color_arrayW);
 		else
-			check_player_view(count,ray_x,ray_y,wall_height, textposX);
+		{
+		if (fabs(delta_x) > fabs(delta_y)) 
+		{
+			int side = 0;
+			if (delta_x > 0) 
+			{
+				side = 1;
+			}
+			if (side == 0)
+			{
+				// Check if the wall is facing towards the player
+				if (delta_x < 0) 
+				{
+					draw_Texture(count, wall_height, textposX, color_arrayE);
+				}
+				else 
+				{
+					draw_Texture(count, wall_height, textposX, color_arrayW);
+				}
+			}
+			else
+			{
+				// Check if the wall is facing towards the player
+				if (delta_x < 0) 
+				{
+					draw_Texture(count, wall_height, textposX, color_arrayW);
+				}
+				else 
+				{
+					draw_Texture(count, wall_height, textposX, color_arrayE);
+				}
+			}
+		} 
+		else 
+		{
+			int side = 2;
+			if (delta_y > 0) 
+			{
+				side = 3;
+			}
+			if (side == 2)
+			{
+				// Check if the wall is facing towards the player
+				if (delta_y < 0) 
+				{
+					draw_Texture(count, wall_height, textposX, color_arrayN);
+				}
+				else 
+				{
+					draw_Texture(count, wall_height, textposX, color_arrayS);
+				}
+			}
+			else 
+			{
+				// Check if the wall is facing towards the player
+				if (delta_y < 0) 
+				{
+					draw_Texture(count, wall_height, textposX, color_arrayS);
+				}
+				else 
+				{
+					draw_Texture(count, wall_height, textposX, color_arrayN);
+				}
+			}
+		}
+			
+		}
 		drawline(count, (proj_halfheight) + wall_height, count, height, rgba(98, 105, 109, 1));
 		ray_angle += ray_inc;
 		count++;
