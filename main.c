@@ -15,12 +15,6 @@
 
 int test = 0;
 
-/*-----scale-----*/
-#define proj_width (NUM_RAYS / scale)
-#define proj_height (height / scale)
-#define proj_halfwidth (proj_width / 2)
-#define proj_halfheight (proj_height / 2)
-#define increment_angle (FOV_ANGLE / proj_width)
 
 float player_angel = (PI/2);
 float p_x;
@@ -49,16 +43,6 @@ char r_map[20][10] = {
 	{'1', '0', '0', '0', '0', '0', '0', '0', '0', '1'},
 	{'1', '0', '0', '0', '0', '0', '0', '0', '0', '1'},
 	{'1', '1', '1', '1', '1', '1', '1', '1', '1', '1'}};
-char bit_map[8][8] = {
-	{'1', '1', '1', '1', '1', '1', '1', '1'},
-	{'0', '0', '0', '1', '0', '0', '0', '1'},
-	{'1', '1', '1', '1', '1', '1', '1', '1'},
-	{'0', '1', '0', '0', '0', '1', '0', '0'},
-	{'1', '1', '1', '1', '1', '1', '1', '1'},
-	{'0', '0', '0', '1', '0', '0', '0', '1'},
-	{'1', '1', '1', '1', '1', '1', '1', '1'},
-	{'0', '1', '0', '0', '0', '1', '0', '0'},
-};
 
 typedef struct t_cub
 {
@@ -132,12 +116,11 @@ void drawline(int x0, int y0, int x1, int y1, unsigned int colore)
 void draw_Texture(int x, int wall_height, int textPosX, int arr[512 * 512])
 {
 	float yIncr = (float)wall_height * 2 / (float)cub.wallN->height1;
-	float y = (float)(proj_halfheight - wall_height);
+	float y = (float)(height / 2 - wall_height);
 	int i = 0;
 
 	while (i < cub.wallN->height1)
 	{
-		// Calculate the texture coordinate vertically
 		drawline(x, (int)y, x, (int)(y + yIncr), arr[textPosX + (i * cub.wallN->height1)]);
 		y += yIncr;
 		i++;
@@ -183,7 +166,7 @@ void ray_cast()
 
 	ray_angle = player_angel - half_fov;
 	count = 0;
-	while (count < proj_width)
+	while (count < NUM_RAYS)
 	{
 		ray_x = (float)p_x;
 		ray_y = (float)p_y;
@@ -208,12 +191,12 @@ void ray_cast()
 
 		float distance = sqrtf((ray_x - p_x) * (ray_x - p_x) + (ray_y - p_y) * (ray_y - p_y));
 		distance = distance * cos(ray_angle - player_angel);
-		int wall_height = (int)floorf(((proj_halfheight) / distance));
+		int wall_height = (int)floorf(((height / 2) / distance));
 		float wallWidth = cub.wallN->width;
 		float posXFloat = wallWidth * (ray_x + ray_y);
 		int textposX = (int)posXFloat % cub.wallN->width;
 
-		drawline(count, 0, count, (proj_halfheight)-wall_height, rgba(80, 130, 200, 1));
+		drawline(count, 0, count, (height / 2) - wall_height, rgba(80, 130, 200, 1));
 		if((int)floorf(ray_y) == 0)
 			draw_Texture(count, wall_height, textposX, color_arrayN);
 		else if ((int)floorf(ray_y) == 19)
@@ -224,73 +207,69 @@ void ray_cast()
 			draw_Texture(count, wall_height, textposX, color_arrayW);
 		else
 		{
-		if (fabs(delta_x) > fabs(delta_y)) 
-		{
-			int side = 0;
-			if (delta_x > 0) 
+			if (fabs(delta_x) > fabs(delta_y)) 
 			{
-				side = 1;
-			}
-			if (side == 0)
-			{
-				// Check if the wall is facing towards the player
-				if (delta_x < 0) 
+				int side = 0;
+				if (delta_x > 0) 
 				{
-					draw_Texture(count, wall_height, textposX, color_arrayE);
+					side = 1;
 				}
-				else 
+				if (side == 0)
 				{
-					draw_Texture(count, wall_height, textposX, color_arrayW);
+					if (delta_x < 0) 
+					{
+						draw_Texture(count, wall_height, textposX, color_arrayE);
+					}
+					else 
+					{
+						draw_Texture(count, wall_height, textposX, color_arrayW);
+					}
 				}
-			}
-			else
-			{
-				// Check if the wall is facing towards the player
-				if (delta_x < 0) 
+				else
 				{
-					draw_Texture(count, wall_height, textposX, color_arrayW);
+					if (delta_x < 0) 
+					{
+						draw_Texture(count, wall_height, textposX, color_arrayW);
+					}
+					else 
+					{
+						draw_Texture(count, wall_height, textposX, color_arrayE);
+					}
 				}
-				else 
-				{
-					draw_Texture(count, wall_height, textposX, color_arrayE);
-				}
-			}
-		} 
-		else 
-		{
-			int side = 2;
-			if (delta_y > 0) 
-			{
-				side = 3;
-			}
-			if (side == 2)
-			{
-				// Check if the wall is facing towards the player
-				if (delta_y < 0) 
-				{
-					draw_Texture(count, wall_height, textposX, color_arrayN);
-				}
-				else 
-				{
-					draw_Texture(count, wall_height, textposX, color_arrayS);
-				}
-			}
+			} 
 			else 
 			{
-				// Check if the wall is facing towards the player
-				if (delta_y < 0) 
+				int side = 2;
+				if (delta_y > 0) 
 				{
-					draw_Texture(count, wall_height, textposX, color_arrayS);
+					side = 3;
+				}
+				if (side == 2)
+				{
+					if (delta_y < 0) 
+					{
+						draw_Texture(count, wall_height, textposX, color_arrayN);
+					}
+					else 
+					{
+						draw_Texture(count, wall_height, textposX, color_arrayS);
+					}
 				}
 				else 
 				{
-					draw_Texture(count, wall_height, textposX, color_arrayN);
+					if (delta_y < 0) 
+					{
+						draw_Texture(count, wall_height, textposX, color_arrayS);
+					}
+					else 
+					{
+						draw_Texture(count, wall_height, textposX, color_arrayN);
+					}
 				}
 			}
-		}
 			
 		}
-		drawline(count, (proj_halfheight) + wall_height, count, height, rgba(98, 105, 109, 1));
+		drawline(count, (height / 2) + wall_height, count, height, rgba(98, 105, 109, 1));
 		ray_angle += ray_inc;
 		count++;
 	}
@@ -345,11 +324,6 @@ void hooks()
 	ray_cast();
 }
 
-void drw_pixels()
-{
-	// drw_all();)
-	ray_cast();
-}
 
 void find_player()
 {
@@ -384,28 +358,18 @@ void find_player()
 int main()
 {
 	cub.mlx = mlx_init(NUM_RAYS, height, "CUB3D", 0);
-	cub.wallN = mlx_load_png("./photo-pngrepo-com.png");
-	cub.wallS = mlx_load_png("./1.png");
-	cub.wallW = mlx_load_png("./brick-wall-wall-pngrepo-com.png");
-	cub.wallE = mlx_load_png("./magnifying-glass-pngrepo-com.png");
+	cub.wallN = mlx_load_png("images/photo-pngrepo-com.png");
+	cub.wallS = mlx_load_png("images/1.png");
+	cub.wallW = mlx_load_png("images/brick-wall-wall-pngrepo-com.png");
+	cub.wallE = mlx_load_png("images/magnifying-glass-pngrepo-com.png");
 
 	cub.map = mlx_new_image(cub.mlx, NUM_RAYS, height);
-	// cub.player = mlx_new_image(cub.mlx, 50, 50);
 	mlx_image_to_window(cub.mlx, cub.map, 0, 0);
-	// mlx_image_to_window(cub.mlx, cub.player, (NUM_RAYS / 2), (height / 2));
 	parseImage(cub.wallN, color_arrayN);
 	parseImage(cub.wallS, color_arrayS);
 	parseImage(cub.wallW, color_arrayW);
 	parseImage(cub.wallE, color_arrayE);
-	// mlx_loop_hook(cub.mlx,drw_pixels,NULL);
-	// printf("%d\n",cub.wallN->height1);
-	// printf("%d\n",cub.wallN->width);
-	// while (i < cub.wallN->height1)
-	// {
 
-	// 	printf("%c\n",cub.wallN->pixels[i]);
-	// 	i++;
-	// }
 
 	find_player();
 	ray_cast();
@@ -414,52 +378,3 @@ int main()
 	mlx_terminate(cub.mlx);
 	return (0);
 }
-
-// void drw_player()
-// {
-// 	int radius = 15;
-//     int centerX = 15;
-//     int centerY = 15;
-// 	int y;
-// 	int x;
-
-// 	y = -radius;
-//     while (y <= radius)
-//     {
-// 		x = -radius;
-//         while ( x <= radius)
-//         {
-//             if (x * x + y * y <= radius * radius)
-//             {
-//                 int pixelX = centerX + x;
-//                 int pixelY = centerY + y;
-//                 mlx_put_pixel(cub.player, pixelX, pixelY, 0xFFFFFF);
-//             }
-// 			x++;
-//         }
-// 		y++;
-//     }
-// }
-
-// void	drw_all()
-// {
-// 	int i = 0;
-// 	int j;
-
-// 	while (i < 5)
-// 	{
-// 		j = 0;
-// 		while (j < 5)
-// 		{
-// 			if (r_map[i][j] == '1')
-// 				mlx_put_pixel(cub.map, j * 32, i * 32, 0xFFFFFF);
-// 			if(r_map[i][j] == '0')
-// 				mlx_put_pixel(cub.map, j * 32, i * 32, 0x000000);
-// 			// if(r_map[i][j] == 'p')
-// 			// 	drw_player();
-// 			j++;
-// 		}
-// 		i++;
-// 	}
-
-// }
