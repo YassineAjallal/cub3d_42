@@ -1,6 +1,6 @@
 CC = cc
 CFLAGS = -Wall -Werror -Wextra
-NAME = cub3d
+NAME = cub3D
 SRCS = $(wildcard *.c)
 OBJS = $(SRCS:.c=.o)
 

@@ -1,5 +1,8 @@
 {
 	"files.associations": {
-		"math.h": "c"
+		"math.h": "c",
+		"__tree": "c",
+		"map": "c",
+		"fcntl.h": "c"
 	}
 }

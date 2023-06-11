@@ -6,7 +6,7 @@
 /*   By: yajallal <yajallal@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/01 16:38:31 by yajallal          #+#    #+#             */
-/*   Updated: 2023/06/02 17:41:54 by yajallal         ###   ########.fr       */
+/*   Updated: 2023/06/11 13:16:47 by yajallal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,18 +58,18 @@ t_map *read_map(char *map_file)
 	return (map);
 }
 
-int main(int ac, char *av[])
-{
-	t_map *map;
-	int i;
-	char **map_arr;
+// int main(int ac, char *av[])
+// {
+// 	t_map *map;
+// 	int i;
+// 	char **map_arr;
 
-	i = 0;
-	(void)ac;
-	map = read_map(av[1]);
-	check_map_config(map);
-	map_arr = get_map(map);
-	if (!check_valid_map(map_arr))
-		printf("1 : Error\n");
-	return 0;
-}
+// 	i = 0;
+// 	(void)ac;
+// 	map = read_map(av[1]);
+// 	check_map_config(map);
+// 	map_arr = get_map(map);
+// 	if (!check_valid_map(map_arr))
+// 		printf("1 : Error\n");
+// 	return 0;
+// }
