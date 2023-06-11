@@ -6,7 +6,7 @@
 /*   By: yajallal <yajallal@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/11 17:12:08 by yajallal          #+#    #+#             */
-/*   Updated: 2023/06/11 17:53:56 by yajallal         ###   ########.fr       */
+/*   Updated: 2023/06/11 19:53:41 by yajallal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,11 @@ int main(int ac, char **av)
 			return (0);
 		if (!check_valid_map(game->map))
 			return (0);
+		init_game(game);
 	}
+	ray_cast(game);
+	mlx_loop_hook(game->mlx, hooks, game);
+	mlx_loop(game->mlx);
+	mlx_terminate(game->mlx);
 	return 0;
 }

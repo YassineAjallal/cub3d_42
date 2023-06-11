@@ -6,7 +6,7 @@
 /*   By: yajallal <yajallal@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/11 13:17:54 by yajallal          #+#    #+#             */
-/*   Updated: 2023/06/11 17:56:13 by yajallal         ###   ########.fr       */
+/*   Updated: 2023/06/11 18:51:44 by yajallal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,10 @@ void find_player(t_cub *game)
 	int i = 0;
 	int j;
 
-	while (i < 10)
+	while (game->map[i])
 	{
 		j = 0;
-		while (j < 10)
+		while (game->map[i][j])
 		{
 			if (game->map[i][j] == 'N' || game->map[i][j] == 'S' || game->map[i][j] == 'E' || game->map[i][j] == 'W')
 			{

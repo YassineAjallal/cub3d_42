@@ -6,7 +6,7 @@
 /*   By: yajallal <yajallal@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 13:40:42 by mkhairou          #+#    #+#             */
-/*   Updated: 2023/06/11 17:39:54 by yajallal         ###   ########.fr       */
+/*   Updated: 2023/06/11 19:37:53 by yajallal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,22 +37,23 @@ void setup_textures(t_cub *game, float ray_x, float ray_y, float raycos, float r
 	float prev_y = ray_y - raysin;
 	float delta_x = ray_x - prev_x;
 	float delta_y = ray_y - prev_y;
-
+	float 	ray_angle = game->player_angle - half_fov;
 	float distance = sqrtf((ray_x - game->p_coord.x) * (ray_x - game->p_coord.x) + (ray_y - game->p_coord.y) * (ray_y - game->p_coord.y));
+	distance = distance * cos(ray_angle - game->player_angle);
 	int wall_height = (int)floorf(((HEIGHT / 2) / distance));
 	float wallWidth = game->wallN->width;
 	float posXFloat = wallWidth * (ray_x + ray_y);
 
 	int textposX = (int)posXFloat % game->wallN->width;
-	if((int)floorf(ray_y) == 0)
-			draw_Texture(count, wall_height, textposX, game, game->textures->color_arrayN);
-		else if ((int)floorf(ray_y) == 19)
-			draw_Texture(count, wall_height, textposX, game, game->textures->color_arrayS);
-		else if((int)floorf(ray_x) == 0)
-			draw_Texture(count, wall_height, textposX, game, game->textures->color_arrayE);
-		else if((int)floorf(ray_x) == 9)
-			draw_Texture(count, wall_height, textposX, game, game->textures->color_arrayW);
-		else
+		// if((int)floorf(ray_y) == 0)
+		// 	draw_Texture(count, wall_height, textposX, game, game->textures->color_arrayN);
+		// else if ((int)floorf(ray_y) == 19)
+		// 	draw_Texture(count, wall_height, textposX, game, game->textures->color_arrayS);
+		// else if((int)floorf(ray_x) == 0)
+		// 	draw_Texture(count, wall_height, textposX, game, game->textures->color_arrayE);
+		// else if((int)floorf(ray_x) == 9)
+		// 	draw_Texture(count, wall_height, textposX, game, game->textures->color_arrayW);
+		// else
 			draw_Texture(count, wall_height, textposX, game, game->textures->color_arrayE);
 }
 
@@ -84,7 +85,6 @@ void ray_cast(t_cub *game)
 			ray_y += raysin;
 			wall = game->map[(int)floorf(ray_y)][(int)floorf(ray_x)];
 		}
-
 		distance = distance * cos(ray_angle - game->player_angle);
 		int wall_height = (int)floorf(((HEIGHT / 2) / distance));
 

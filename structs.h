@@ -6,7 +6,7 @@
 /*   By: yajallal <yajallal@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/11 13:38:28 by yajallal          #+#    #+#             */
-/*   Updated: 2023/06/11 18:07:06 by yajallal         ###   ########.fr       */
+/*   Updated: 2023/06/11 18:59:02 by yajallal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,8 @@ typedef struct s_map
 
 typedef struct s_coord
 {
-	float x;
-	float y;
+	int x;
+	int y;
 } t_coord;
 
 typedef struct s_textures

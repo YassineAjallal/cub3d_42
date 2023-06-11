@@ -6,7 +6,7 @@
 /*   By: yajallal <yajallal@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/11 13:04:14 by yajallal          #+#    #+#             */
-/*   Updated: 2023/06/11 18:07:01 by yajallal         ###   ########.fr       */
+/*   Updated: 2023/06/11 18:54:57 by yajallal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void key_up(t_cub *game);
 void key_down(t_cub *game);
 void key_A(t_cub *game);
 void key_D(t_cub *game);
-void hooks(t_cub *game);
+void hooks(void *ptr);
 
 void init_game(t_cub *game);
 int rgba(int r, int g, int b, float t);
