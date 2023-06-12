@@ -6,7 +6,7 @@
 /*   By: yajallal <yajallal@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/11 13:04:14 by yajallal          #+#    #+#             */
-/*   Updated: 2023/06/12 12:01:30 by yajallal         ###   ########.fr       */
+/*   Updated: 2023/06/12 15:49:20 by yajallal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ void key_D(t_cub *game);
 void hooks(void *ptr);
 
 void init_game(t_cub *game);
-int rgba(int r, int g, int b, float t);
 void find_player(t_cub *game);
 
 // void draw_rays(t_cub *game);

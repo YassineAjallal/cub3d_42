@@ -6,7 +6,7 @@
 /*   By: yajallal <yajallal@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/11 17:12:08 by yajallal          #+#    #+#             */
-/*   Updated: 2023/06/12 13:12:15 by yajallal         ###   ########.fr       */
+/*   Updated: 2023/06/12 15:57:27 by yajallal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,14 +28,8 @@ int main(int ac, char **av)
 		if (!game->textures)
 			return (0);
 		map = read_map(av[1]);
-		game->map = get_map(map);
+		game->map = get_map(map, game);
 		game->textures_img = extract_textures(map);
-		int i = 0;
-		while(game->textures_img[i])
-		{
-			printf("%s\n", game->textures_img[i]);
-			i++;
-		}
 		if (!game->map)
 			return (0);
 		if (!check_valid_map(game->map))

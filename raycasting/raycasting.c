@@ -6,7 +6,7 @@
 /*   By: yajallal <yajallal@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 13:40:42 by mkhairou          #+#    #+#             */
-/*   Updated: 2023/06/12 12:01:16 by yajallal         ###   ########.fr       */
+/*   Updated: 2023/06/12 15:58:11 by yajallal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,13 +89,13 @@ void ray_cast(t_cub *game)
 		c0.y = 0;
 		c1.x = count,
 		c1.y = (HEIGHT / 2) - wall_height;
-		drawline(c0, c1, game, rgba(80, 130, 200, 1));
+		drawline(c0, c1, game, game->ciel_color);
 		setup_textures(game, ray_x, ray_y, raycos, raysin, count, wall_height);
 		c0.x = count,
 		c0.y = (HEIGHT / 2) + wall_height;
 		c1.x = count,
 		c1.y = HEIGHT;
-		drawline(c0, c1, game, rgba(98, 105, 109, 1));
+		drawline(c0, c1, game, game->floor_color);
 		ray_angle += ray_inc;
 		count++;
 	}

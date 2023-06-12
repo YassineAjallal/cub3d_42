@@ -25,16 +25,16 @@ MLX_FLAG = ../MLX42/build/libmlx42.a -Iinclude -lglfw -L $(GLFW)/lib/ -framework
 all: $(NAME)
 
 $(NAME): $(OBJS)
-	make -C ../libft
-	$(CC) $(CFLAGS) ../libft/libft.a $(MLX_FLAG) $^ -o $@
+	@make -C ../libft
+	@$(CC) $(CFLAGS) ../libft/libft.a $(MLX_FLAG) $^ -o $@
 
 clean:
-	make -C ../libft clean
-	rm -f $(OBJS)
+	@make -C ../libft clean
+	@rm -f $(OBJS)
 
 fclean: clean
-	make -C ../libft fclean
-	rm -f $(NAME)
+	@make -C ../libft fclean
+	@rm -f $(NAME)
 
 re: fclean all
 
