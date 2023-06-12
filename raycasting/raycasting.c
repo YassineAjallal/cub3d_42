@@ -6,7 +6,7 @@
 /*   By: yajallal <yajallal@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 13:40:42 by mkhairou          #+#    #+#             */
-/*   Updated: 2023/06/11 19:37:53 by yajallal         ###   ########.fr       */
+/*   Updated: 2023/06/12 12:01:16 by yajallal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,16 +31,13 @@ void draw_Texture(int x, int wall_height, int textPosX, t_cub *game, int arr[512
 	}
 }
 
-void setup_textures(t_cub *game, float ray_x, float ray_y, float raycos, float raysin, int count)
+void setup_textures(t_cub *game, float ray_x, float ray_y, float raycos, float raysin, int count, float wall_height)
 {
 	float prev_x = ray_x - raycos;
 	float prev_y = ray_y - raysin;
 	float delta_x = ray_x - prev_x;
 	float delta_y = ray_y - prev_y;
-	float 	ray_angle = game->player_angle - half_fov;
-	float distance = sqrtf((ray_x - game->p_coord.x) * (ray_x - game->p_coord.x) + (ray_y - game->p_coord.y) * (ray_y - game->p_coord.y));
-	distance = distance * cos(ray_angle - game->player_angle);
-	int wall_height = (int)floorf(((HEIGHT / 2) / distance));
+	float ray_angle = game->player_angle - half_fov;
 	float wallWidth = game->wallN->width;
 	float posXFloat = wallWidth * (ray_x + ray_y);
 
@@ -72,7 +69,6 @@ void ray_cast(t_cub *game)
 	count = 0;
 	while (count < WIDTH)
 	{
-		float distance = sqrtf((ray_x - game->p_coord.x) * (ray_x - game->p_coord.x) + (ray_y - game->p_coord.y) * (ray_y - game->p_coord.y));
 		ray_x = (float)game->p_coord.x;
 		ray_y = (float)game->p_coord.y;
 		raycos = cos(ray_angle) / 64;
@@ -85,6 +81,7 @@ void ray_cast(t_cub *game)
 			ray_y += raysin;
 			wall = game->map[(int)floorf(ray_y)][(int)floorf(ray_x)];
 		}
+		float distance = sqrtf((ray_x - game->p_coord.x) * (ray_x - game->p_coord.x) + (ray_y - game->p_coord.y) * (ray_y - game->p_coord.y));
 		distance = distance * cos(ray_angle - game->player_angle);
 		int wall_height = (int)floorf(((HEIGHT / 2) / distance));
 
@@ -93,7 +90,7 @@ void ray_cast(t_cub *game)
 		c1.x = count,
 		c1.y = (HEIGHT / 2) - wall_height;
 		drawline(c0, c1, game, rgba(80, 130, 200, 1));
-		setup_textures(game, ray_x, ray_y, raycos, raysin, count);
+		setup_textures(game, ray_x, ray_y, raycos, raysin, count, wall_height);
 		c0.x = count,
 		c0.y = (HEIGHT / 2) + wall_height;
 		c1.x = count,

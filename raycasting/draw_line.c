@@ -6,7 +6,7 @@
 /*   By: yajallal <yajallal@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/11 16:24:52 by yajallal          #+#    #+#             */
-/*   Updated: 2023/06/11 19:00:22 by yajallal         ###   ########.fr       */
+/*   Updated: 2023/06/12 11:56:34 by yajallal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 void drawline(t_coord c0, t_coord c1, t_cub *game, int color)
 {
-    int dx = abs(c1.x - c0.x);
-    int dy = abs(c1.y - c0.y);
-    int sx = c0.x < c1.x ? 1 : -1;
-    int sy = c0.y < c1.y ? 1 : -1;
+    int dx = abs((int)c1.x - (int)c0.x);
+    int dy = abs((int)c1.y - (int)c0.y);
+    int sx = (int)c0.x < (int)c1.x ? 1 : -1;
+    int sy = (int)c0.y < (int)c1.y ? 1 : -1;
     int err = dx - dy;
 
     while (c0.x != c1.x || c0.y != c1.y)
