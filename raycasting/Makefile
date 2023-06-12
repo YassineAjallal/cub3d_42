@@ -14,9 +14,11 @@ SRCS =  cub.c draw_line.c \
 		../parsing/error_print.c \
 		../parsing/get_next_line.c \
 		../parsing/tools.c \
+		../parsing/extract_config.c \
 
 OBJS = $(SRCS:.c=.o)
-MLX_FLAG = ../MLX42/build/libmlx42.a -Iinclude -lglfw -L /goinfre/yajallal/homebrew/opt/glfw/lib/ -framework Cocoa -framework OpenGL -framework IOKit
+GLFW = $(shell brew --prefix glfw)
+MLX_FLAG = ../MLX42/build/libmlx42.a -Iinclude -lglfw -L $(GLFW)/lib/ -framework Cocoa -framework OpenGL -framework IOKit
 %.o: %.c
 	@$(CC) -c $< -o $@
 

@@ -6,7 +6,7 @@
 /*   By: yajallal <yajallal@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/01 21:08:11 by yajallal          #+#    #+#             */
-/*   Updated: 2023/06/02 15:56:04 by yajallal         ###   ########.fr       */
+/*   Updated: 2023/06/12 12:32:43 by yajallal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,11 +131,16 @@ void check_map_config(t_map *map)
 	config = config_list(split);
 	while (map)
 	{
-		split_line = ft_split(map->line, ' ');
 		if (map->cnofig == 'C')
 		{
-			if (ft_strchr2d(split, split_line[0]) >= 0)
-				config = delete_node(config, split_line[0]);
+			if (map->line[0] != ' ')
+			{
+				split_line = ft_split(map->line, ' ');
+				if (ft_strchr2d(split, split_line[0]) >= 0)
+					config = delete_node(config, split_line[0]);
+				else
+					error_print("invalid map\n");
+			}
 			else
 				error_print("invalid map\n");
 		}

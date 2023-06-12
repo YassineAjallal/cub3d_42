@@ -6,7 +6,7 @@
 /*   By: yajallal <yajallal@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/11 17:12:08 by yajallal          #+#    #+#             */
-/*   Updated: 2023/06/11 19:53:41 by yajallal         ###   ########.fr       */
+/*   Updated: 2023/06/12 13:12:15 by yajallal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,17 @@ int main(int ac, char **av)
 			return (0);
 		map = read_map(av[1]);
 		game->map = get_map(map);
+		game->textures_img = extract_textures(map);
+		int i = 0;
+		while(game->textures_img[i])
+		{
+			printf("%s\n", game->textures_img[i]);
+			i++;
+		}
 		if (!game->map)
 			return (0);
 		if (!check_valid_map(game->map))
-			return (0);
+			error_print("map not valid \n");
 		init_game(game);
 	}
 	ray_cast(game);

@@ -6,7 +6,7 @@
 /*   By: yajallal <yajallal@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/11 13:17:54 by yajallal          #+#    #+#             */
-/*   Updated: 2023/06/11 18:51:44 by yajallal         ###   ########.fr       */
+/*   Updated: 2023/06/12 13:13:33 by yajallal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,10 +63,10 @@ void parseImage(mlx_texture_t *img, int arr[512 * 512])
 void init_game(t_cub *game)
 {
 	game->mlx = mlx_init(WIDTH, HEIGHT, "CUB3D", 0);
-	game->wallN = mlx_load_png("../images/photo-pngrepo-com.png");
-	game->wallS = mlx_load_png("../images/1.png");
-	game->wallW = mlx_load_png("../images/brick-wall-wall-pngrepo-com.png");
-	game->wallE = mlx_load_png("../images/magnifying-glass-pngrepo-com.png");
+	game->wallN = mlx_load_png(game->textures_img[NO]);
+	game->wallS = mlx_load_png(game->textures_img[SO]);
+	game->wallW = mlx_load_png(game->textures_img[WE]);
+	game->wallE = mlx_load_png(game->textures_img[EA]);
 	game->map_img = mlx_new_image(game->mlx, WIDTH, HEIGHT);
 	mlx_image_to_window(game->mlx, game->map_img, 0, 0);
 	parseImage(game->wallN, game->textures->color_arrayN);

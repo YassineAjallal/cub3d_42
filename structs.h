@@ -6,7 +6,7 @@
 /*   By: yajallal <yajallal@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/11 13:38:28 by yajallal          #+#    #+#             */
-/*   Updated: 2023/06/12 11:54:02 by yajallal         ###   ########.fr       */
+/*   Updated: 2023/06/12 13:03:26 by yajallal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,17 @@
 # endif
 
 #define FOV_ANGLE (60 * (M_PI / 180))
-#define WIDTH 640
-#define HEIGHT 540
+#define WIDTH 2000
+#define HEIGHT 1500
 #define ray_inc (FOV_ANGLE / WIDTH)
 #define half_fov (FOV_ANGLE / 2)
+
+typedef enum e_side {
+	NO,
+	SO,
+	WE,
+	EA
+} t_side;
 
 typedef struct s_map
 {
@@ -61,6 +68,7 @@ typedef struct s_cub
 	float player_angle;
 	int ciel_color;
 	int floor_color;
+	char **textures_img;
 	t_coord p_coord;
 	t_textures *textures;
 	mlx_t *mlx;
