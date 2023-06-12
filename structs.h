@@ -6,7 +6,7 @@
 /*   By: yajallal <yajallal@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/11 13:38:28 by yajallal          #+#    #+#             */
-/*   Updated: 2023/06/12 13:03:26 by yajallal         ###   ########.fr       */
+/*   Updated: 2023/06/12 15:59:59 by yajallal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@
 # endif
 
 #define FOV_ANGLE (60 * (M_PI / 180))
-#define WIDTH 2000
-#define HEIGHT 1500
+#define WIDTH 1920
+#define HEIGHT 1080
 #define ray_inc (FOV_ANGLE / WIDTH)
 #define half_fov (FOV_ANGLE / 2)
 
@@ -80,4 +80,5 @@ typedef struct s_cub
 	mlx_texture_t *wallE;
 } t_cub;
 
+int rgba(int r, int g, int b, float t);
 #endif

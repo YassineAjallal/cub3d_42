@@ -6,7 +6,7 @@
 /*   By: yajallal <yajallal@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/01 21:08:11 by yajallal          #+#    #+#             */
-/*   Updated: 2023/06/12 12:32:43 by yajallal         ###   ########.fr       */
+/*   Updated: 2023/06/12 15:56:00 by yajallal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,34 +66,35 @@ int	array_len(char **array)
 
 int	allint(char **a)
 {
-	int		i;
-	int		j;
-	char	*tmp;
+	int i = 1;
+	char *tmp;
+	int len;
+	int j;
 
-	i = 1;
-	while (a[i])
+	while (i < 4)
 	{
-		j = 0;
-		if(a[i + 1])
-			tmp = ft_strtrim(a[i], " \n");
+		len = ft_strlen(a[i]);
+		if ((!ft_strchr(a[i], ',') && i != 3) || (i == 3 && ft_strchr(a[i], ','))
+			|| ft_strlen(a[i]) > 4)
+			error_print("invalid colors\n");
+		else if (a[i][len - 1] == ',' && !ft_isdigit(a[i][len - 2]))
+			error_print("invalid colors\n");
 		else
-			tmp = ft_strtrim(a[i], "\n");
-		while (tmp[j])
 		{
-			if (!ft_isdigit(tmp[j]))
-			{
-				free(tmp);
-				return (0);
-			}
-			j++;
+			j = 0;
+			tmp = ft_strtrim(a[i], ",");
+			while(tmp[j])
+				if (!ft_isdigit(tmp[j++]))
+					error_print("invalid colors\n");
+			if (ft_atoi(tmp) > 255 || ft_atoi(tmp) < 0)
+				error_print("invalid colors\n");
 		}
-		free(tmp);
 		i++;
 	}
-	return (1);
+	return (rgba(ft_atoi(a[1]), ft_atoi(a[2]), ft_atoi(a[3]), 1));
 }
 
-void check_valid_config(t_map *config)
+void check_valid_config(t_map *config, t_cub *game)
 {
 	t_map *tmp;
 	char **split;
@@ -103,22 +104,22 @@ void check_valid_config(t_map *config)
 	{
 		if (tmp->cnofig == 'C')
 		{
-			split = ft_split(tmp->line, ',');
-			if (ft_isalpha(tmp->line[0]) == 0)
-				error_print("invalid map\n");
-			if (!ft_strcmp(split[0], "F") || !ft_strcmp(split[0], "C"))
+			if (tmp->line[0] == 'F' || tmp->line[0] == 'C')
 			{
+				split = ft_split(tmp->line, ' ');
 				if (array_len(split) != 4)
-					error_print("invalid map\n");
-				if(!allint(split))
-					error_print("invalid map\n");
+					error_print("invalid colors\n");
+				if (tmp->line[0] == 'F')
+					game->floor_color = allint(split);
+				else
+					game->ciel_color = allint(split);
 			}
 		}
 		tmp = tmp->next;
 	}
 }
 
-void check_map_config(t_map *map)
+void check_map_config(t_map *map, t_cub *game)
 {
 	char **split;
 	char **split_line;
@@ -147,5 +148,5 @@ void check_map_config(t_map *map)
 		map = map->next;
 	}
 	map = tmp;
-	check_valid_config(map);
+	check_valid_config(map, game);
 }

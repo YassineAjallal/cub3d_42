@@ -6,7 +6,7 @@
 /*   By: yajallal <yajallal@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/01 16:38:31 by yajallal          #+#    #+#             */
-/*   Updated: 2023/06/11 13:16:47 by yajallal         ###   ########.fr       */
+/*   Updated: 2023/06/12 15:42:44 by yajallal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ t_map *read_map(char *map_file)
 	int map_fd;
 	char *line;
 	t_map *map;
+	int i;
 
 	map = NULL;
 	map_fd = open(map_file, O_RDONLY);
@@ -38,7 +39,10 @@ t_map *read_map(char *map_file)
 	line = get_next_line(map_fd);
 	while(line)
 	{
-		if (ft_strcmp(line, "\n"))
+		i = 0;
+		while (line[i] == ' ')
+			i++;
+		if (ft_strlen(line + i) != 0)
 		{
 			if (line[0] == '1' || line[0] == ' ')
 				break;

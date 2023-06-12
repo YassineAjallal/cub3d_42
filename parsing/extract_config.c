@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   extract_textures.c                                 :+:      :+:    :+:   */
+/*   extract_config.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yajallal <yajallal@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 12:21:12 by yajallal          #+#    #+#             */
-/*   Updated: 2023/06/12 13:01:48 by yajallal         ###   ########.fr       */
+/*   Updated: 2023/06/12 14:44:05 by yajallal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,3 +41,33 @@ char **extract_textures(t_map *map)
 	textures[4] = NULL;
 	return (textures);
 }
+
+// int convert_color(char *color_rgb)
+// {
+	
+// }
+
+// void extract_colors(t_map *map, t_cub *game)
+// {
+// 	t_map *head;
+// 	int i;
+
+// 	head = map;
+// 	while (head)
+// 	{
+// 		if (head->cnofig == 'C')
+// 		{
+// 			i = 1;
+// 			while (head->line[i] == ' ')
+// 				i++;
+// 			if (head->line[0] == 'F')
+// 				game->floor_color = convert_color(head->line + i);
+// 			else if (head->line[0] == 'C')	
+// 				game->ciel_color = convert_color(head->line + i);
+			
+// 		}
+// 		head = head->next;
+// 	}
+// }
+
+

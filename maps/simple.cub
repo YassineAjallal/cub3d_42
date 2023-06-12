@@ -4,10 +4,10 @@ SO ../images/1.png
 
 WE ../images/brick-wall-wall-pngrepo-com.png
 
-EA ../images/magnifying-glass-pngrepo-com.png
+ EA ../images/magnifying-glass-pngrepo-com.png
 
-F 98, 105, 109
-C 80, 130, 200
+C 100, 100, 100
+F 200, 200, 200
 
 11111111111111111111111111111111111
 10000000000000000000001111111111111

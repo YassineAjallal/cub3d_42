@@ -6,7 +6,7 @@
 /*   By: yajallal <yajallal@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/21 03:34:16 by yajallal          #+#    #+#             */
-/*   Updated: 2023/06/01 18:54:52 by yajallal         ###   ########.fr       */
+/*   Updated: 2023/06/12 13:26:43 by yajallal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,8 @@ char	*ft_copy(char *save)
 	i = 0;
 	while (save[i] != '\n' && save[i])
 		i++;
-	if (save[i] == '\n')
-		i++;
+	// if (save[i] == '\n')
+	// 	i++;
 	line = ft_substr(save, 0, i);
 	return (line);
 }

@@ -6,7 +6,7 @@
 /*   By: yajallal <yajallal@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/01 16:38:46 by yajallal          #+#    #+#             */
-/*   Updated: 2023/06/12 13:02:08 by yajallal         ###   ########.fr       */
+/*   Updated: 2023/06/12 15:57:04 by yajallal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ void config_len(t_map *map);
 t_map *config_list(char **split);
 int	array_len(char **array);
 int	allint(char **a);
-void check_valid_config(t_map *config);
-void check_map_config(t_map *map);
+void check_map_config(t_map *map, t_cub *game);
+void check_valid_config(t_map *config, t_cub *game);
 
 int check_walls(char *line);
 int check_empty_line(char *line);
@@ -34,7 +34,7 @@ int check_valid_map(char **map);
 void error_print(char *error_msg);
 
 int	get_map_len(t_map *map);
-char **get_map(t_map *map);
+char **get_map(t_map *map, t_cub *game);
 
 char	*ft_read(int fd, char *save);
 char	*ft_copy(char *save);

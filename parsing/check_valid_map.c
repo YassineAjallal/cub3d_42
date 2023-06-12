@@ -6,7 +6,7 @@
 /*   By: yajallal <yajallal@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 16:02:14 by yajallal          #+#    #+#             */
-/*   Updated: 2023/06/11 17:19:54 by yajallal         ###   ########.fr       */
+/*   Updated: 2023/06/12 15:26:51 by yajallal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,10 +113,7 @@ int map_closed(char **map)
 			{
 				
 				if (!space_border(map, i, j))
-				{
-					// printf("%d %d\n", i,j);
 					return (0);
-				}
 			}
 			j++;
 		}
