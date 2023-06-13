@@ -6,7 +6,7 @@
 /*   By: yajallal <yajallal@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 13:40:42 by mkhairou          #+#    #+#             */
-/*   Updated: 2023/06/12 15:58:11 by yajallal         ###   ########.fr       */
+/*   Updated: 2023/06/13 18:57:48 by yajallal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,23 +35,29 @@ void setup_textures(t_cub *game, float ray_x, float ray_y, float raycos, float r
 {
 	float prev_x = ray_x - raycos;
 	float prev_y = ray_y - raysin;
-	float delta_x = ray_x - prev_x;
-	float delta_y = ray_y - prev_y;
+	float delta_x = fabs(ray_x - floor(ray_x + 0.5));
+	float delta_y = fabs(ray_y - floor(ray_y + 0.5));
 	float ray_angle = game->player_angle - half_fov;
 	float wallWidth = game->wallN->width;
-	float posXFloat = wallWidth * (ray_x + ray_y);
+	float posXFloat = wallWidth * (prev_x + prev_y);
+	char direction;
 
 	int textposX = (int)posXFloat % game->wallN->width;
-		// if((int)floorf(ray_y) == 0)
-		// 	draw_Texture(count, wall_height, textposX, game, game->textures->color_arrayN);
-		// else if ((int)floorf(ray_y) == 19)
-		// 	draw_Texture(count, wall_height, textposX, game, game->textures->color_arrayS);
-		// else if((int)floorf(ray_x) == 0)
-		// 	draw_Texture(count, wall_height, textposX, game, game->textures->color_arrayE);
-		// else if((int)floorf(ray_x) == 9)
-		// 	draw_Texture(count, wall_height, textposX, game, game->textures->color_arrayW);
-		// else
-			draw_Texture(count, wall_height, textposX, game, game->textures->color_arrayE);
+	if (delta_x < delta_y)
+	{
+    	if (raycos > 0)
+        	draw_Texture(count, wall_height, textposX, game, game->textures->color_arrayE);
+    	else
+        	draw_Texture(count, wall_height, textposX, game, game->textures->color_arrayW);
+	}
+	else
+	{
+    	if (raysin > 0)
+        	draw_Texture(count, wall_height, textposX, game, game->textures->color_arrayS);
+    	else
+        	draw_Texture(count, wall_height, textposX, game, game->textures->color_arrayN);
+	}
+	// draw_Texture(count, wall_height, textposX, game, game->textures->color_arrayE);
 }
 
 void ray_cast(t_cub *game)

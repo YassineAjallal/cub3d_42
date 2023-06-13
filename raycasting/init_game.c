@@ -6,7 +6,7 @@
 /*   By: yajallal <yajallal@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/11 13:17:54 by yajallal          #+#    #+#             */
-/*   Updated: 2023/06/12 13:13:33 by yajallal         ###   ########.fr       */
+/*   Updated: 2023/06/13 18:51:34 by yajallal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,19 @@ void parseImage(mlx_texture_t *img, int arr[512 * 512])
 	}
 }
 
-void init_game(t_cub *game)
+int alloc_textures(t_cub *game)
+{
+	game->textures->color_arrayE = malloc(sizeof(int) * (game->wallE->height * game->wallE->width));
+	game->textures->color_arrayN = malloc(sizeof(int) * (game->wallN->height * game->wallN->width));
+	game->textures->color_arrayW = malloc(sizeof(int) * (game->wallW->height * game->wallW->width));
+	game->textures->color_arrayS = malloc(sizeof(int) * (game->wallS->height * game->wallS->width));
+	if (!game->textures->color_arrayE || !game->textures->color_arrayN 
+			|| !game->textures->color_arrayW || !game->textures->color_arrayS)
+		return (0);
+	return (1);
+}
+
+int init_game(t_cub *game)
 {
 	game->mlx = mlx_init(WIDTH, HEIGHT, "CUB3D", 0);
 	game->wallN = mlx_load_png(game->textures_img[NO]);
@@ -68,11 +80,15 @@ void init_game(t_cub *game)
 	game->wallW = mlx_load_png(game->textures_img[WE]);
 	game->wallE = mlx_load_png(game->textures_img[EA]);
 	game->map_img = mlx_new_image(game->mlx, WIDTH, HEIGHT);
+	
 	mlx_image_to_window(game->mlx, game->map_img, 0, 0);
+	if (!alloc_textures(game))
+		return (0);
 	parseImage(game->wallN, game->textures->color_arrayN);
 	parseImage(game->wallS, game->textures->color_arrayS);
 	parseImage(game->wallW, game->textures->color_arrayW);
 	parseImage(game->wallE, game->textures->color_arrayE);
 	find_player(game);
+	return (1);
 }
 
