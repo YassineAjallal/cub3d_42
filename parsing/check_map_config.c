@@ -6,7 +6,7 @@
 /*   By: yajallal <yajallal@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/01 21:08:11 by yajallal          #+#    #+#             */
-/*   Updated: 2023/06/12 15:56:00 by yajallal         ###   ########.fr       */
+/*   Updated: 2023/06/12 16:24:35 by yajallal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void config_len(t_map *map)
 		map = map->next;
 	}
 	if (config_len != 6)
-		error_print("invalid map\n");
+		error_print("incomplet map\n");
 }
 t_map *config_list(char **split)
 {
@@ -140,10 +140,10 @@ void check_map_config(t_map *map, t_cub *game)
 				if (ft_strchr2d(split, split_line[0]) >= 0)
 					config = delete_node(config, split_line[0]);
 				else
-					error_print("invalid map\n");
+					error_print("invalid config\n");
 			}
 			else
-				error_print("invalid map\n");
+				error_print("invalid config\n");
 		}
 		map = map->next;
 	}

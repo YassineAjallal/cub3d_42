@@ -6,7 +6,7 @@
 /*   By: yajallal <yajallal@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/11 13:38:28 by yajallal          #+#    #+#             */
-/*   Updated: 2023/06/12 15:59:59 by yajallal         ###   ########.fr       */
+/*   Updated: 2023/06/13 18:48:21 by yajallal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,10 +55,10 @@ typedef struct s_coord
 
 typedef struct s_textures
 {
-	int color_arrayN[(512 * 512)];
-	int color_arrayS[(512 * 512)];
-	int color_arrayE[(512 * 512)];
-	int color_arrayW[(512 * 512)];
+	int *color_arrayN;
+	int *color_arrayS;
+	int *color_arrayE;
+	int *color_arrayW;
 } t_textures;
 
 
