@@ -6,7 +6,7 @@
 /*   By: yajallal <yajallal@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/11 13:04:14 by yajallal          #+#    #+#             */
-/*   Updated: 2023/06/15 18:12:39 by yajallal         ###   ########.fr       */
+/*   Updated: 2023/06/15 19:44:51 by yajallal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,11 @@ void my_keyhook(mlx_key_data_t keydata, void* param);
 int init_game(t_cub *game);
 void find_player(t_cub *game);
 
-// void draw_rays(t_cub *game);
-// void	drw_wall(int h, int w, t_cub *game);
-// void	draw_maps(t_cub *game);
-// void drw_pixels(t_cub *game);
+void	draw_rays(t_cub *game);
+void	draw_wall(int h, int w, t_cub *game, int color);
+void	draw_maps(t_cub *game);
+void	put_minimap(t_cub *game);
+void	drawline_mini(t_coord c0, t_coord c1, t_cub *game, int color);
 
 void draw_Texture(int x, int wall_height, int textPosX, t_cub *game, int *arr, mlx_texture_t *img);
 void setup_textures(t_cub *game, float ray_x, float ray_y, float raycos, float raysin, int count, float wall_height);

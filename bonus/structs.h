@@ -6,7 +6,7 @@
 /*   By: yajallal <yajallal@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/11 13:38:28 by yajallal          #+#    #+#             */
-/*   Updated: 2023/06/15 17:47:44 by yajallal         ###   ########.fr       */
+/*   Updated: 2023/06/15 19:03:43 by yajallal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ typedef struct s_cub
 	t_textures *textures;
 	mlx_t *mlx;
 	mlx_image_t *map_img;
-	mlx_image_t *player_img;
+	mlx_image_t *minimap_img;
 	mlx_texture_t *wallN;
 	mlx_texture_t *wallS;
 	mlx_texture_t *wallW;

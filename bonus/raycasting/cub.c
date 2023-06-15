@@ -6,7 +6,7 @@
 /*   By: yajallal <yajallal@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/11 17:12:08 by yajallal          #+#    #+#             */
-/*   Updated: 2023/06/15 18:12:44 by yajallal         ###   ########.fr       */
+/*   Updated: 2023/06/15 19:52:18 by yajallal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ int main(int ac, char **av)
 		init_game(game);
 	}
 	ray_cast(game);
+	// put_minimap(game);
 	mlx_set_cursor_mode(game->mlx, MLX_MOUSE_HIDDEN);
 	mlx_get_mouse_pos(game->mlx,&game->mouse_x,&game->mouse_y);
 	mlx_loop_hook(game->mlx, hooks, game);

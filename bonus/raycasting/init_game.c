@@ -6,7 +6,7 @@
 /*   By: yajallal <yajallal@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/11 13:17:54 by yajallal          #+#    #+#             */
-/*   Updated: 2023/06/15 17:49:02 by yajallal         ###   ########.fr       */
+/*   Updated: 2023/06/15 19:15:08 by yajallal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ int init_game(t_cub *game)
 	game->wallE = mlx_load_png(game->textures_img[EA]);
 	game->dooR = mlx_load_png(game->textures_img[DO]);
 	game->map_img = mlx_new_image(game->mlx, WIDTH, HEIGHT);
+	game->minimap_img = mlx_new_image(game->mlx, 500, 500);
 	if (!alloc_textures(game))
 		return (0);
 	mlx_image_to_window(game->mlx, game->map_img, 0, 0);
