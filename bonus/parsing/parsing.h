@@ -6,7 +6,7 @@
 /*   By: yajallal <yajallal@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/01 16:38:46 by yajallal          #+#    #+#             */
-/*   Updated: 2023/06/12 15:57:04 by yajallal         ###   ########.fr       */
+/*   Updated: 2023/06/15 17:48:10 by yajallal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,4 +51,7 @@ int ft_strlen2d(char **str);
 void valid_extention(char *map_file);
 
 char **extract_textures(t_map *map);
+
+int *d_positions(char **map);
+int calc_d(char **map);
 #endif

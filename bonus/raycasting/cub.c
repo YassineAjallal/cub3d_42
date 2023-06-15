@@ -6,7 +6,7 @@
 /*   By: yajallal <yajallal@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/11 17:12:08 by yajallal          #+#    #+#             */
-/*   Updated: 2023/06/14 19:48:46 by yajallal         ###   ########.fr       */
+/*   Updated: 2023/06/15 18:12:44 by yajallal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ int main(int ac, char **av)
 	mlx_set_cursor_mode(game->mlx, MLX_MOUSE_HIDDEN);
 	mlx_get_mouse_pos(game->mlx,&game->mouse_x,&game->mouse_y);
 	mlx_loop_hook(game->mlx, hooks, game);
+	mlx_key_hook(game->mlx, my_keyhook, game);
 	mlx_cursor_hook(game->mlx, move_mouse, game);
 	mlx_loop(game->mlx);
 	mlx_terminate(game->mlx);

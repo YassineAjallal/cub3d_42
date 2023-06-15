@@ -6,27 +6,27 @@
 /*   By: yajallal <yajallal@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 13:40:42 by mkhairou          #+#    #+#             */
-/*   Updated: 2023/06/14 19:59:10 by yajallal         ###   ########.fr       */
+/*   Updated: 2023/06/15 17:31:09 by yajallal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "raycasting.h"
 
 
-void draw_Texture(int x, int wall_height, int textPosX, t_cub *game, int arr[512 * 512])
+void draw_Texture(int x, int wall_height, int textPosX, t_cub *game, int *arr, mlx_texture_t *img)
 {
-	float yIncr = (float)wall_height * 2 / (float)game->wallN->height;
+	float yIncr = (float)wall_height * 2 / (float)img->height;
 	t_coord c0, c1;
 	float y = (float)(HEIGHT / 2 - wall_height);
 	int i = 0;
 
-	while (i < game->wallN->height)
+	while (i < img->height)
 	{
 		c0.x = x;
 		c0.y = (int)y;
 		c1.x = x;
 		c1.y = (int)(y + yIncr);
-		drawline(c0, c1, game, arr[textPosX + (i * game->wallN->height)]);
+		drawline(c0, c1, game, arr[textPosX + (i * img->height)]);
 		y += yIncr;
 		i++;
 	}
@@ -47,16 +47,16 @@ void setup_textures(t_cub *game, float ray_x, float ray_y, float raycos, float r
 	if (delta_x < delta_y)
 	{
     	if (raycos > 0)
-        	draw_Texture(count, wall_height, textposX, game, game->textures->color_arrayE);
+        	draw_Texture(count, wall_height, textposX, game, game->textures->color_arrayE, game->wallE);
     	else
-        	draw_Texture(count, wall_height, textposX, game, game->textures->color_arrayW);
+        	draw_Texture(count, wall_height, textposX, game, game->textures->color_arrayW, game->wallW);
 	}
 	else
 	{
     	if (raysin > 0)
-        	draw_Texture(count, wall_height, textposX, game, game->textures->color_arrayS);
+        	draw_Texture(count, wall_height, textposX, game, game->textures->color_arrayS, game->wallS);
     	else
-        	draw_Texture(count, wall_height, textposX, game, game->textures->color_arrayN);
+        	draw_Texture(count, wall_height, textposX, game, game->textures->color_arrayN, game->wallN);
 	}
 }
 
@@ -104,12 +104,12 @@ void ray_cast(t_cub *game)
 		{
 			float prev_x = ray_x - raycos;
 			float prev_y = ray_y - raysin;
-			float wallWidth = game->wallN->width;
+			float wallWidth = game->dooR->width;
 			float posXFloat = wallWidth * (prev_x + prev_y);
 			char direction;
 
-			int textposX = (int)posXFloat % game->wallN->width;
-			draw_Texture(count, wall_height, textposX, game, game->textures->color_arrayD);
+			int textposX = (int)posXFloat % game->dooR->width;
+			draw_Texture(count, wall_height, textposX, game, game->textures->color_arrayD, game->dooR);
 		}
 		c0.x = count,
 		c0.y = (HEIGHT / 2) + wall_height;

@@ -6,7 +6,7 @@
 /*   By: yajallal <yajallal@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 16:02:14 by yajallal          #+#    #+#             */
-/*   Updated: 2023/06/12 15:26:51 by yajallal         ###   ########.fr       */
+/*   Updated: 2023/06/15 17:36:39 by yajallal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,13 +83,13 @@ int first_last_wall(char *line)
 
 int space_border(char **map, int i, int j)
 {
-	if (ft_strchr("0NSEW", map[i - 1][j]) && map[i - 1][j])
+	if (!ft_strchr("0NSEW1", map[i - 1][j]) && map[i - 1][j])
 		return (0);
-	if (ft_strchr("0NSEW", map[i + 1][j]) && map[i + 1][j])
+	if (!ft_strchr("0NSEW1", map[i + 1][j]) && map[i + 1][j])
 		return (0);
-	if (ft_strchr("0NSEW", map[i][j - 1]) && map[i][j - 1])
+	if (!ft_strchr("0NSEW1", map[i][j - 1]) && map[i][j - 1])
 		return (0);
-	if (ft_strchr("0NSEW", map[i][j + 1]) && map[i][j + 1])
+	if (!ft_strchr("0NSEW1", map[i][j + 1]) && map[i][j + 1])
 		return (0);
 	return (1);
 }
@@ -109,7 +109,7 @@ int map_closed(char **map)
 			return (0);
 		while(map[i][j] && map[i][j] != '\n')
 		{
-			if (map[i][j] == ' ')
+			if (ft_strchr("0NSEW",map[i][j]))
 			{
 				
 				if (!space_border(map, i, j))

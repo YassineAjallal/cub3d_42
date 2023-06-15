@@ -6,7 +6,7 @@
 /*   By: yajallal <yajallal@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 13:40:42 by mkhairou          #+#    #+#             */
-/*   Updated: 2023/06/13 18:57:48 by yajallal         ###   ########.fr       */
+/*   Updated: 2023/06/15 12:08:16 by yajallal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void setup_textures(t_cub *game, float ray_x, float ray_y, float raycos, float r
 	char direction;
 
 	int textposX = (int)posXFloat % game->wallN->width;
-	if (delta_x < delta_y)
+	if (delta_x <= delta_y)
 	{
     	if (raycos > 0)
         	draw_Texture(count, wall_height, textposX, game, game->textures->color_arrayE);

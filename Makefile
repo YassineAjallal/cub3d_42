@@ -20,6 +20,7 @@ SRCS_MANDA =	mandatory/parsing/check_map_config.c \
 				mandatory/raycasting/raycasting.c \
 
 SRCS_BONUS = 	bonus/parsing/check_map_config.c \
+			 	bonus/parsing/d_positions.c \
 				bonus/parsing/check_valid_map.c \
 				bonus/parsing/error_print.c \
 				bonus/parsing/extract_config.c \
@@ -56,7 +57,7 @@ $(NAME_MANDA): $(OBJS_MANDA)
 
 $(NAME_BONUS): $(OBJS_BONUS)
 	@make -C libft
-	@$(CC) $(CFLAGS) libft/libft.a $(MLX_FLAG) $^ -o $@
+	@$(CC) $(CFLAGS) -fsanitize=address libft/libft.a $(MLX_FLAG) $^ -o $@
 
 clean:
 	@make -C libft clean

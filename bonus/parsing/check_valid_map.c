@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_valid_map.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mkhairou <mkhairou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yajallal <yajallal@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 16:02:14 by yajallal          #+#    #+#             */
-/*   Updated: 2023/06/14 15:34:35 by mkhairou         ###   ########.fr       */
+/*   Updated: 2023/06/15 17:37:45 by yajallal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int check_characters(char **map)
 		j = 0;
 		while (map[i][j] && map[i][j] != '\n')
 		{
-			if (ft_strchr("01NSEWDX ", map[i][j]))
+			if (ft_strchr("01NSEWD ", map[i][j]))
 			{
 				if (ft_strchr("NSEW", map[i][j]))
 					player++;
@@ -83,13 +83,13 @@ int first_last_wall(char *line)
 
 int space_border(char **map, int i, int j)
 {
-	if (ft_strchr("0NSEW", map[i - 1][j]) && map[i - 1][j])
+	if (!ft_strchr("0NSEW1D", map[i - 1][j]) && map[i - 1][j])
 		return (0);
-	if (ft_strchr("0NSEW", map[i + 1][j]) && map[i + 1][j])
+	if (!ft_strchr("0NSEW1D", map[i + 1][j]) && map[i + 1][j])
 		return (0);
-	if (ft_strchr("0NSEW", map[i][j - 1]) && map[i][j - 1])
+	if (!ft_strchr("0NSEW1D", map[i][j - 1]) && map[i][j - 1])
 		return (0);
-	if (ft_strchr("0NSEW", map[i][j + 1]) && map[i][j + 1])
+	if (!ft_strchr("0NSEW1D", map[i][j + 1]) && map[i][j + 1])
 		return (0);
 	return (1);
 }
@@ -109,9 +109,9 @@ int map_closed(char **map)
 			return (0);
 		while(map[i][j] && map[i][j] != '\n')
 		{
-			if (map[i][j] == ' ')
+			if (ft_strchr("0NSEWD",map[i][j]))
 			{
-
+				
 				if (!space_border(map, i, j))
 					return (0);
 			}

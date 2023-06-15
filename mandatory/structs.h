@@ -6,7 +6,7 @@
 /*   By: yajallal <yajallal@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/11 13:38:28 by yajallal          #+#    #+#             */
-/*   Updated: 2023/06/14 17:41:12 by yajallal         ###   ########.fr       */
+/*   Updated: 2023/06/15 11:55:55 by yajallal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@
 # endif
 
 #define FOV_ANGLE (60 * (M_PI / 180))
-#define WIDTH 1920
-#define HEIGHT 1080
+#define WIDTH 920
+#define HEIGHT 920
 #define ray_inc (FOV_ANGLE / WIDTH)
 #define half_fov (FOV_ANGLE / 2)
 

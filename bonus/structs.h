@@ -6,7 +6,7 @@
 /*   By: yajallal <yajallal@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/11 13:38:28 by yajallal          #+#    #+#             */
-/*   Updated: 2023/06/14 17:48:34 by yajallal         ###   ########.fr       */
+/*   Updated: 2023/06/15 17:47:44 by yajallal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,8 @@ typedef enum e_side {
 	NO,
 	SO,
 	WE,
-	EA
+	EA,
+	DO
 } t_side;
 
 typedef struct s_map
@@ -59,7 +60,7 @@ typedef struct s_textures
 	int *color_arrayS;
 	int *color_arrayE;
 	int *color_arrayW;
-	int color_arrayD[(512 * 512)];
+	int *color_arrayD;
 } t_textures;
 
 
@@ -81,6 +82,8 @@ typedef struct s_cub
 	mlx_texture_t *wallE;
 	mlx_texture_t *dooR;
 	mlx_texture_t *sprite[3];
+	int *d_pos;
+	int nb_d;
 	int index;
 	int mouse_x;
 	int mouse_y;

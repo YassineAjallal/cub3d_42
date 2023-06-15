@@ -6,7 +6,7 @@
 /*   By: yajallal <yajallal@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/11 13:17:54 by yajallal          #+#    #+#             */
-/*   Updated: 2023/06/14 19:39:29 by yajallal         ###   ########.fr       */
+/*   Updated: 2023/06/15 17:49:02 by yajallal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,9 +66,9 @@ int alloc_textures(t_cub *game)
 	game->textures->color_arrayN = malloc(sizeof(int) * (game->wallN->height * game->wallN->width));
 	game->textures->color_arrayW = malloc(sizeof(int) * (game->wallW->height * game->wallW->width));
 	game->textures->color_arrayS = malloc(sizeof(int) * (game->wallS->height * game->wallS->width));
-	// game->textures->color_arrayS = malloc(sizeof(int) * (game->wallS->height * game->wallS->width));
+	game->textures->color_arrayD = malloc(sizeof(int) * (game->dooR->height * game->dooR->width));
 	if (!game->textures->color_arrayE || !game->textures->color_arrayN
-			|| !game->textures->color_arrayW || !game->textures->color_arrayS)
+			|| !game->textures->color_arrayW || !game->textures->color_arrayS || !game->textures->color_arrayD)
 		return (0);
 	return (1);
 }
@@ -80,7 +80,7 @@ int init_game(t_cub *game)
 	game->wallS = mlx_load_png(game->textures_img[SO]);
 	game->wallW = mlx_load_png(game->textures_img[WE]);
 	game->wallE = mlx_load_png(game->textures_img[EA]);
-	game->dooR = mlx_load_png("images/door.png");
+	game->dooR = mlx_load_png(game->textures_img[DO]);
 	game->map_img = mlx_new_image(game->mlx, WIDTH, HEIGHT);
 	if (!alloc_textures(game))
 		return (0);
@@ -90,6 +90,8 @@ int init_game(t_cub *game)
 	parseImage(game->wallW, game->textures->color_arrayW);
 	parseImage(game->wallE, game->textures->color_arrayE);
 	parseImage(game->dooR, game->textures->color_arrayD);
+	game->nb_d = calc_d(game->map);
+	game->d_pos = d_positions(game->map);
 	game->index = 0;
 	find_player(game);
 	return (1);
