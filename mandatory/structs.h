@@ -6,15 +6,15 @@
 /*   By: yajallal <yajallal@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/11 13:38:28 by yajallal          #+#    #+#             */
-/*   Updated: 2023/06/13 18:48:21 by yajallal         ###   ########.fr       */
+/*   Updated: 2023/06/14 17:41:12 by yajallal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef STRUCTS_H
 #define STRUCTS_H
 
-#include "MLX42/include/MLX42/MLX42.h"
-#include "libft/libft.h"
+#include "../MLX42/include/MLX42/MLX42.h"
+#include "../libft/libft.h"
 
 #include <fcntl.h>
 #include <unistd.h>
