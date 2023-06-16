@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yajallal <yajallal@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: mkhairou <mkhairou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/11 17:12:08 by yajallal          #+#    #+#             */
-/*   Updated: 2023/06/16 11:09:00 by yajallal         ###   ########.fr       */
+/*   Updated: 2023/06/16 15:16:13 by mkhairou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,21 +20,25 @@ void	move_mouse( double x, double y, void *ptr)
 	mlx_get_mouse_pos(game->mlx,&xi,&yi);
 	if(xi > game->mouse_x)
 	{
-		game->player_angle += 0.08;
+		game->player_angle += 0.01;
 		if (game->player_angle < 0)
 			game->player_angle += 2 * M_PI;
 		else if (game->player_angle > 2 * M_PI)
 			game->player_angle -= 2 * M_PI;
 		game->mouse_x = x;
+		ray_cast(game);
+		put_minimap(game);
 	}
 	else if (xi < game->mouse_x)
 	{
-		game->player_angle -= 0.08;
+		game->player_angle -= 0.01;
 			if (game->player_angle < 0)
 			game->player_angle += 2 * M_PI;
 		else if (game->player_angle > 2 * M_PI)
 			game->player_angle -= 2 * M_PI;
 		game->mouse_x = x;
+		ray_cast(game);
+		put_minimap(game);
 	}
 }
 
@@ -64,7 +68,7 @@ int main(int ac, char **av)
 	}
 	ray_cast(game);
 	put_minimap(game);
-	mlx_set_cursor_mode(game->mlx, MLX_MOUSE_HIDDEN);
+	mlx_set_cursor_mode(game->mlx, MLX_MOUSE_DISABLED);
 	mlx_get_mouse_pos(game->mlx,&game->mouse_x,&game->mouse_y);
 	mlx_loop_hook(game->mlx, hooks, game);
 	mlx_key_hook(game->mlx, my_keyhook, game);

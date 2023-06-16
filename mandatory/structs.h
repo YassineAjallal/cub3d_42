@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   structs.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yajallal <yajallal@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: mkhairou <mkhairou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/11 13:38:28 by yajallal          #+#    #+#             */
-/*   Updated: 2023/06/15 11:55:55 by yajallal         ###   ########.fr       */
+/*   Updated: 2023/06/16 13:06:15 by mkhairou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef STRUCTS_H
 #define STRUCTS_H
 
-#include "../MLX42/include/MLX42/MLX42.h"
+#include "/Users/mkhairou/MLX42/include/MLX42/MLX42.h"
 #include "../libft/libft.h"
 
 #include <fcntl.h>
