@@ -6,7 +6,7 @@
 /*   By: yajallal <yajallal@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/11 16:25:33 by yajallal          #+#    #+#             */
-/*   Updated: 2023/06/15 19:54:40 by yajallal         ###   ########.fr       */
+/*   Updated: 2023/06/16 11:13:41 by yajallal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void key_up(t_cub *game)
 
 	}
 	ray_cast(game);
-	// put_minimap(game);
+	put_minimap(game);
 }
 
 void key_down(t_cub *game)
@@ -43,7 +43,7 @@ void key_down(t_cub *game)
 
 	}
 	ray_cast(game);
-	// put_minimap(game);
+	put_minimap(game);
 }
 
 void key_A(t_cub *game)
@@ -54,7 +54,7 @@ void key_A(t_cub *game)
 	else if (game->player_angle > 2 * M_PI)
 		game->player_angle -= 2 * M_PI;
 	ray_cast(game);
-	// put_minimap(game);
+	put_minimap(game);
 }
 void key_D(t_cub *game)
 {
@@ -64,7 +64,7 @@ void key_D(t_cub *game)
 	else if (game->player_angle > 2 * M_PI)
 		game->player_angle -= 2 * M_PI;
 	ray_cast(game);
-	// put_minimap(game);
+	put_minimap(game);
 }
 
 void	open_door(t_cub *game)
@@ -113,6 +113,6 @@ void my_keyhook(mlx_key_data_t keydata, void* param)
 	{
 		open_door(game);		
 		ray_cast(game);
-		// put_minimap(game);
+		put_minimap(game);
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: yajallal <yajallal@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/11 13:17:54 by yajallal          #+#    #+#             */
-/*   Updated: 2023/06/15 19:15:08 by yajallal         ###   ########.fr       */
+/*   Updated: 2023/06/16 12:04:19 by yajallal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int rgba(int r, int g, int b, float t)
 	return hex;
 }
 
-void parseImage(mlx_texture_t *img, int arr[512 * 512])
+void parseImage(mlx_texture_t *img, int *arr)
 {
 	unsigned int i = 0;
 	unsigned int j = 0;

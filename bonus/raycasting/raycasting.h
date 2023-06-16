@@ -6,7 +6,7 @@
 /*   By: yajallal <yajallal@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/11 13:04:14 by yajallal          #+#    #+#             */
-/*   Updated: 2023/06/15 19:44:51 by yajallal         ###   ########.fr       */
+/*   Updated: 2023/06/16 12:05:22 by yajallal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,4 +39,5 @@ void draw_Texture(int x, int wall_height, int textPosX, t_cub *game, int *arr, m
 void setup_textures(t_cub *game, float ray_x, float ray_y, float raycos, float raysin, int count, float wall_height);
 void ray_cast(t_cub *game);
 
+void parseImage(mlx_texture_t *img, int *arr);
 #endif

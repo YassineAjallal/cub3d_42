@@ -6,7 +6,7 @@
 /*   By: yajallal <yajallal@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 13:40:42 by mkhairou          #+#    #+#             */
-/*   Updated: 2023/06/15 17:31:09 by yajallal         ###   ########.fr       */
+/*   Updated: 2023/06/16 12:09:15 by yajallal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,8 +79,8 @@ void ray_cast(t_cub *game)
 			game->index = 0;
 		ray_x = (float)game->p_coord.x;
 		ray_y = (float)game->p_coord.y;
-		raycos = cos(ray_angle) / 64;
-		raysin = sin(ray_angle) / 64;
+		raycos = cos(ray_angle) / 512;
+		raysin = sin(ray_angle) / 512;
 		wall = '0';
 
 		while (wall == '0'  || wall == 'N' || wall == 'S' || wall == 'E' || wall == 'W')
