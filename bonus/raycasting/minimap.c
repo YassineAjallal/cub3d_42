@@ -6,7 +6,7 @@
 /*   By: yajallal <yajallal@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/11 16:43:26 by yajallal          #+#    #+#             */
-/*   Updated: 2023/06/17 18:09:02 by yajallal         ###   ########.fr       */
+/*   Updated: 2023/06/17 18:33:15 by yajallal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,56 +14,56 @@
 
 void drawline_mini(t_coord c0, t_coord c1, t_cub *game, int color)
 {
-    // int dx = abs((int)c1.x - (int)c0.x);
-    // int dy = abs((int)c1.y - (int)c0.y);
-    // int sx = (int)c0.x < (int)c1.x ? 1 : -1;
-    // int sy = (int)c0.y < (int)c1.y ? 1 : -1;
-    // int err = dx - dy;
+    int dx = abs((int)c1.x - (int)c0.x);
+    int dy = abs((int)c1.y - (int)c0.y);
+    int sx = (int)c0.x < (int)c1.x ? 1 : -1;
+    int sy = (int)c0.y < (int)c1.y ? 1 : -1;
+    int err = dx - dy;
 
-    // while ((int)c0.x != (int)c1.x || (int)c0.y != (int)c1.y)
-    // {
-	// 	if (game->map[(int)c0.y / 10][(int)c0.x / 10] == '1' || game->map[(int)c0.y / 10][(int)c0.x / 10] == 'D')
-	// 		break;
-    //     if (c0.x >= 0 && c0.x < 500 && c0.y >= 0 && c0.y < 500)
-    //     	mlx_put_pixel(game->minimap_img, c0.x, c0.y, color);
-    //     int err2 = 2 * err;
-    //     if (err2 > -dy)
-    //     {
-    //         err -= dy;
-    //         c0.x += sx;
-    //     }
-    //     if (err2 < dx)
-    //     {
-    //         err += dx;
-    //         c0.y += sy;
-    //     }
-    // }
-	int dx;
-    int dy;
-    float len;
-    float x_inc;
-    float y_inc;
-    int i;
-
-    i = 0;
-    dx = abs((int)c1.x - (int)c0.x);
-    dy = abs((int)c1.y - (int)c0.y);
-    if (dy > dx)
-        len = dy;
-    else
-        len = dx;
-    x_inc = dx / len;
-    y_inc = dy / len;
-    while(i < len)
+    while ((int)c0.x != (int)c1.x || (int)c0.y != (int)c1.y)
     {
 		if (game->map[(int)c0.y / 10][(int)c0.x / 10] == '1' || game->map[(int)c0.y / 10][(int)c0.x / 10] == 'D')
 			break;
         if (c0.x >= 0 && c0.x < 500 && c0.y >= 0 && c0.y < 500)
-            mlx_put_pixel(game->minimap_img, c0.x, c0.y, color);
-        c0.x += x_inc;
-        c0.y += y_inc;
-        i++;
+        	mlx_put_pixel(game->minimap_img, c0.x, c0.y, color);
+        int err2 = 2 * err;
+        if (err2 > -dy)
+        {
+            err -= dy;
+            c0.x += sx;
+        }
+        if (err2 < dx)
+        {
+            err += dx;
+            c0.y += sy;
+        }
     }
+	// int dx;
+    // int dy;
+    // float len;
+    // float x_inc;
+    // float y_inc;
+    // int i;
+
+    // i = 0;
+    // dx = abs((int)c1.x - (int)c0.x);
+    // dy = abs((int)c1.y - (int)c0.y);
+    // if (dy > dx)
+    //     len = dy;
+    // else
+    //     len = dx;
+    // x_inc = dx / len;
+    // y_inc = dy / len;
+    // while(i < len)
+    // {
+	// 	if (game->map[(int)c0.y / 10][(int)c0.x / 10] == '1' || game->map[(int)c0.y / 10][(int)c0.x / 10] == 'D')
+	// 		break;
+    //     if (c0.x >= 0 && c0.x < 500 && c0.y >= 0 && c0.y < 500)
+    //         mlx_put_pixel(game->minimap_img, c0.x, c0.y, color);
+    //     c0.x += x_inc;
+    //     c0.y += y_inc;
+    //     i++;
+    // }
 }
 // void drawline(t_coord c0, t_coord c1, t_cub *game, int color)
 // {
