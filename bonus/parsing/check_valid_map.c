@@ -6,7 +6,7 @@
 /*   By: yajallal <yajallal@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 16:02:14 by yajallal          #+#    #+#             */
-/*   Updated: 2023/06/15 17:37:45 by yajallal         ###   ########.fr       */
+/*   Updated: 2023/06/16 18:29:34 by yajallal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,13 +83,13 @@ int first_last_wall(char *line)
 
 int space_border(char **map, int i, int j)
 {
-	if (!ft_strchr("0NSEW1D", map[i - 1][j]) && map[i - 1][j])
+	if (!map[i - 1][j] || !ft_strchr("0NSEW1D", map[i - 1][j]))
 		return (0);
-	if (!ft_strchr("0NSEW1D", map[i + 1][j]) && map[i + 1][j])
+	if (!map[i + 1][j] || !ft_strchr("0NSEW1D", map[i + 1][j]))
 		return (0);
-	if (!ft_strchr("0NSEW1D", map[i][j - 1]) && map[i][j - 1])
+	if (!map[i][j - 1] || !ft_strchr("0NSEW1D", map[i][j - 1]))
 		return (0);
-	if (!ft_strchr("0NSEW1D", map[i][j + 1]) && map[i][j + 1])
+	if (!map[i][j + 1] || !ft_strchr("0NSEW1D", map[i][j + 1]))
 		return (0);
 	return (1);
 }

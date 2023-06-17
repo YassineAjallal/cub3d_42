@@ -6,7 +6,7 @@
 /*   By: yajallal <yajallal@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 15:16:02 by yajallal          #+#    #+#             */
-/*   Updated: 2023/06/12 15:56:49 by yajallal         ###   ########.fr       */
+/*   Updated: 2023/06/16 18:59:57 by yajallal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ char **get_map(t_map *map, t_cub *game)
 	i = 0;
 	check_map_config(map, game);
 	map_len = get_map_len(map);
+	if (map_len == 0)
+		return (NULL);
 	map_array = malloc(sizeof(char *) * (map_len + 1));
 	if (!map_array)
 		return (NULL);
@@ -52,5 +54,6 @@ char **get_map(t_map *map, t_cub *game)
 		node = node->next;
 	}
 	map_array[i] = NULL;
+	
 	return (map_array);
 }

@@ -6,7 +6,7 @@
 /*   By: yajallal <yajallal@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/11 16:24:52 by yajallal          #+#    #+#             */
-/*   Updated: 2023/06/12 11:56:34 by yajallal         ###   ########.fr       */
+/*   Updated: 2023/06/17 18:31:02 by yajallal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,3 +37,36 @@ void drawline(t_coord c0, t_coord c1, t_cub *game, int color)
         }
     }
 }
+
+// void drawline(t_coord c0, t_coord c1, t_cub *game, int color)
+// {
+//     int dx;
+//     int dy;
+//     float len;
+//     float x_inc;
+//     float y_inc;
+//     int i;
+
+//     i = 0;
+//     dx = abs((int)c1.x - (int)c0.x);
+//     dy = abs((int)c1.y - (int)c0.y);
+//     if (dy > dx)
+//         len = dy;
+//     else
+//         len = dx;
+//     x_inc = dx / len;
+//     y_inc = dy / len;
+//     while(i < len)
+//     {
+//         if (c0.x >= 0 && c0.x < WIDTH && c0.y >= 0 && c0.y < HEIGHT)
+//             mlx_put_pixel(game->map_img, c0.x, c0.y, color);
+//         c0.x += x_inc;
+//         c0.y += y_inc;
+//         i++;
+//     }
+// }
+
+// void drawline(t_coord c0, t_coord c1, t_cub *game, int color)
+// {
+    
+// }

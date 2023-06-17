@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minimap.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mkhairou <mkhairou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yajallal <yajallal@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/11 16:43:26 by yajallal          #+#    #+#             */
-/*   Updated: 2023/06/16 14:23:04 by mkhairou         ###   ########.fr       */
+/*   Updated: 2023/06/17 18:09:02 by yajallal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,45 +14,92 @@
 
 void drawline_mini(t_coord c0, t_coord c1, t_cub *game, int color)
 {
-    int dx = abs((int)c1.x - (int)c0.x);
-    int dy = abs((int)c1.y - (int)c0.y);
-    int sx = (int)c0.x < (int)c1.x ? 1 : -1;
-    int sy = (int)c0.y < (int)c1.y ? 1 : -1;
-    int err = dx - dy;
+    // int dx = abs((int)c1.x - (int)c0.x);
+    // int dy = abs((int)c1.y - (int)c0.y);
+    // int sx = (int)c0.x < (int)c1.x ? 1 : -1;
+    // int sy = (int)c0.y < (int)c1.y ? 1 : -1;
+    // int err = dx - dy;
 
-    while ((int)c0.x != (int)c1.x || (int)c0.y != (int)c1.y)
+    // while ((int)c0.x != (int)c1.x || (int)c0.y != (int)c1.y)
+    // {
+	// 	if (game->map[(int)c0.y / 10][(int)c0.x / 10] == '1' || game->map[(int)c0.y / 10][(int)c0.x / 10] == 'D')
+	// 		break;
+    //     if (c0.x >= 0 && c0.x < 500 && c0.y >= 0 && c0.y < 500)
+    //     	mlx_put_pixel(game->minimap_img, c0.x, c0.y, color);
+    //     int err2 = 2 * err;
+    //     if (err2 > -dy)
+    //     {
+    //         err -= dy;
+    //         c0.x += sx;
+    //     }
+    //     if (err2 < dx)
+    //     {
+    //         err += dx;
+    //         c0.y += sy;
+    //     }
+    // }
+	int dx;
+    int dy;
+    float len;
+    float x_inc;
+    float y_inc;
+    int i;
+
+    i = 0;
+    dx = abs((int)c1.x - (int)c0.x);
+    dy = abs((int)c1.y - (int)c0.y);
+    if (dy > dx)
+        len = dy;
+    else
+        len = dx;
+    x_inc = dx / len;
+    y_inc = dy / len;
+    while(i < len)
     {
 		if (game->map[(int)c0.y / 10][(int)c0.x / 10] == '1' || game->map[(int)c0.y / 10][(int)c0.x / 10] == 'D')
 			break;
         if (c0.x >= 0 && c0.x < 500 && c0.y >= 0 && c0.y < 500)
-        	mlx_put_pixel(game->minimap_img, c0.x, c0.y, color);
-        int err2 = 2 * err;
-        if (err2 > -dy)
-        {
-            err -= dy;
-            c0.x += sx;
-        }
-        if (err2 < dx)
-        {
-            err += dx;
-            c0.y += sy;
-        }
+            mlx_put_pixel(game->minimap_img, c0.x, c0.y, color);
+        c0.x += x_inc;
+        c0.y += y_inc;
+        i++;
     }
 }
+// void drawline(t_coord c0, t_coord c1, t_cub *game, int color)
+// {
+//     int dx;
+//     int dy;
+//     float len;
+//     float x_inc;
+//     float y_inc;
+//     int i;
+
+//     i = 0;
+//     dx = abs((int)c1.x - (int)c0.x);
+//     dy = abs((int)c1.y - (int)c0.y);
+//     if (dy > dx)
+//         len = dy;
+//     else
+//         len = dx;
+//     x_inc = dx / len;
+//     y_inc = dy / len;
+//     while(i < len)
+//     {
+//         if (c0.x >= 0 && c0.x < WIDTH && c0.y >= 0 && c0.y < HEIGHT)
+//             mlx_put_pixel(game->map_img, c0.x, c0.y, color);
+//         c0.x += x_inc;
+//         c0.y += y_inc;
+//         i++;
+//     }
+// }
 void draw_rays(t_cub *game)
 {
 	float angle = game->player_angle - FOV_ANGLE / 2;
     float end_angle = game->player_angle + FOV_ANGLE / 2;
 	t_coord target_coord;
 	t_coord p;
-
-	// printf("%f\n", game->p_coord.x);
-	// printf("%f\n", game->p_coord.y);
-
-		// distance = distance * cos(ray_angle - game->player_angle);
 	p.x = game->p_coord.x * 10;
 	p.y = game->p_coord.y * 10;
-	float ray_angle = game->player_angle - half_fov;
 	while (angle < end_angle)
 	{
 		int wall = '0';
@@ -79,9 +126,6 @@ void	draw_wall(int h, int w, t_cub *game, int color)
 		int j = w;
 		while (j < w + 10)
 		{
-			// if (i == h + 9 || i == h || j == w + 9 || j == w)
-			// 	mlx_put_pixel(game->minimap_img, j, i, rgba(0, 0, 0, 1));
-			// else
 				mlx_put_pixel(game->minimap_img, j, i, color);
 			j++;
 		}

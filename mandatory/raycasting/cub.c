@@ -6,7 +6,7 @@
 /*   By: yajallal <yajallal@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/11 17:12:08 by yajallal          #+#    #+#             */
-/*   Updated: 2023/06/15 16:49:47 by yajallal         ###   ########.fr       */
+/*   Updated: 2023/06/16 18:58:56 by yajallal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,9 @@ int main(int ac, char **av)
 			return (0);
 		map = read_map(av[1]);
 		game->map = get_map(map, game);
-		game->textures_img = extract_textures(map);	
 		if (!game->map)
-			return (0);
+			error_print("map not found\n");
+		game->textures_img = extract_textures(map);	
 		if (!check_valid_map(game->map))
 			error_print("map not valid \n");
 		init_game(game);
