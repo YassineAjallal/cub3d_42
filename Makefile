@@ -9,7 +9,6 @@ SRCS_MANDA =	mandatory/parsing/check_map_config.c \
 				mandatory/parsing/tools.c \
 				mandatory/raycasting/cub.c \
 				mandatory/raycasting/hooks.c \
-				mandatory/raycasting/minimap.c \
 				mandatory/parsing/check_valid_map.c \
 				mandatory/parsing/extract_config.c \
 				mandatory/parsing/get_next_line.c \

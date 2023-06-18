@@ -6,7 +6,7 @@
 /*   By: yajallal <yajallal@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/11 13:38:28 by yajallal          #+#    #+#             */
-/*   Updated: 2023/06/16 15:38:16 by yajallal         ###   ########.fr       */
+/*   Updated: 2023/06/18 18:56:41 by yajallal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@
 #define FOV_ANGLE (60 * (M_PI / 180))
 #define WIDTH 920
 #define HEIGHT 920
-#define ray_inc (FOV_ANGLE / WIDTH)
-#define half_fov (FOV_ANGLE / 2)
+#define RAY_INC (FOV_ANGLE / WIDTH)
+#define HALF_FOV (FOV_ANGLE / 2)
 
 typedef enum e_side {
 	NO,
