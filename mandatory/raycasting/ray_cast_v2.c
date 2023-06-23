@@ -6,7 +6,7 @@
 /*   By: yajallal <yajallal@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 11:53:42 by mkhairou          #+#    #+#             */
-/*   Updated: 2023/06/23 16:03:13 by yajallal         ###   ########.fr       */
+/*   Updated: 2023/06/23 16:04:34 by yajallal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,13 +83,13 @@ void	ray_cast(t_cub *game)
 		}
 		if (rayy)
 		{
-			stepy = -1;
+			stepy = 1;
 			//wall in the east
 			sidedisty = (game->p_coord.y - mapy) * deltadisty;
 		}
 		else
 		{
-			stepy = 1;
+			stepy = -1;
 			//wall in the west
 			sidedisty = (mapy + 1.0 - game->p_coord.y) * deltadisty;
 		}
