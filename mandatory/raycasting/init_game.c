@@ -3,14 +3,34 @@
 /*                                                        :::      ::::::::   */
 /*   init_game.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yajallal <yajallal@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: mkhairou <mkhairou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/11 13:17:54 by yajallal          #+#    #+#             */
-/*   Updated: 2023/06/23 16:11:40 by yajallal         ###   ########.fr       */
+/*   Updated: 2023/06/23 18:34:37 by mkhairou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "raycasting.h"
+
+void	init_direction(t_cub *game, char a)
+{
+	if (a == 'N')
+	{
+
+	}
+	else if (a == 'S')
+	{
+
+	}
+	else if (a == 'E')
+	{
+
+	}
+	else if (a == 'W')
+	{
+
+	}
+}
 
 void find_player(t_cub *game)
 {
@@ -58,7 +78,7 @@ int alloc_textures(t_cub *game)
 	game->textures->color_arrayN = malloc(sizeof(int) * (game->wallN->height * game->wallN->width));
 	game->textures->color_arrayW = malloc(sizeof(int) * (game->wallW->height * game->wallW->width));
 	game->textures->color_arrayS = malloc(sizeof(int) * (game->wallS->height * game->wallS->width));
-	if (!game->textures->color_arrayE || !game->textures->color_arrayN 
+	if (!game->textures->color_arrayE || !game->textures->color_arrayN
 			|| !game->textures->color_arrayW || !game->textures->color_arrayS)
 		return (0);
 	return (1);
