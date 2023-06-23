@@ -6,7 +6,7 @@
 /*   By: yajallal <yajallal@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/11 13:17:54 by yajallal          #+#    #+#             */
-/*   Updated: 2023/06/23 15:55:29 by yajallal         ###   ########.fr       */
+/*   Updated: 2023/06/23 16:11:40 by yajallal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,6 @@ void find_player(t_cub *game)
 		}
 		i++;
 	}
-	game->p_coord.x = 22;
-	game->p_coord.y = 12;
 }
 
 int rgba(int r, int g, int b, float t)

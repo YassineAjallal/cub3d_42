@@ -6,7 +6,7 @@
 /*   By: yajallal <yajallal@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 11:53:42 by mkhairou          #+#    #+#             */
-/*   Updated: 2023/06/23 16:04:34 by yajallal         ###   ########.fr       */
+/*   Updated: 2023/06/23 16:59:57 by yajallal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,25 +71,25 @@ void	ray_cast(t_cub *game)
 		//calculate step and initial sideDist
 		if (rayx < 0)
 		{
-			stepx = 1;
+			stepx = -1;
 			//wall in the north
 			sidedistx = (game->p_coord.x - mapx) * deltadistx;
 		}
 		else
 		{
-			stepx = -1;
+			stepx = 1;
 			//wall in the south
 			sidedistx = (mapx + 1.0 - game->p_coord.x) * deltadistx;
 		}
-		if (rayy)
+		if (rayy < 0)
 		{
-			stepy = 1;
+			stepy = -1;
 			//wall in the east
 			sidedisty = (game->p_coord.y - mapy) * deltadisty;
 		}
 		else
 		{
-			stepy = -1;
+			stepy = 1;
 			//wall in the west
 			sidedisty = (mapy + 1.0 - game->p_coord.y) * deltadisty;
 		}
@@ -126,16 +126,46 @@ void	ray_cast(t_cub *game)
 		if (drawend >= HEIGHT)
 			drawend = HEIGHT - 1;
 
+		int texNum = game->map[mapy][mapx] - 1;
+		double wallX;
+		if (side == 0)
+			wallX = game->p_coord.y + perpwalldist * game->dda->diry;
+		else
+			wallX = game->p_coord.x + perpwalldist * game->dda->dirx;
+		wallX -= floor(wallX);
+		
+		int texX = (int)(wallX * (double)game->wallE->width);
+		if(side == 0 && game->dda->dirx > 0) 
+			texX = game->wallE->width - texX - 1;
+      	if(side == 1 && game->dda->diry < 0) 
+			texX = game->wallE->width - texX - 1;
+
+		double step = 1.0 * game->wallN->height / lineheight;
+		double texPos = (drawstart - HEIGHT / 2 + lineheight / 2) * step;
+		
+		int y = drawstart;
+		int i;
+		while (y < drawend)
+		{
+			int texY = (int)texPos & (game->wallN->height - 1);
+			texPos += step;
+			// int color = game->textures->color_arrayE[(int)floor(texPos) + (i * game->wallN->height)];
+			int color = game->textures->color_arrayE[(texNum * i) + ((game->wallN->height * texY + texX))];
+			drawline_2(count, y, count, y + step, game, color);
+			i++;
+			y++;
+		}
+		
 		c0.x = count,
 		c0.y = 0;
 		c1.x = count,
 		c1.y = drawstart;
 		drawline(c0, c1, game, game->ciel_color);
-		c0.x = count,
-		c0.y = drawstart;
-		c1.x = count,
-		c1.y = drawend;
-		drawline(c0, c1, game, rgba(25,20,20,1));
+		// c0.x = count,
+		// c0.y = drawstart;
+		// c1.x = count,
+		// c1.y = drawend;
+		// drawline(c0, c1, game, rgba(25,20,20,1));
 		c0.x = count,
 		c0.y = drawend;
 		c1.x = count,
