@@ -5,6 +5,7 @@
 		"mlx42_int.h": "c",
 		"raycasting.h": "c",
 		"mlx42.h": "c",
-		"libft.h": "c"
+		"libft.h": "c",
+		"iterator": "c"
 	}
 }

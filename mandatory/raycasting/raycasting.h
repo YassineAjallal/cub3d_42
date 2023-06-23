@@ -6,7 +6,7 @@
 /*   By: yajallal <yajallal@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/11 13:04:14 by yajallal          #+#    #+#             */
-/*   Updated: 2023/06/13 18:51:46 by yajallal         ###   ########.fr       */
+/*   Updated: 2023/06/22 15:26:01 by yajallal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void find_player(t_cub *game);
 // void	draw_maps(t_cub *game);
 // void drw_pixels(t_cub *game);
 
-void draw_Texture(int x, int wall_height, int textPosX, t_cub *game, int arr[512 * 512]);
+void draw_Texture(int x, int wall_height, int textPosX, t_cub *game, int *arr);
 void setup_textures(t_cub *game, float ray_x, float ray_y, float raycos, float raysin, int count, float wall_height);
 void ray_cast(t_cub *game);
 

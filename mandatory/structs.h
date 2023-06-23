@@ -6,7 +6,7 @@
 /*   By: yajallal <yajallal@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/11 13:38:28 by yajallal          #+#    #+#             */
-/*   Updated: 2023/06/18 18:56:41 by yajallal         ###   ########.fr       */
+/*   Updated: 2023/06/22 16:36:55 by yajallal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,14 @@ typedef struct s_textures
 	int *color_arrayW;
 } t_textures;
 
+typedef struct s_dda
+{
+	double	dirx;
+	double	diry;
+	double	planex;
+	double	planey;
+
+} t_dda;
 
 typedef struct s_cub
 {
@@ -71,6 +79,7 @@ typedef struct s_cub
 	char **textures_img;
 	t_coord p_coord;
 	t_textures *textures;
+	t_dda *dda;
 	mlx_t *mlx;
 	mlx_image_t *map_img;
 	mlx_image_t *player_img;

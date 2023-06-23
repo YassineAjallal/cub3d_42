@@ -16,7 +16,7 @@ SRCS_MANDA =	mandatory/parsing/check_map_config.c \
 				mandatory/parsing/valid_extention.c \
 				mandatory/raycasting/draw_line.c \
 				mandatory/raycasting/init_game.c \
-				mandatory/raycasting/raycasting.c \
+				mandatory/raycasting/ray_cast_v2.c \
 
 SRCS_BONUS = 	bonus/parsing/check_map_config.c \
 			 	bonus/parsing/d_positions.c \

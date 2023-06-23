@@ -6,7 +6,7 @@
 /*   By: yajallal <yajallal@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/11 13:17:54 by yajallal          #+#    #+#             */
-/*   Updated: 2023/06/13 18:51:34 by yajallal         ###   ########.fr       */
+/*   Updated: 2023/06/23 15:55:29 by yajallal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,20 +26,14 @@ void find_player(t_cub *game)
 			{
 				game->p_coord.x = j;
 				game->p_coord.y = i;
-				if(game->map[i][j] == 'N')
-					game->player_angle = 3 * M_PI / 2;
-				else if(game->map[i][j] == 'S')
-					game->player_angle = M_PI / 2;
-				else if(game->map[i][j] == 'E')
-					game->player_angle = 0;
-				else if(game->map[i][j] == 'W')
-					game->player_angle = M_PI;
 				return;
 			}
 			j++;
 		}
 		i++;
 	}
+	game->p_coord.x = 22;
+	game->p_coord.y = 12;
 }
 
 int rgba(int r, int g, int b, float t)
@@ -80,7 +74,6 @@ int init_game(t_cub *game)
 	game->wallW = mlx_load_png(game->textures_img[WE]);
 	game->wallE = mlx_load_png(game->textures_img[EA]);
 	game->map_img = mlx_new_image(game->mlx, WIDTH, HEIGHT);
-	
 	mlx_image_to_window(game->mlx, game->map_img, 0, 0);
 	if (!alloc_textures(game))
 		return (0);
