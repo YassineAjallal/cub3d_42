@@ -6,7 +6,7 @@
 /*   By: yajallal <yajallal@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/11 16:25:33 by yajallal          #+#    #+#             */
-/*   Updated: 2023/06/16 11:13:41 by yajallal         ###   ########.fr       */
+/*   Updated: 2023/07/28 10:26:15 by yajallal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,13 @@ void key_up(t_cub *game)
 	float playersin = sin(game->player_angle) * 0.1;
 	float tmpx = game->p_coord.x + playercos;
 	float tmpy = game->p_coord.y + playersin;
-	if (game->map[(int)floorf(tmpy)][(int)floorf(tmpx)] != '1' &&
-	game->map[(int)floorf(tmpy)][(int)floorf(tmpx)] != 'D')
+	if (game->map[(int)floorf(tmpy)][(int)floorf(tmpx)] != '1')
 	{
 		game->p_coord.y = tmpy;
 		game->p_coord.x = tmpx;
 
 	}
-	ray_cast(game);
+	// ray_cast(game);
 	put_minimap(game);
 }
 
@@ -35,14 +34,13 @@ void key_down(t_cub *game)
 	float playersin = sin(game->player_angle) * 0.1;
 	float tmpx = game->p_coord.x - playercos;
 	float tmpy = game->p_coord.y - playersin;
-	if (game->map[(int)floorf(tmpy)][(int)floorf(tmpx)] != '1' &&
-	game->map[(int)floorf(tmpy)][(int)floorf(tmpx)] != 'D')
+	if (game->map[(int)floorf(tmpy)][(int)floorf(tmpx)] != '1')
 	{
 		game->p_coord.y = tmpy;
 		game->p_coord.x = tmpx;
 
 	}
-	ray_cast(game);
+	// ray_cast(game);
 	put_minimap(game);
 }
 
@@ -53,7 +51,7 @@ void key_A(t_cub *game)
 		game->player_angle += 2 * M_PI;
 	else if (game->player_angle > 2 * M_PI)
 		game->player_angle -= 2 * M_PI;
-	ray_cast(game);
+	// ray_cast(game);
 	put_minimap(game);
 }
 void key_D(t_cub *game)
@@ -63,7 +61,7 @@ void key_D(t_cub *game)
 		game->player_angle += 2 * M_PI;
 	else if (game->player_angle > 2 * M_PI)
 		game->player_angle -= 2 * M_PI;
-	ray_cast(game);
+	// ray_cast(game);
 	put_minimap(game);
 }
 
@@ -111,8 +109,8 @@ void my_keyhook(mlx_key_data_t keydata, void* param)
 	t_cub *game = (t_cub *)param;
 	if(keydata.key == MLX_KEY_SPACE && keydata.action == MLX_PRESS)
 	{
-		open_door(game);		
-		ray_cast(game);
+		// open_door(game);		
+		// ray_cast(game);
 		put_minimap(game);
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: yajallal <yajallal@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/11 13:38:28 by yajallal          #+#    #+#             */
-/*   Updated: 2023/06/16 15:38:44 by yajallal         ###   ########.fr       */
+/*   Updated: 2023/07/28 10:49:08 by yajallal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,12 @@
 #  define BUFFER_SIZE 42
 # endif
 
+#define TILE 32
 #define FOV_ANGLE (60 * (M_PI / 180))
-#define WIDTH 920
-#define HEIGHT 920
+#define WIDTH 2024
+#define NUM_RAYS WIDTH
+
+#define HEIGHT 560
 #define ray_inc (FOV_ANGLE / WIDTH)
 #define half_fov (FOV_ANGLE / 2)
 

@@ -6,7 +6,7 @@
 /*   By: yajallal <yajallal@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 13:40:42 by mkhairou          #+#    #+#             */
-/*   Updated: 2023/06/20 15:16:37 by yajallal         ###   ########.fr       */
+/*   Updated: 2023/07/26 14:57:18 by yajallal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,70 +59,75 @@ void setup_textures(t_cub *game, float ray_x, float ray_y, float raycos, float r
         	draw_Texture(count, wall_height, textposX, game, game->textures->color_arrayN, game->wallN);
 	}
 }
+// void ray_cast(t_cub *game)
+// {
+// 	float ray_angle;
+// 	float count;
+// 	float ray_x;
+// 	float ray_y;
+// 	float raycos;
+// 	float raysin;
+// 	char wall;
+// 	t_coord c0, c1;
+
+// 	ray_angle = game->player_angle - half_fov;
+// 	count = 0;
+// 	while (count < WIDTH)
+// 	{
+// 		if(game->index > 2)
+// 			game->index = 0;
+// 		ray_x = (float)game->p_coord.x;
+// 		ray_y = (float)game->p_coord.y;
+// 		raycos = cos(ray_angle) / 512;
+// 		raysin = sin(ray_angle) / 512;
+// 		wall = '0';
+
+// 		while (wall == '0'  || wall == 'N' || wall == 'S' || wall == 'E' || wall == 'W')
+// 		{
+// 			ray_x += raycos;
+// 			ray_y += raysin;
+// 			wall = game->map[(int)floorf(ray_y)][(int)floorf(ray_x)];
+// 		}
+// 		float distance = sqrtf((ray_x - game->p_coord.x) * (ray_x - game->p_coord.x) + (ray_y - game->p_coord.y) * (ray_y - game->p_coord.y));
+// 		distance = distance * cos(ray_angle - game->player_angle);
+// 		// float distance = (WIDTH / 2) / tan(half_fov);
+// 		int wall_height = (int)floorf(((HEIGHT / 2) / distance));
+
+// 		c0.x = count;
+// 		c0.y = 0;
+// 		c1.x = count;
+// 		c1.y = (HEIGHT / 2) - wall_height;
+// 		drawline(c0, c1, game, game->ciel_color);
+// 		// if(wall == '1')
+// 		// 	setup_textures(game, ray_x, ray_y, raycos, raysin, count, wall_height);
+// 		// else if(wall == 'D')
+// 		// {
+// 		// 	float prev_x = ray_x - raycos;
+// 		// 	float prev_y = ray_y - raysin;
+// 		// 	float wallWidth = game->dooR->width;
+// 		// 	float posXFloat = wallWidth * (prev_x + prev_y);
+// 		// 	char direction;
+
+// 		// 	int textposX = (int)posXFloat % game->dooR->width;
+// 		// 	draw_Texture(count, wall_height, textposX, game, game->textures->color_arrayD, game->dooR);
+// 		// }
+// 		c0.x = count;
+// 		c0.y = (HEIGHT / 2) - wall_height;
+// 		c1.x = count;
+// 		c1.y = (HEIGHT / 2) + wall_height;
+// 		drawline(c0, c1, game,	rgba(255, 255, 255, 1));
+// 		c0.x = count;
+// 		c0.y = (HEIGHT / 2) + wall_height;
+// 		c1.x = count;
+// 		c1.y = HEIGHT;
+// 		drawline(c0, c1, game, game->floor_color);
+// 		ray_angle += ray_inc;
+// 		count++;
+// 	}
+// 	game->index++;
+// }
+
 void ray_cast(t_cub *game)
 {
-	float ray_angle;
-	float count;
-	float ray_x;
-	float ray_y;
-	float raycos;
-	float raysin;
-	char wall;
-	t_coord c0, c1;
-
-	ray_angle = game->player_angle - half_fov;
-	count = 0;
-	while (count < WIDTH)
-	{
-		if(game->index > 2)
-			game->index = 0;
-		ray_x = (float)game->p_coord.x;
-		ray_y = (float)game->p_coord.y;
-		raycos = cos(ray_angle) / 512;
-		raysin = sin(ray_angle) / 512;
-		wall = '0';
-
-		while (wall == '0'  || wall == 'N' || wall == 'S' || wall == 'E' || wall == 'W')
-		{
-			ray_x += raycos;
-			ray_y += raysin;
-			wall = game->map[(int)floorf(ray_y)][(int)floorf(ray_x)];
-		}
-		float distance = sqrtf((ray_x - game->p_coord.x) * (ray_x - game->p_coord.x) + (ray_y - game->p_coord.y) * (ray_y - game->p_coord.y));
-		distance = distance * cos(ray_angle - game->player_angle);
-		// float distance = (WIDTH / 2) / tan(half_fov);
-		int wall_height = (int)floorf(((HEIGHT / 2) / distance));
-
-		c0.x = count;
-		c0.y = 0;
-		c1.x = count;
-		c1.y = (HEIGHT / 2) - wall_height;
-		drawline(c0, c1, game, game->ciel_color);
-		// if(wall == '1')
-		// 	setup_textures(game, ray_x, ray_y, raycos, raysin, count, wall_height);
-		// else if(wall == 'D')
-		// {
-		// 	float prev_x = ray_x - raycos;
-		// 	float prev_y = ray_y - raysin;
-		// 	float wallWidth = game->dooR->width;
-		// 	float posXFloat = wallWidth * (prev_x + prev_y);
-		// 	char direction;
-
-		// 	int textposX = (int)posXFloat % game->dooR->width;
-		// 	draw_Texture(count, wall_height, textposX, game, game->textures->color_arrayD, game->dooR);
-		// }
-		c0.x = count;
-		c0.y = (HEIGHT / 2) - wall_height;
-		c1.x = count;
-		c1.y = (HEIGHT / 2) + wall_height;
-		drawline(c0, c1, game,	rgba(255, 255, 255, 1));
-		c0.x = count;
-		c0.y = (HEIGHT / 2) + wall_height;
-		c1.x = count;
-		c1.y = HEIGHT;
-		drawline(c0, c1, game, game->floor_color);
-		ray_angle += ray_inc;
-		count++;
-	}
-	game->index++;
+	
 }

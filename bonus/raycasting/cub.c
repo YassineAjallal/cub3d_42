@@ -6,7 +6,7 @@
 /*   By: yajallal <yajallal@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/11 17:12:08 by yajallal          #+#    #+#             */
-/*   Updated: 2023/06/16 19:01:26 by yajallal         ###   ########.fr       */
+/*   Updated: 2023/07/26 16:31:56 by yajallal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,13 +66,13 @@ int main(int ac, char **av)
 			error_print("map not valid \n");
 		init_game(game);
 	}
-	ray_cast(game);
+	// ray_cast(game);
 	put_minimap(game);
-	mlx_set_cursor_mode(game->mlx, MLX_MOUSE_DISABLED);
-	mlx_get_mouse_pos(game->mlx,&game->mouse_x,&game->mouse_y);
+	// mlx_set_cursor_mode(game->mlx, MLX_MOUSE_DISABLED);
+	// mlx_get_mouse_pos(game->mlx,&game->mouse_x,&game->mouse_y);
 	mlx_loop_hook(game->mlx, hooks, game);
 	mlx_key_hook(game->mlx, my_keyhook, game);
-	mlx_cursor_hook(game->mlx, move_mouse, game);
+	// mlx_cursor_hook(game->mlx, move_mouse, game);
 	mlx_loop(game->mlx);
 	mlx_terminate(game->mlx);
 	return 0;

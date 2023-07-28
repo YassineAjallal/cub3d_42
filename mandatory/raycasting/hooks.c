@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hooks.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mkhairou <mkhairou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yajallal <yajallal@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/11 16:25:33 by yajallal          #+#    #+#             */
-/*   Updated: 2023/06/23 18:33:21 by mkhairou         ###   ########.fr       */
+/*   Updated: 2023/06/23 15:58:16 by yajallal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,19 @@
 
 void key_up(t_cub *game)
 {
-	if(game->map[(int)floorf(game->p_coord.y)][(int)floorf(game->p_coord.x + game->dda->dirx * 0.3)] != '1')
+	// float playercos = cos(game->player_angle) * 0.1;
+	// float playersin = sin(game->player_angle) * 0.1;
+	// float tmpx = game->p_coord.x + playercos;
+	// float tmpy = game->p_coord.y + playersin;
+	// if (game->map[(int)floorf(tmpy)][(int)floorf(tmpx)] != '1')
+	// {
+	// 	game->p_coord.y = tmpy;
+	// 	game->p_coord.x = tmpx;
+
+	// }
+	if(game->map[(int)floorf(game->p_coord.y)][(int)floorf(game->p_coord.x + game->dda->dirx * 0.1)] != '1') 
 		game->p_coord.x += game->dda->dirx * 0.1;
-    if(game->map[(int)floorf(game->p_coord.y + game->dda->diry * 0.3)][(int)floorf(game->p_coord.x)] != '1')
+    if(game->map[(int)floorf(game->p_coord.y + game->dda->diry)][(int)floorf(game->p_coord.x)] != '1') 
 		game->p_coord.y += game->dda->diry * 0.1;
 
 	ray_cast(game);
@@ -24,15 +34,30 @@ void key_up(t_cub *game)
 
 void key_down(t_cub *game)
 {
-	if(game->map[(int)floorf(game->p_coord.y)][(int)floorf(game->p_coord.x - game->dda->dirx * 0.3)] != '1')
+	// float playercos = cos(game->player_angle) * 0.1;
+	// float playersin = sin(game->player_angle) * 0.1;
+	// float tmpx = game->p_coord.x - playercos;
+	// float tmpy = game->p_coord.y - playersin;
+	// if (game->map[(int)floorf(tmpy + 0.1)][(int)floorf(tmpx + 0.1)] != '1')
+	// {
+	// 	game->p_coord.y = tmpy;
+	// 	game->p_coord.x = tmpx;
+
+	// }
+	if(game->map[(int)floorf(game->p_coord.y)][(int)floorf(game->p_coord.x - game->dda->dirx * 0.1)] != '1') 
 		game->p_coord.x -= game->dda->dirx * 0.1;
-    if(game->map[(int)floorf(game->p_coord.y - game->dda->diry * 0.3)][(int)floorf(game->p_coord.x)] != '1')
+    if(game->map[(int)floorf(game->p_coord.y - game->dda->diry)][(int)floorf(game->p_coord.x)] != '1') 
 		game->p_coord.y -= game->dda->diry * 0.1;
 	ray_cast(game);
 }
 
 void key_A(t_cub *game)
 {
+	// game->player_angle -= 0.05;
+	// if (game->player_angle < 0)
+	// 	game->player_angle += 2 * M_PI;
+	// else if (game->player_angle > 2 * M_PI)
+	// 	game->player_angle -= 2 * M_PI;
 	double oldDirX = game->dda->dirx;
 	game->dda->dirx = game->dda->dirx * cos(0.05) - game->dda->diry * sin(0.05);
 	game->dda->diry = oldDirX * sin(0.05) + game->dda->diry * cos(0.05);
@@ -43,6 +68,11 @@ void key_A(t_cub *game)
 }
 void key_D(t_cub *game)
 {
+	// game->player_angle += 0.05;
+	// if (game->player_angle < 0)
+	// 	game->player_angle += 2 * M_PI;
+	// else if (game->player_angle > 2 * M_PI)
+	// 	game->player_angle -= 2 * M_PI;
 	double oldDirX = game->dda->dirx;
 	game->dda->dirx = game->dda->dirx * cos(-0.05) - game->dda->diry * sin(-0.05);
 	game->dda->diry = oldDirX * sin(-0.05) + game->dda->diry * cos(-0.05);
@@ -51,6 +81,27 @@ void key_D(t_cub *game)
 	game->dda->planey = oldPlaneX * sin(-0.05) + game->dda->planey * cos(-0.05);
 	ray_cast(game);
 }
+// void key_A(t_cub *game)
+// {
+//     double oldDirX = game->dda->dirx;
+//     game->dda->dirx = game->dda->dirx * cos(0.05) - game->dda->diry * sin(0.05);
+//     game->dda->diry = oldDirX * sin(0.05) + game->dda->diry * cos(0.05);
+//     double oldPlaneX = game->dda->planex;
+//     game->dda->planex = game->dda->planex * cos(0.05) - game->dda->planey * sin(0.05);
+//     game->dda->planey = oldPlaneX * sin(0.05) + game->dda->planey * cos(0.05);
+//     ray_cast(game);
+// }
+
+// void key_D(t_cub *game)
+// {
+//     double oldDirX = game->dda->dirx;
+//     game->dda->dirx = game->dda->dirx * cos(-0.05) - game->dda->diry * sin(-0.05);
+//     game->dda->diry = oldDirX * sin(-0.05) + game->dda->diry * cos(-0.05);
+//     double oldPlaneX = game->dda->planex;
+//     game->dda->planex = game->dda->planex * cos(-0.05) - game->dda->planey * sin(-0.05);
+//     game->dda->planey = oldPlaneX * sin(-0.05) + game->dda->planey * cos(-0.05);
+//     ray_cast(game);
+// }
 
 void hooks(void *ptr)
 {

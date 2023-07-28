@@ -6,7 +6,7 @@
 /*   By: yajallal <yajallal@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/11 13:04:14 by yajallal          #+#    #+#             */
-/*   Updated: 2023/06/16 12:05:22 by yajallal         ###   ########.fr       */
+/*   Updated: 2023/07/28 17:41:33 by yajallal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,4 +40,10 @@ void setup_textures(t_cub *game, float ray_x, float ray_y, float raycos, float r
 void ray_cast(t_cub *game);
 
 void parseImage(mlx_texture_t *img, int *arr);
+
+t_coord horizontal_inter(t_cub *game, float angle);
+void rays(t_cub *game);
+float normlize_angle(float angle);
+
+float calc_dis(t_cub *game, t_coord hit, t_coord p);
 #endif
