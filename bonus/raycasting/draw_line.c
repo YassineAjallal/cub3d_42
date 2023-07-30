@@ -6,7 +6,7 @@
 /*   By: yajallal <yajallal@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/11 16:24:52 by yajallal          #+#    #+#             */
-/*   Updated: 2023/07/29 19:56:27 by yajallal         ###   ########.fr       */
+/*   Updated: 2023/07/30 14:53:50 by yajallal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void drawline(t_coord c0, t_coord c1, t_cub *game, int color)
     while ((int)floorf(c0.x) != (int)floorf(c1.x) || (int)floorf(c0.y) != (int)floorf(c1.y))
     {
         if (c0.x >= 0 && c0.x < WIDTH && c0.y >= 0 && c0.y < HEIGHT)
-            mlx_put_pixel(game->minimap_img, c0.x, c0.y, color);
+            mlx_put_pixel(game->map_img, c0.x, c0.y, color);
         int err2 = 2 * err;
         if (err2 > -dy)
         {

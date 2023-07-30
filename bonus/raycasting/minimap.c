@@ -6,7 +6,7 @@
 /*   By: yajallal <yajallal@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/11 16:43:26 by yajallal          #+#    #+#             */
-/*   Updated: 2023/07/30 09:30:18 by yajallal         ###   ########.fr       */
+/*   Updated: 2023/07/30 15:24:24 by yajallal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,8 @@ void drawline_mini(t_coord c0, t_coord c1, t_cub *game, int color)
 
     while ((int)c0.x != (int)c1.x || (int)c0.y != (int)c1.y)
     {
-		// if (game->map[(int)c0.y / TILE][(int)c0.x / TILE] == '1' || game->map[(int)c0.y / TILE][(int)c0.x / TILE] == 'D')
-		// 	break;
-        if (c0.x >= 0 && c0.x < 1180 && c0.y >= 0 && c0.y < 560)
-        	mlx_put_pixel(game->minimap_img, c0.x, c0.y, color);
+        if (c0.x >= 0 && c0.x < 1180 && c0.y >= 0 && c0.y < 760)
+        	mlx_put_pixel(game->map_img, c0.x * SCALE_MINIMAP, c0.y * SCALE_MINIMAP, color);
         int err2 = 2 * err;
         if (err2 > -dy)
         {
@@ -55,10 +53,10 @@ void	draw_wall(int h, int w, t_cub *game, int color)
 		int j = w;
 		while (j <= w + TILE)
 		{
-			if (j == w || j == w + TILE || i == h || i == h + TILE)
-				mlx_put_pixel(game->minimap_img, i, j, rgba(20,20,20,1));
-			else
-				mlx_put_pixel(game->minimap_img, i, j, color);
+			// if (j == w || j == w + TILE || i == h || i == h + TILE)
+			// 	mlx_put_pixel(game->map_img, i * SCALE_MINIMAP, j * SCALE_MINIMAP, rgba(20,20,20,1));
+			// else
+				mlx_put_pixel(game->map_img, i * SCALE_MINIMAP, j * SCALE_MINIMAP, color);
 			j++;
 		}
 		i++;
@@ -66,20 +64,6 @@ void	draw_wall(int h, int w, t_cub *game, int color)
 
 }
 
-void draw_player(int h, int w, t_cub *game, int color)
-{
-	int i =  h + 10;
-	while (i <= h + 20)
-	{
-		int j = w + 10;
-		while (j <= w + 20)
-		{
-				mlx_put_pixel(game->minimap_img, i, j, color);
-			j++;
-		}
-		i++;
-	}
-}
 
 void	draw_maps(t_cub *game)
 {
@@ -103,6 +87,5 @@ void	draw_maps(t_cub *game)
 void put_minimap(t_cub *game)
 {
 	draw_maps(game);
-	rays(game);
-	mlx_image_to_window(game->mlx, game->minimap_img, 50, 0);
+	rays_minimap(game);
 }

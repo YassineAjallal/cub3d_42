@@ -6,7 +6,7 @@
 /*   By: yajallal <yajallal@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/11 17:12:08 by yajallal          #+#    #+#             */
-/*   Updated: 2023/07/29 15:04:23 by yajallal         ###   ########.fr       */
+/*   Updated: 2023/07/30 14:55:57 by yajallal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,7 @@ void	move_mouse( double x, double y, void *ptr)
 		else if (game->player_angle > 2 * M_PI)
 			game->player_angle -= 2 * M_PI;
 		game->mouse_x = x;
-		ray_cast(game);
-		put_minimap(game);
+		rays(game);
 	}
 	else if (xi < game->mouse_x)
 	{
@@ -37,8 +36,7 @@ void	move_mouse( double x, double y, void *ptr)
 		else if (game->player_angle > 2 * M_PI)
 			game->player_angle -= 2 * M_PI;
 		game->mouse_x = x;
-		ray_cast(game);
-		put_minimap(game);
+		rays(game);
 	}
 }
 
@@ -67,7 +65,7 @@ int main(int ac, char **av)
 		init_game(game);
 	}
 	// ray_cast(game);
-	put_minimap(game);
+	rays(game);
 	// mlx_set_cursor_mode(game->mlx, MLX_MOUSE_DISABLED);
 	// mlx_get_mouse_pos(game->mlx,&game->mouse_x,&game->mouse_y);
 	// mlx_key_hook(game->mlx, my_keyhook, game);

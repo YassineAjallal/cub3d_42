@@ -6,7 +6,7 @@
 /*   By: yajallal <yajallal@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 13:40:42 by mkhairou          #+#    #+#             */
-/*   Updated: 2023/07/26 14:57:18 by yajallal         ###   ########.fr       */
+/*   Updated: 2023/07/30 15:34:08 by yajallal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,75 +59,52 @@ void setup_textures(t_cub *game, float ray_x, float ray_y, float raycos, float r
         	draw_Texture(count, wall_height, textposX, game, game->textures->color_arrayN, game->wallN);
 	}
 }
-// void ray_cast(t_cub *game)
-// {
-// 	float ray_angle;
-// 	float count;
-// 	float ray_x;
-// 	float ray_y;
-// 	float raycos;
-// 	float raysin;
-// 	char wall;
-// 	t_coord c0, c1;
 
-// 	ray_angle = game->player_angle - half_fov;
-// 	count = 0;
-// 	while (count < WIDTH)
-// 	{
-// 		if(game->index > 2)
-// 			game->index = 0;
-// 		ray_x = (float)game->p_coord.x;
-// 		ray_y = (float)game->p_coord.y;
-// 		raycos = cos(ray_angle) / 512;
-// 		raysin = sin(ray_angle) / 512;
-// 		wall = '0';
-
-// 		while (wall == '0'  || wall == 'N' || wall == 'S' || wall == 'E' || wall == 'W')
-// 		{
-// 			ray_x += raycos;
-// 			ray_y += raysin;
-// 			wall = game->map[(int)floorf(ray_y)][(int)floorf(ray_x)];
-// 		}
-// 		float distance = sqrtf((ray_x - game->p_coord.x) * (ray_x - game->p_coord.x) + (ray_y - game->p_coord.y) * (ray_y - game->p_coord.y));
-// 		distance = distance * cos(ray_angle - game->player_angle);
-// 		// float distance = (WIDTH / 2) / tan(half_fov);
-// 		int wall_height = (int)floorf(((HEIGHT / 2) / distance));
-
-// 		c0.x = count;
-// 		c0.y = 0;
-// 		c1.x = count;
-// 		c1.y = (HEIGHT / 2) - wall_height;
-// 		drawline(c0, c1, game, game->ciel_color);
-// 		// if(wall == '1')
-// 		// 	setup_textures(game, ray_x, ray_y, raycos, raysin, count, wall_height);
-// 		// else if(wall == 'D')
-// 		// {
-// 		// 	float prev_x = ray_x - raycos;
-// 		// 	float prev_y = ray_y - raysin;
-// 		// 	float wallWidth = game->dooR->width;
-// 		// 	float posXFloat = wallWidth * (prev_x + prev_y);
-// 		// 	char direction;
-
-// 		// 	int textposX = (int)posXFloat % game->dooR->width;
-// 		// 	draw_Texture(count, wall_height, textposX, game, game->textures->color_arrayD, game->dooR);
-// 		// }
-// 		c0.x = count;
-// 		c0.y = (HEIGHT / 2) - wall_height;
-// 		c1.x = count;
-// 		c1.y = (HEIGHT / 2) + wall_height;
-// 		drawline(c0, c1, game,	rgba(255, 255, 255, 1));
-// 		c0.x = count;
-// 		c0.y = (HEIGHT / 2) + wall_height;
-// 		c1.x = count;
-// 		c1.y = HEIGHT;
-// 		drawline(c0, c1, game, game->floor_color);
-// 		ray_angle += ray_inc;
-// 		count++;
-// 	}
-// 	game->index++;
-// }
-
-void ray_cast(t_cub *game)
+void raycast(t_cub *game, float distance, int ray, double angle)
 {
-	
+	t_coord start, end;
+	int proj_plane = (WIDTH / 2) / tan(FOV_ANGLE / 2);
+	distance = distance * cos(angle - game->player_angle);
+	int wallStripHeight = (TILE / distance) * proj_plane;
+	start.x = ray;
+	end.x = ray;
+	start.y = (HEIGHT / 2) - (wallStripHeight / 2);
+	end.y = (HEIGHT / 2) + (wallStripHeight / 2);
+	drawline(start, end, game, rgba(25,25,25,1));
 }
+
+void rays(t_cub *game)
+{
+	double angle = game->player_angle - (FOV_ANGLE / 2);
+	t_coord hor, ver;
+	double horDis, verDis;
+	t_coord p;
+
+	int i = 0;
+	p.x = game->p_coord.x * TILE;
+	p.y = game->p_coord.y * TILE;
+	while (i < WIDTH)
+	{
+		int j = -1;
+		while (++j < HEIGHT)
+		{
+			if (j <= (HEIGHT / 2))
+				mlx_put_pixel(game->map_img, i, j, rgba(0,0,255,1));
+			else
+				mlx_put_pixel(game->map_img, i, j, rgba(0,255,0,1));	
+		}
+		ver = vertical_inter(game, angle, p);
+		hor = horizontal_inter(game, angle, p);
+		verDis = calc_dis(game, ver, p);
+		horDis = calc_dis(game, hor, p);
+		if (horDis > verDis)
+			raycast(game, verDis, i, angle);
+		else
+			raycast(game, horDis, i, angle);
+		angle += ray_inc;
+		i++;
+	}
+	put_minimap(game);
+	mlx_image_to_window(game->mlx, game->map_img, 0, 0);
+}
+

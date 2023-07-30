@@ -6,7 +6,7 @@
 /*   By: yajallal <yajallal@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/11 13:04:14 by yajallal          #+#    #+#             */
-/*   Updated: 2023/07/29 18:41:05 by yajallal         ###   ########.fr       */
+/*   Updated: 2023/07/30 15:05:44 by yajallal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,4 +46,8 @@ void rays(t_cub *game);
 float normlize_angle(float angle);
 
 double calc_dis(t_cub *game, t_coord hit, t_coord p);
+t_coord vertical_inter(t_cub *game, double angle, t_coord p);
+t_coord horizontal_inter(t_cub *game, double angle, t_coord p);
+
+void rays_minimap(t_cub *game);
 #endif

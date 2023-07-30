@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   structs.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mkhairou <mkhairou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yajallal <yajallal@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/11 13:38:28 by yajallal          #+#    #+#             */
-/*   Updated: 2023/07/30 11:42:19 by mkhairou         ###   ########.fr       */
+/*   Updated: 2023/07/30 15:03:07 by yajallal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef STRUCTS_H
 #define STRUCTS_H
 
-#include "/Users/mkhairou/MLX42/include/MLX42/MLX42.h"
+#include "../MLX42/include/MLX42/MLX42.h"
 #include "../libft/libft.h"
 
 #include <fcntl.h>
@@ -27,11 +27,12 @@
 # endif
 
 #define TILE 32
+#define SCALE_MINIMAP 0.2
 #define FOV_ANGLE (60 * (M_PI / 180))
-#define WIDTH 1180
+#define WIDTH 720
 #define NUM_RAYS WIDTH
 
-#define HEIGHT 560
+#define HEIGHT 720
 #define ray_inc (FOV_ANGLE / WIDTH)
 #define half_fov (FOV_ANGLE / 2)
 

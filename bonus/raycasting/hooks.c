@@ -6,7 +6,7 @@
 /*   By: yajallal <yajallal@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/11 16:25:33 by yajallal          #+#    #+#             */
-/*   Updated: 2023/07/29 19:05:00 by yajallal         ###   ########.fr       */
+/*   Updated: 2023/07/30 14:55:05 by yajallal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void key_up(t_cub *game)
 	{
 		game->p_coord.y = tmpy;
 		game->p_coord.x = tmpx;
-		put_minimap(game);
+		rays(game);
 	}
 	// ray_cast(game);
 }
@@ -37,7 +37,7 @@ void key_down(t_cub *game)
 	{
 		game->p_coord.y = tmpy;
 		game->p_coord.x = tmpx;
-		put_minimap(game);
+		rays(game);
 	}
 	// ray_cast(game);
 }
@@ -50,7 +50,7 @@ void key_A(t_cub *game)
 	else if (game->player_angle > 2 * M_PI)
 		game->player_angle -= 2 * M_PI;
 	// ray_cast(game);
-	put_minimap(game);
+	rays(game);
 }
 void key_D(t_cub *game)
 {
@@ -60,7 +60,7 @@ void key_D(t_cub *game)
 	else if (game->player_angle > 2 * M_PI)
 		game->player_angle -= 2 * M_PI;
 	// ray_cast(game);
-	put_minimap(game);
+	rays(game);
 }
 
 void	open_door(t_cub *game)
@@ -109,6 +109,6 @@ void my_keyhook(mlx_key_data_t keydata, void* param)
 	{
 		// open_door(game);		
 		// ray_cast(game);
-		put_minimap(game);
+		rays(game);
 	}
 }
