@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minimap_func.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yajallal <yajallal@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: mkhairou <mkhairou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/28 16:45:36 by yajallal          #+#    #+#             */
-/*   Updated: 2023/07/30 11:29:57 by yajallal         ###   ########.fr       */
+/*   Updated: 2023/07/30 12:08:22 by mkhairou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,12 +49,12 @@ t_coord horizontal_inter(t_cub *game, double angle, t_coord p)
 	t_coord step;
 	angle = normlize_angle(angle);
 
-	bool down = angle > 0 && angle < M_PI; 
+	bool down = angle > 0 && angle < M_PI;
 	bool up = !down;
 	bool right = (angle < (0.5 * M_PI)) || (angle > (1.5 * M_PI));
 	bool left = !right ;
 
-	intercept.y = floorf((p.y / TILE) * TILE);
+	intercept.y = (((int)p.y / TILE) * TILE);
 	intercept.y += down ? TILE : 0;
 	intercept.x = p.x + ((intercept.y - p.y) / tan(angle));
 
@@ -131,7 +131,7 @@ t_coord correct(t_coord c0, t_coord c1, t_cub *game)
     float y = (int)c0.y;
 
     for (int i = 0; i <= steps; i++) {
-            
+
         x += xIncrement;
         y += yIncrement;
     }
@@ -146,12 +146,12 @@ t_coord vertical_inter(t_cub *game, double angle, t_coord p)
 	t_coord step;
 	angle = normlize_angle(angle);
 
-	bool down = angle > 0 && angle < M_PI; 
+	bool down = angle > 0 && angle < M_PI;
 	bool up = !down;
 	bool right = (angle < (0.5 * M_PI)) || (angle > (1.5 * M_PI));
 	bool left = !right ;
-	
-	intercept.x = floorf((p.x / TILE) * TILE);
+
+	intercept.x = (((int)p.x / TILE) * TILE);
 	intercept.x += right ? TILE : 0;
 	intercept.y = p.y + ((intercept.x - p.x) * tan(angle));
 
@@ -176,8 +176,11 @@ t_coord vertical_inter(t_cub *game, double angle, t_coord p)
 			break;
 		if (game->map[(int)floorf(next.y / TILE)][(int)floorf(next.x / TILE)] == '1')
 			break;
-		next.x += step.x;
-		next.y += step.y;
+		else
+		{
+			next.x += step.x;
+			next.y += step.y;
+		}
 	}
 	if (left)
 		next.x++;
@@ -185,23 +188,23 @@ t_coord vertical_inter(t_cub *game, double angle, t_coord p)
 	result.y = next.y;
 	return (result);
 }
-// void raycast(t_cub *game, float distance, int ray)
-// {
-// 	t_coord ciel, wall;
-// 	// float distancePlan = (HEIGHT / 2) / tan(FOV_ANGLE / 2);
-// 	float wallStripHeight = floorf((HEIGHT / 2) / distance);
-// 	ciel.x = ray;
-// 	ciel.y = 0;
-// 	wall.x = ray;
-// 	wall.y = (HEIGHT / 2) - wallStripHeight;
-// 	drawline(ciel, wall, game, rgba(0,0,255,1));
-// 	ciel.y = (HEIGHT / 2) - wallStripHeight;
-// 	wall.y = (HEIGHT / 2) + wallStripHeight;;
-// 	drawline_mini(ciel, wall, game, rgba(255,255,255,1));
-// 	ciel.y = (HEIGHT / 2) + (wallStripHeight);
-// 	wall.y = HEIGHT;
-// 	drawline(ciel, wall, game, rgba(0,255,0,1));
-// }
+void raycast(t_cub *game, float distance, int ray)
+{
+	t_coord ciel, wall;
+	int proj_plane = (WIDTH / 2) / tan(FOV_ANGLE / 2);
+	int wallStripHeight = (TILE / distance) * proj_plane;
+	ciel.x = ray;
+	ciel.y = 0;
+	wall.x = ray;
+	wall.y = (HEIGHT / 2) - (wallStripHeight / 2);
+	drawline(ciel, wall, game, rgba(0,0,255,1));
+	ciel.y = (HEIGHT / 2) - (wallStripHeight / 2);
+	wall.y = (HEIGHT / 2) + wallStripHeight;
+	drawline_mini(ciel, wall, game, rgba(48,18,64,1));
+	ciel.y = (HEIGHT / 2) + wallStripHeight;
+	wall.y = HEIGHT;
+	drawline(ciel, wall, game, rgba(0,255,0,1));
+}
 
 void rays(t_cub *game)
 {
@@ -209,28 +212,27 @@ void rays(t_cub *game)
 	t_coord hor, ver;
 	double horDis, verDis;
 	t_coord p;
-	
+
 	int i = 0;
 	p.x = game->p_coord.x * TILE;
 	p.y = game->p_coord.y * TILE;
 	while (i < WIDTH)
 	{
 		ver = vertical_inter(game, angle, p);
-		// hor = horizontal_inter(game, angle, p);
-		ver = correct(p, ver, game);
-		drawline(p, ver, game, rgba(255, 25,255,1));
-		// verDis = calc_dis(game, ver, p);
-		// horDis = calc_dis(game, hor, p);
-
-		// if (horDis > verDis)
-		// {
-			// printf("ver : %f \t hor : %f\n", verDis, horDis);
-		// }
-		// else
-		// {
-		// 	drawline(p, hor, game, rgba(25, 225,255,1));
-		// 	// printf("ver : %f \t hor : %f\n", verDis, horDis);
-		// }
+		hor = horizontal_inter(game, angle, p);
+		// ver = correct(p, ver, game);
+		verDis = calc_dis(game, ver, p);
+		horDis = calc_dis(game, hor, p);
+		if (horDis > verDis)
+		{
+			// drawline(p, ver, game, rgba(255, 25,255,1));
+			raycast(game, verDis, i);
+		}
+		else
+		{
+			// drawline(p, hor, game, rgba(25, 225,255,1));
+			raycast(game, horDis, i);
+		}
 		angle += ray_inc;
 		i++;
 	}
