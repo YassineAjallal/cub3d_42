@@ -6,7 +6,7 @@
 /*   By: yajallal <yajallal@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/11 13:38:28 by yajallal          #+#    #+#             */
-/*   Updated: 2023/07/28 10:49:08 by yajallal         ###   ########.fr       */
+/*   Updated: 2023/07/30 09:42:30 by yajallal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@
 
 #define TILE 32
 #define FOV_ANGLE (60 * (M_PI / 180))
-#define WIDTH 2024
+#define WIDTH 1180
 #define NUM_RAYS WIDTH
 
 #define HEIGHT 560

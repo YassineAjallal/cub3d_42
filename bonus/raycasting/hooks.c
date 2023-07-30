@@ -6,7 +6,7 @@
 /*   By: yajallal <yajallal@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/11 16:25:33 by yajallal          #+#    #+#             */
-/*   Updated: 2023/07/28 10:26:15 by yajallal         ###   ########.fr       */
+/*   Updated: 2023/07/29 19:05:00 by yajallal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,9 @@ void key_up(t_cub *game)
 	{
 		game->p_coord.y = tmpy;
 		game->p_coord.x = tmpx;
-
+		put_minimap(game);
 	}
 	// ray_cast(game);
-	put_minimap(game);
 }
 
 void key_down(t_cub *game)
@@ -38,10 +37,9 @@ void key_down(t_cub *game)
 	{
 		game->p_coord.y = tmpy;
 		game->p_coord.x = tmpx;
-
+		put_minimap(game);
 	}
 	// ray_cast(game);
-	put_minimap(game);
 }
 
 void key_A(t_cub *game)
@@ -98,9 +96,9 @@ void hooks(void *ptr)
 		key_up(game);
 	if (mlx_is_key_down(game->mlx, MLX_KEY_DOWN))
 		key_down(game);
-	if (mlx_is_key_down(game->mlx, MLX_KEY_A))
+	else if (mlx_is_key_down(game->mlx, MLX_KEY_A))
 		key_A(game);
-	if (mlx_is_key_down(game->mlx, MLX_KEY_D))
+	else if (mlx_is_key_down(game->mlx, MLX_KEY_D))
 		key_D(game);
 }
 
