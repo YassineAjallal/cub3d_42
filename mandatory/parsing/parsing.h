@@ -6,7 +6,7 @@
 /*   By: yajallal <yajallal@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/01 16:38:46 by yajallal          #+#    #+#             */
-/*   Updated: 2023/06/12 15:57:04 by yajallal         ###   ########.fr       */
+/*   Updated: 2023/07/30 16:48:24 by yajallal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ void error_print(char *error_msg);
 
 int	get_map_len(t_map *map);
 char **get_map(t_map *map, t_cub *game);
+int get_large_line(t_cub *game);
 
 char	*ft_read(int fd, char *save);
 char	*ft_copy(char *save);

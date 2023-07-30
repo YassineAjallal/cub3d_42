@@ -6,7 +6,7 @@
 /*   By: yajallal <yajallal@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/11 13:17:54 by yajallal          #+#    #+#             */
-/*   Updated: 2023/06/23 16:11:40 by yajallal         ###   ########.fr       */
+/*   Updated: 2023/07/30 16:17:41 by yajallal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,14 @@ void find_player(t_cub *game)
 			{
 				game->p_coord.x = j;
 				game->p_coord.y = i;
+				if(game->map[i][j] == 'N')
+					game->player_angle = 3 * M_PI / 2;
+				else if(game->map[i][j] == 'S')
+					game->player_angle = M_PI / 2;
+				else if(game->map[i][j] == 'E')
+					game->player_angle = 0;
+				else if(game->map[i][j] == 'W')
+					game->player_angle = M_PI;
 				return;
 			}
 			j++;
@@ -40,7 +48,7 @@ int rgba(int r, int g, int b, float t)
 	return hex;
 }
 
-void parseImage(mlx_texture_t *img, int arr[512 * 512])
+void parseImage(mlx_texture_t *img, int *arr)
 {
 	unsigned int i = 0;
 	unsigned int j = 0;
@@ -58,7 +66,7 @@ int alloc_textures(t_cub *game)
 	game->textures->color_arrayN = malloc(sizeof(int) * (game->wallN->height * game->wallN->width));
 	game->textures->color_arrayW = malloc(sizeof(int) * (game->wallW->height * game->wallW->width));
 	game->textures->color_arrayS = malloc(sizeof(int) * (game->wallS->height * game->wallS->width));
-	if (!game->textures->color_arrayE || !game->textures->color_arrayN 
+	if (!game->textures->color_arrayE || !game->textures->color_arrayN
 			|| !game->textures->color_arrayW || !game->textures->color_arrayS)
 		return (0);
 	return (1);
@@ -72,9 +80,9 @@ int init_game(t_cub *game)
 	game->wallW = mlx_load_png(game->textures_img[WE]);
 	game->wallE = mlx_load_png(game->textures_img[EA]);
 	game->map_img = mlx_new_image(game->mlx, WIDTH, HEIGHT);
-	mlx_image_to_window(game->mlx, game->map_img, 0, 0);
 	if (!alloc_textures(game))
 		return (0);
+	mlx_image_to_window(game->mlx, game->map_img, 0, 0);
 	parseImage(game->wallN, game->textures->color_arrayN);
 	parseImage(game->wallS, game->textures->color_arrayS);
 	parseImage(game->wallW, game->textures->color_arrayW);

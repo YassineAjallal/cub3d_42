@@ -6,7 +6,7 @@
 /*   By: yajallal <yajallal@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/11 16:43:26 by yajallal          #+#    #+#             */
-/*   Updated: 2023/07/30 15:24:24 by yajallal         ###   ########.fr       */
+/*   Updated: 2023/07/30 17:11:13 by yajallal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void drawline_mini(t_coord c0, t_coord c1, t_cub *game, int color)
 
     while ((int)c0.x != (int)c1.x || (int)c0.y != (int)c1.y)
     {
-        if (c0.x >= 0 && c0.x < 1180 && c0.y >= 0 && c0.y < 760)
+        if (c0.x >= 0 && c0.x < game->large_length * TILE && c0.y >= 0 && c0.y < game->map_len * TILE)
         	mlx_put_pixel(game->map_img, c0.x * SCALE_MINIMAP, c0.y * SCALE_MINIMAP, color);
         int err2 = 2 * err;
         if (err2 > -dy)

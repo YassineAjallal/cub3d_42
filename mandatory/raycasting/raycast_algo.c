@@ -1,16 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minimap_func.c                                     :+:      :+:    :+:   */
+/*   raycast_algo.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yajallal <yajallal@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/28 16:45:36 by yajallal          #+#    #+#             */
-/*   Updated: 2023/07/30 17:10:20 by yajallal         ###   ########.fr       */
+/*   Created: 2023/07/30 16:14:19 by yajallal          #+#    #+#             */
+/*   Updated: 2023/07/30 16:51:16 by yajallal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "raycasting.h"
+
+double calc_dis(t_cub *game, t_coord hit, t_coord p)
+{
+	double dis;
+	dis = sqrt((hit.x - p.x) * (hit.x - p.x) + ((hit.y - p.y) * (hit.y - p.y)));
+	return (dis);
+}
 
 float normlize_angle(float angle)
 {
@@ -19,29 +26,6 @@ float normlize_angle(float angle)
         angle += 2 * M_PI;
 	return (angle);
 }
-
-// t_coord intersec(t_cub *game, t_coord intercept, t_coord step)
-// {
-// 	t_coord result;
-// 	t_coord next;
-
-// 	next.x = intercept.x;
-// 	next.y = intercept.y;
-// 	while(next.x > 0 && next.y > 0 && next.x < 1180 && next.y < HEIGHT)
-// 	{
-// 		if ((int)floorf(next.y / TILE) >= ft_strlen2d(game->map))
-// 			break;
-// 		if ((int)floorf(next.x / TILE) >= ft_strlen(game->map[(int)floorf(next.y / TILE)]))
-// 			break;
-// 		if (game->map[(int)floorf(next.y / TILE)][(int)floorf(next.x / TILE)] == '1')
-// 			break;
-// 		next.x += step.x;
-// 		next.y += step.y;
-// 	}
-// 	result.x = next.x;
-// 	result.y = next.y;
-// 	return (result);
-// }
 
 t_coord horizontal_inter(t_cub *game, double angle, t_coord p)
 {
@@ -71,7 +55,7 @@ t_coord horizontal_inter(t_cub *game, double angle, t_coord p)
 	if (up)
 		next.y--;
 	t_coord result;
-	while(next.x >= 0 && next.y >= 0 && next.x <= game->large_length * TILE && next.y <= game->map_len * TILE)
+	while(next.x >= 0 && next.y >= 0 && next.x <= TILE * game->large_length && next.y <= TILE * game->map_len)
 	{
 		if ((int)floorf(next.y / TILE) >= ft_strlen2d(game->map))
 			break;
@@ -120,7 +104,7 @@ t_coord vertical_inter(t_cub *game, double angle, t_coord p)
 	if (left)
 		next.x--;
 	t_coord result;
-	while(next.x >= 0 && next.y >= 0 && game->large_length * TILE && next.y <= game->map_len * TILE)
+	while(next.x >= 0 && next.y >= 0 && next.x <= TILE * game->large_length && next.y <= TILE * game->map_len)
 	{
 		if ((int)floorf(next.y / TILE) >= ft_strlen2d(game->map))
 			break;
@@ -141,27 +125,26 @@ t_coord vertical_inter(t_cub *game, double angle, t_coord p)
 	return (result);
 }
 
-void rays_minimap(t_cub *game)
-{
-	double angle = game->player_angle - (FOV_ANGLE / 2);
-	t_coord hor, ver;
-	double horDis, verDis;
-	t_coord p;
+// t_coord intersec(t_cub *game, t_coord intercept, t_coord step)
+// {
+// 	t_coord result;
+// 	t_coord next;
 
-	int i = 0;
-	p.x = game->p_coord.x * TILE;
-	p.y = game->p_coord.y * TILE;
-	while (i < WIDTH)
-	{
-		ver = vertical_inter(game, angle, p);
-		hor = horizontal_inter(game, angle, p);
-		verDis = calc_dis(game, ver, p);
-		horDis = calc_dis(game, hor, p);
-		if (horDis > verDis)
-			drawline_mini(p, ver, game, rgba(255,0,0,1));
-		else
-			drawline_mini(p, hor, game, rgba(255,0,0,1));
-		angle += ray_inc;
-		i++;
-	}
-}
+// 	next.x = intercept.x;
+// 	next.y = intercept.y;
+// 	while(next.x > 0 && next.y > 0 && next.x < 1180 && next.y < HEIGHT)
+// 	{
+// 		if ((int)floorf(next.y / TILE) >= ft_strlen2d(game->map))
+// 			break;
+// 		if ((int)floorf(next.x / TILE) >= ft_strlen(game->map[(int)floorf(next.y / TILE)]))
+// 			break;
+// 		if (game->map[(int)floorf(next.y / TILE)][(int)floorf(next.x / TILE)] == '1')
+// 			break;
+// 		next.x += step.x;
+// 		next.y += step.y;
+// 	}
+// 	result.x = next.x;
+// 	result.y = next.y;
+// 	return (result);
+// }
+

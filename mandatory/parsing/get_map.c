@@ -6,7 +6,7 @@
 /*   By: yajallal <yajallal@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 15:16:02 by yajallal          #+#    #+#             */
-/*   Updated: 2023/06/16 18:59:57 by yajallal         ###   ########.fr       */
+/*   Updated: 2023/07/30 16:48:27 by yajallal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ int	get_map_len(t_map *map)
 
 char **get_map(t_map *map, t_cub *game)
 {
-	int map_len;
 	t_map *node;
 	int i;
 	char **map_array;
@@ -38,10 +37,10 @@ char **get_map(t_map *map, t_cub *game)
 	node = map;
 	i = 0;
 	check_map_config(map, game);
-	map_len = get_map_len(map);
-	if (map_len == 0)
+	game->map_len = get_map_len(map);
+	if (game->map_len == 0)
 		return (NULL);
-	map_array = malloc(sizeof(char *) * (map_len + 1));
+	map_array = malloc(sizeof(char *) * (game->map_len + 1));
 	if (!map_array)
 		return (NULL);
 	while (node)
@@ -56,4 +55,23 @@ char **get_map(t_map *map, t_cub *game)
 	map_array[i] = NULL;
 	
 	return (map_array);
+}
+
+int get_large_line(t_cub *game)
+{
+	int i;
+	int large_line;
+
+	i = 0;
+	if (game->map)
+	{
+		large_line = ft_strlen(game->map[i]);
+		while(game->map[i])	
+		{
+			if ( ft_strlen(game->map[i]) > large_line)
+				large_line = ft_strlen(game->map[i]);
+			i++;
+		}
+	}
+	return (large_line);
 }

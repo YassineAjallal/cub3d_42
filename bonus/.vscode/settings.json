@@ -1,9 +1,0 @@
-{
-	"files.associations": {
-		"*.cpp": "cpp",
-		"raycasting.h": "c",
-		"structs.h": "c",
-		"parsing.h": "c",
-		"libft.h": "c"
-	}
-}

@@ -6,7 +6,7 @@
 /*   By: yajallal <yajallal@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/11 13:38:28 by yajallal          #+#    #+#             */
-/*   Updated: 2023/07/30 15:03:07 by yajallal         ###   ########.fr       */
+/*   Updated: 2023/07/30 17:06:47 by yajallal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,8 @@ typedef struct s_textures
 typedef struct s_cub
 {
 	char **map;
+	int map_len;
+	int large_length;
 	float player_angle;
 	int ciel_color;
 	int floor_color;
