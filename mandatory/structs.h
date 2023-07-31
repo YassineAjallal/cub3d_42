@@ -6,7 +6,7 @@
 /*   By: yajallal <yajallal@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/11 13:38:28 by yajallal          #+#    #+#             */
-/*   Updated: 2023/07/30 16:40:43 by yajallal         ###   ########.fr       */
+/*   Updated: 2023/07/31 11:17:37 by yajallal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,30 @@ typedef enum e_side {
 	EA
 } t_side;
 
+// typedef struct s_direction
+// {
+// 	bool down;
+// 	bool up;
+// 	bool right;
+// 	bool left;
+// } t_direction;
+
+typedef struct s_coord
+{
+	float x;
+	float y;
+} t_coord;
+
+typedef struct s_ray
+{
+	bool down;
+	bool up;
+	bool right;
+	bool left;
+	double angle;
+	t_coord intercept;
+	t_coord step;
+} t_ray;
 typedef struct s_map
 {
 	char *line;
@@ -48,11 +72,6 @@ typedef struct s_map
 
 } t_map;
 
-typedef struct s_coord
-{
-	float x;
-	float y;
-} t_coord;
 
 typedef struct s_textures
 {
@@ -61,15 +80,6 @@ typedef struct s_textures
 	int *color_arrayE;
 	int *color_arrayW;
 } t_textures;
-
-typedef struct s_dda
-{
-	double	dirx;
-	double	diry;
-	double	planex;
-	double	planey;
-
-} t_dda;
 
 typedef struct s_cub
 {
@@ -82,7 +92,6 @@ typedef struct s_cub
 	char **textures_img;
 	t_coord p_coord;
 	t_textures *textures;
-	t_dda *dda;
 	mlx_t *mlx;
 	mlx_image_t *map_img;
 	mlx_image_t *player_img;

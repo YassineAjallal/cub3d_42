@@ -6,7 +6,7 @@
 /*   By: yajallal <yajallal@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 13:40:42 by mkhairou          #+#    #+#             */
-/*   Updated: 2023/07/30 16:56:54 by yajallal         ###   ########.fr       */
+/*   Updated: 2023/07/31 11:44:26 by yajallal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,14 +60,14 @@ void setup_textures(t_cub *game, float ray_x, float ray_y, float raycos, float r
 	}
 }
 
-void raycast(t_cub *game, float distance, int ray, double angle)
+void raycast(t_cub *game, int rayx, t_ray *ray, double distance)
 {
 	t_coord start, end;
 	int proj_plane = (WIDTH / 2) / tan(FOV_ANGLE / 2);
-	distance = distance * cos(angle - game->player_angle);
+	distance = distance * cos(ray->angle - game->player_angle);
 	int wallStripHeight = (TILE / distance) * proj_plane;
-	start.x = ray;
-	end.x = ray;
+	start.x = rayx;
+	end.x = rayx;
 	start.y = (HEIGHT / 2) - (wallStripHeight / 2);
 	end.y = (HEIGHT / 2) + (wallStripHeight / 2);
 	drawline(start, end, game, rgba(25,25,25,1));
@@ -75,17 +75,24 @@ void raycast(t_cub *game, float distance, int ray, double angle)
 
 void rays(t_cub *game)
 {
-	double angle = game->player_angle - (FOV_ANGLE / 2);
 	t_coord hor, ver;
+	t_ray ray;
 	double horDis, verDis;
+	int j;
 	t_coord p;
 
 	int i = 0;
 	p.x = game->p_coord.x * TILE;
 	p.y = game->p_coord.y * TILE;
+	ray.angle = game->player_angle - (FOV_ANGLE / 2);
 	while (i < WIDTH)
 	{
-		int j = -1;
+		ray.angle = normlize_angle(ray.angle);
+		ray.down = ray.angle > 0 && ray.angle < M_PI;
+		ray.up = !ray.down;
+		ray.right = (ray.angle < (0.5 * M_PI)) || (ray.angle > (1.5 * M_PI));
+		ray.left = !ray.right;
+		j = -1;
 		while (++j < HEIGHT)
 		{
 			if (j <= (HEIGHT / 2))
@@ -93,17 +100,16 @@ void rays(t_cub *game)
 			else
 				mlx_put_pixel(game->map_img, i, j, game->floor_color);	
 		}
-		ver = vertical_inter(game, angle, p);
-		hor = horizontal_inter(game, angle, p);
+		ver = vertical_inter(game, p, &ray);
+		hor = horizontal_inter(game, p, &ray);
 		verDis = calc_dis(game, ver, p);
 		horDis = calc_dis(game, hor, p);
 		if (horDis > verDis)
-			raycast(game, verDis, i, angle);
+			raycast(game,i, &ray, verDis);
 		else
-			raycast(game, horDis, i, angle);
-		angle += RAY_INC;
+			raycast(game, i, &ray, horDis);
+		ray.angle += RAY_INC;
 		i++;
 	}
-	mlx_image_to_window(game->mlx, game->map_img, 0, 0);
 }
 
