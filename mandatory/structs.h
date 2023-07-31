@@ -6,7 +6,7 @@
 /*   By: yajallal <yajallal@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/11 13:38:28 by yajallal          #+#    #+#             */
-/*   Updated: 2023/07/31 18:28:01 by yajallal         ###   ########.fr       */
+/*   Updated: 2023/07/31 21:19:26 by yajallal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,10 @@ typedef struct s_ray
 	bool			right;
 	bool			left;
 	double			angle;
+	double			distance;
+	t_coord			wall_coord;
+	char			dir;
+	int				wall_height;
 	t_coord			intercept;
 	t_coord			step;
 }					t_ray;

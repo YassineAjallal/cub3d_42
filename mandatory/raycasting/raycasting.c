@@ -6,87 +6,98 @@
 /*   By: yajallal <yajallal@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 13:40:42 by mkhairou          #+#    #+#             */
-/*   Updated: 2023/07/31 19:23:57 by yajallal         ###   ########.fr       */
+/*   Updated: 2023/07/31 21:43:32 by yajallal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "raycasting.h"
 
-void	draw_texture(t_coord start, t_coord end, t_cub *game, int wall_height,
-		double angle, t_coord hit, char dir)
+void	draw_texture(t_coord start, t_coord end, t_cub *game, t_ray *ray)
 {
-	float	yIncr;
+	float	y_incr;
 	int		*color;
-	float	y;
-	float	textPosX;
+	float	text_pos_x;
 	int		i;
-	int		ray_direction;
-	int		posx;
+	t_coord	c1;
 
-	yIncr = (float)(wall_height) / (float)game->wallN->height;
-	t_coord c0, c1;
-	y = start.y;
-	;
+	y_incr = (float)(ray->wall_height) / (float)game->wallN->height;
 	i = 0;
-	if (dir == 'v')
+	if (ray->dir == 'v')
 	{
-		ray_direction = (int)(angle * 180 / M_PI);
-		textPosX = (int)hit.y % TILE;
-		if (ray_direction > 90 && ray_direction < 270)
+		text_pos_x = (int)ray->wall_coord.y % TILE;
+		if (ray->angle > (0.5 * M_PI) && ray->angle < (1.5 * M_PI))
 			color = game->textures->color_arrayW;
 		else
 			color = game->textures->color_arrayE;
 	}
 	else
 	{
-		ray_direction = (int)(angle * 180 / M_PI);
-		textPosX = (int)hit.x % TILE;
-		if (ray_direction > 0 && ray_direction < 180)
+		text_pos_x = (int)ray->wall_coord.x % TILE;
+		if (ray->angle > 0 && ray->angle < M_PI)
 			color = game->textures->color_arrayS;
 		else
 			color = game->textures->color_arrayN;
 	}
-	posx = (int)textPosX;
 	while (i < game->wallN->height)
 	{
-		c0.x = start.x;
-		c0.y = (int)y;
 		c1.x = start.x;
-		c1.y = (int)(y + yIncr);
-		drawline(c0, c1, game, color[posx + (i * game->wallN->width)]);
-		y += yIncr;
+		c1.y = (int)(start.y + y_incr);
+		drawline(start, c1, game, 
+			color[(int)text_pos_x + (i * game->wallN->width)]);
+		start.y += y_incr;
 		i++;
 	}
 }
 
-void	raycast(t_cub *game, int rayx, t_ray *ray, double distance,
-		t_coord verHor, char type)
+void	raycast(t_cub *game, int rayx, t_ray *ray)
 {
 	t_coord	start;
 	t_coord	end;
 	int		proj_plane;
-	int		wallStripHeight;
 
 	proj_plane = (WIDTH / 2) / tan(FOV_ANGLE / 2);
-	distance = distance * cos(ray->angle - game->player_angle);
-	wallStripHeight = (TILE / distance) * proj_plane;
+	ray->distance = ray->distance * cos(ray->angle - game->player_angle);
+	ray->wall_height = (TILE / ray->distance) * proj_plane;
 	start.x = rayx;
 	end.x = rayx;
-	start.y = (HEIGHT / 2) - (wallStripHeight / 2);
-	end.y = (HEIGHT / 2) + (wallStripHeight / 2);
-	draw_texture(start, end, game, wallStripHeight, ray->angle, verHor, type);
+	start.y = (HEIGHT / 2) - (ray->wall_height / 2);
+	end.y = (HEIGHT / 2) + (ray->wall_height / 2);
+	draw_texture(start, end, game, ray);
+}
+
+void	rays_drawing(t_cub *game, int i, t_ray *ray, t_coord p)
+{
+	t_coord	hor;
+	t_coord	ver;
+	double	hor_dis;
+	double	ver_dis;
+
+	ver = vertical_inter(game, p, ray);
+	hor = horizontal_inter(game, p, ray);
+	ver_dis = calc_dis(game, ver, p);
+	hor_dis = calc_dis(game, hor, p);
+	if (hor_dis > ver_dis)
+	{
+		ray->distance = ver_dis;
+		ray->wall_coord = ver;
+		ray->dir = 'v';
+		raycast(game, i, ray);
+	}
+	else
+	{
+		ray->distance = hor_dis;
+		ray->wall_coord = hor;
+		ray->dir = 'h';
+		raycast(game, i, ray);
+	}
 }
 
 void	rays(t_cub *game)
 {
-	t_coord	hor;
-	t_coord	ver;
 	t_ray	ray;
-	double	horDis;
-	double	verDis;
 	t_coord	p;
-	int		j;
 	int		i;
+	int		j;
 
 	i = 0;
 	p.x = game->p_coord.x * TILE;
@@ -107,14 +118,7 @@ void	rays(t_cub *game)
 			else
 				mlx_put_pixel(game->map_img, i, j, game->floor_color);
 		}
-		ver = vertical_inter(game, p, &ray);
-		hor = horizontal_inter(game, p, &ray);
-		verDis = calc_dis(game, ver, p);
-		horDis = calc_dis(game, hor, p);
-		if (horDis > verDis)
-			raycast(game, i, &ray, verDis, ver, 'v');
-		else
-			raycast(game, i, &ray, horDis, hor, 'h');
+		rays_drawing(game, i, &ray, p);
 		ray.angle += RAY_INC;
 		i++;
 	}
