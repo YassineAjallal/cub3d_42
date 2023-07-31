@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycast_algo.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mkhairou <mkhairou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yajallal <yajallal@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/30 16:14:19 by yajallal          #+#    #+#             */
-/*   Updated: 2023/07/31 17:26:56 by mkhairou         ###   ########.fr       */
+/*   Updated: 2023/07/31 20:26:28 by yajallal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,24 @@ float	normlize_angle(float angle)
 	return (angle);
 }
 
+void	intersec_tool(t_cub *game, t_coord *next, t_ray *ray)
+{
+	while (next->x >= 0 && next->y >= 0 && next->x <= TILE * game->large_length
+		&& next->y <= TILE * game->map_len)
+	{
+		if ((int)floorf(next->y / TILE) >= ft_strlen2d(game->map))
+			break ;
+		if ((int)floorf(next->x / TILE) >= 
+			ft_strlen(game->map[(int)floorf(next->y / TILE)]))
+			break ;
+		if (game->map[(int)floorf(next->y / TILE)]
+			[(int)floorf(next->x / TILE)] == '1')
+			break ;
+		next->x += ray->step.x;
+		next->y += ray->step.y;
+	}
+}
+
 t_coord	intersec(t_cub *game, t_ray *ray, char type)
 {
 	t_coord	result;
@@ -40,20 +58,7 @@ t_coord	intersec(t_cub *game, t_ray *ray, char type)
 		next.x--;
 	if (type == 'h' && ray->up)
 		next.y--;
-	while (next.x >= 0 && next.y >= 0 && next.x <= TILE * game->large_length
-		&& next.y <= TILE * game->map_len)
-	{
-		if ((int)floorf(next.y / TILE) >= ft_strlen2d(game->map))
-			break ;
-		if ((int)floorf(next.x / TILE) >= ft_strlen(game->map[(int)floorf(next.y
-						/ TILE)]))
-			break ;
-		if (game->map[(int)floorf(next.y / TILE)][(int)floorf(next.x
-				/ TILE)] == '1')
-			break ;
-		next.x += ray->step.x;
-		next.y += ray->step.y;
-	}
+	intersec_tool(game, &next, ray);
 	if (type == 'v' && ray->left)
 		next.x++;
 	if (type == 'h' && ray->up)

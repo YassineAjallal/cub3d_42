@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mkhairou <mkhairou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yajallal <yajallal@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 13:40:42 by mkhairou          #+#    #+#             */
-/*   Updated: 2023/07/31 17:34:40 by mkhairou         ###   ########.fr       */
+/*   Updated: 2023/07/31 19:23:57 by yajallal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,6 @@ void	raycast(t_cub *game, int rayx, t_ray *ray, double distance,
 	end.x = rayx;
 	start.y = (HEIGHT / 2) - (wallStripHeight / 2);
 	end.y = (HEIGHT / 2) + (wallStripHeight / 2);
-	// drawline(start, end, game, rgba(25,25,25,1));
 	draw_texture(start, end, game, wallStripHeight, ray->angle, verHor, type);
 }
 

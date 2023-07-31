@@ -6,7 +6,7 @@
 /*   By: yajallal <yajallal@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/11 13:17:54 by yajallal          #+#    #+#             */
-/*   Updated: 2023/07/31 17:55:33 by yajallal         ###   ########.fr       */
+/*   Updated: 2023/07/31 20:15:33 by yajallal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,7 @@ void	find_player(t_cub *game)
 		j = -1;
 		while (game->map[i][++j])
 		{
-			if (game->map[i][j] == 'N' || game->map[i][j] == 'S'
-				|| game->map[i][j] == 'E' || game->map[i][j] == 'W')
+			if (ft_strchr("NSEW", game->map[i][j]))
 			{
 				game->p_coord.x = j;
 				game->p_coord.y = i;
@@ -38,7 +37,6 @@ void	find_player(t_cub *game)
 					game->player_angle = M_PI;
 				return ;
 			}
-			j++;
 		}
 	}
 }
