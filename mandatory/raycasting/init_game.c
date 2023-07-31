@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_game.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mkhairou <mkhairou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yajallal <yajallal@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/11 13:17:54 by yajallal          #+#    #+#             */
-/*   Updated: 2023/07/31 17:25:06 by mkhairou         ###   ########.fr       */
+/*   Updated: 2023/07/31 17:55:33 by yajallal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int	rgba(int r, int g, int b, float t)
 	return (hex);
 }
 
-void	parseImage(mlx_texture_t *img, int *arr)
+void	parse_image(mlx_texture_t *img, int *arr)
 {
 	unsigned int	i;
 	unsigned int	j;
@@ -94,10 +94,10 @@ int	init_game(t_cub *game)
 	if (!alloc_textures(game))
 		return (0);
 	mlx_image_to_window(game->mlx, game->map_img, 0, 0);
-	parseImage(game->wallN, game->textures->color_arrayN);
-	parseImage(game->wallS, game->textures->color_arrayS);
-	parseImage(game->wallW, game->textures->color_arrayW);
-	parseImage(game->wallE, game->textures->color_arrayE);
+	parse_image(game->wallN, game->textures->color_arrayN);
+	parse_image(game->wallS, game->textures->color_arrayS);
+	parse_image(game->wallW, game->textures->color_arrayW);
+	parse_image(game->wallE, game->textures->color_arrayE);
 	find_player(game);
 	return (1);
 }

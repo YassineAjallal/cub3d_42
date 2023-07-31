@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   structs.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mkhairou <mkhairou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yajallal <yajallal@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/11 13:38:28 by yajallal          #+#    #+#             */
-/*   Updated: 2023/07/31 14:33:11 by mkhairou         ###   ########.fr       */
+/*   Updated: 2023/07/31 19:10:57 by yajallal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef STRUCTS_H
 #define STRUCTS_H
 
-#include "/Users/mkhairou/MLX42/include/MLX42/MLX42.h"
+#include "../MLX42/include/MLX42/MLX42.h"
 #include "../libft/libft.h"
 
 #include <fcntl.h>
@@ -26,15 +26,13 @@
 #  define BUFFER_SIZE 42
 # endif
 
-#define TILE 32
 #define SCALE_MINIMAP 0.2
-#define FOV_ANGLE (60 * (M_PI / 180))
-#define WIDTH 720
-#define NUM_RAYS WIDTH
-
-#define HEIGHT 720
-#define ray_inc (FOV_ANGLE / WIDTH)
-#define half_fov (FOV_ANGLE / 2)
+# define TILE 64
+# define FOV_ANGLE (60 * (M_PI / 180))
+# define WIDTH 720
+# define HEIGHT 720
+# define RAY_INC (FOV_ANGLE / WIDTH)
+# define HALF_FOV (FOV_ANGLE / 2)
 
 typedef enum e_side {
 	NO,
@@ -44,6 +42,12 @@ typedef enum e_side {
 	DO
 } t_side;
 
+typedef struct s_coord
+{
+	float x;
+	float y;
+} t_coord;
+
 typedef struct s_map
 {
 	char *line;
@@ -51,12 +55,16 @@ typedef struct s_map
 	struct s_map *next;
 
 } t_map;
-
-typedef struct s_coord
+typedef struct s_ray
 {
-	float x;
-	float y;
-} t_coord;
+	bool			down;
+	bool			up;
+	bool			right;
+	bool			left;
+	double			angle;
+	t_coord			intercept;
+	t_coord			step;
+}					t_ray;
 
 typedef struct s_textures
 {
@@ -88,8 +96,6 @@ typedef struct s_cub
 	mlx_texture_t *wallE;
 	mlx_texture_t *dooR;
 	mlx_texture_t *sprite[3];
-	int *d_pos;
-	int nb_d;
 	int index;
 	int mouse_x;
 	int mouse_y;

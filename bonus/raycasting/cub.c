@@ -6,39 +6,11 @@
 /*   By: yajallal <yajallal@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/11 17:12:08 by yajallal          #+#    #+#             */
-/*   Updated: 2023/07/30 17:09:38 by yajallal         ###   ########.fr       */
+/*   Updated: 2023/07/31 19:20:34 by yajallal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "raycasting.h"
-
-void	move_mouse( double x, double y, void *ptr)
-{
-	t_cub *game = (t_cub *)ptr;
-	int xi;
-	int yi;
-	mlx_get_mouse_pos(game->mlx,&xi,&yi);
-	if(xi > game->mouse_x)
-	{
-		game->player_angle += 0.01;
-		if (game->player_angle < 0)
-			game->player_angle += 2 * M_PI;
-		else if (game->player_angle > 2 * M_PI)
-			game->player_angle -= 2 * M_PI;
-		game->mouse_x = x;
-		rays(game);
-	}
-	else if (xi < game->mouse_x)
-	{
-		game->player_angle -= 0.01;
-			if (game->player_angle < 0)
-			game->player_angle += 2 * M_PI;
-		else if (game->player_angle > 2 * M_PI)
-			game->player_angle -= 2 * M_PI;
-		game->mouse_x = x;
-		rays(game);
-	}
-}
 
 int main(int ac, char **av)
 {
@@ -64,15 +36,11 @@ int main(int ac, char **av)
 		if (!check_valid_map(game->map))
 			error_print("map not valid \n");
 		init_game(game);
+		rays(game);
+		mlx_loop_hook(game->mlx, hooks, game);
+		mlx_key_hook(game->mlx, my_keyhook, game);
+		mlx_loop(game->mlx);
+		mlx_terminate(game->mlx);
 	}
-	// ray_cast(game);
-	rays(game);
-	// mlx_set_cursor_mode(game->mlx, MLX_MOUSE_DISABLED);
-	// mlx_get_mouse_pos(game->mlx,&game->mouse_x,&game->mouse_y);
-	// mlx_key_hook(game->mlx, my_keyhook, game);
-	mlx_loop_hook(game->mlx, hooks, game);
-	// mlx_cursor_hook(game->mlx, move_mouse, game);
-	mlx_loop(game->mlx);
-	mlx_terminate(game->mlx);
 	return 0;
 }

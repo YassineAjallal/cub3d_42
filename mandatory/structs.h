@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structs.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mkhairou <mkhairou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yajallal <yajallal@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/11 13:38:28 by yajallal          #+#    #+#             */
-/*   Updated: 2023/07/31 17:29:01 by mkhairou         ###   ########.fr       */
+/*   Updated: 2023/07/31 18:28:01 by yajallal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define STRUCTS_H
 
 # include "../libft/libft.h"
-# include "/Users/mkhairou/MLX42/include/MLX42/MLX42.h"
+# include "../MLX42/include/MLX42/MLX42.h"
 # include <fcntl.h>
 # include <math.h>
 # include <stdio.h>
@@ -38,15 +38,7 @@ typedef enum e_side
 	SO,
 	WE,
 	EA
-}					t_side;
-
-// typedef struct s_direction
-// {
-// 	bool down;
-// 	bool up;
-// 	bool right;
-// 	bool left;
-// } t_direction;
+}	t_side;
 
 typedef struct s_coord
 {

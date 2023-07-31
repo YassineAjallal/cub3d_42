@@ -6,7 +6,7 @@
 /*   By: yajallal <yajallal@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/11 16:43:26 by yajallal          #+#    #+#             */
-/*   Updated: 2023/07/30 17:11:13 by yajallal         ###   ########.fr       */
+/*   Updated: 2023/07/31 19:13:37 by yajallal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,13 +35,6 @@ void drawline_mini(t_coord c0, t_coord c1, t_cub *game, int color)
             c0.y += sy;
         }
     }
-}
-
-double calc_dis(t_cub *game, t_coord hit, t_coord p)
-{
-	double dis;
-	dis = sqrt((hit.x - p.x) * (hit.x - p.x) + ((hit.y - p.y) * (hit.y - p.y)));
-	return (dis);
 }
 
 
@@ -76,8 +69,10 @@ void	draw_maps(t_cub *game)
 		{
 			if(game->map[i][j] == '1')
 				draw_wall(j * TILE, i * TILE, game, rgba(255, 255, 255, 1));
-			 if (game->map[i][j] == '0' || game->map[i][j] == ' ' || ft_strchr("ESNW", game->map[i][j]))
+			else if (game->map[i][j] == '0' || game->map[i][j] == ' ' || ft_strchr("ESNW", game->map[i][j]) || game->map[i][j] == '2')
 				draw_wall(j * TILE, i * TILE, game, rgba(0, 0, 0, 1));
+			else if(game->map[i][j] == 'D')
+				draw_wall(j * TILE, i * TILE, game, rgba(25, 25, 255, 1));
 			j++;
 		}
 		i++;
