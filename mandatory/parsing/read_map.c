@@ -3,21 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   read_map.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yajallal <yajallal@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: mkhairou <mkhairou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/01 16:38:31 by yajallal          #+#    #+#             */
-/*   Updated: 2023/06/12 15:42:44 by yajallal         ###   ########.fr       */
+/*   Updated: 2023/07/31 17:31:59 by mkhairou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
 
-void print(t_map *map)
+void	print(t_map *map)
 {
-	t_map *head;
+	t_map	*head;
 
 	head = map;
-	while(head)
+	while (head)
 	{
 		ft_putchar_fd(head->cnofig, 1);
 		ft_putstr_fd(" : ", 1);
@@ -25,19 +25,20 @@ void print(t_map *map)
 		head = head->next;
 	}
 }
-t_map *read_map(char *map_file)
+
+t_map	*read_map(char *map_file)
 {
-	int map_fd;
-	char *line;
-	t_map *map;
-	int i;
+	int		map_fd;
+	char	*line;
+	t_map	*map;
+	int		i;
 
 	map = NULL;
 	map_fd = open(map_file, O_RDONLY);
 	if (map_fd < 0)
 		error_print("file not found\n");
 	line = get_next_line(map_fd);
-	while(line)
+	while (line)
 	{
 		i = 0;
 		while (line[i] == ' ')
@@ -45,15 +46,14 @@ t_map *read_map(char *map_file)
 		if (ft_strlen(line + i) != 0)
 		{
 			if (line[0] == '1' || line[0] == ' ')
-				break;
-			map = add_new_node(line, 'C',map);
-
+				break ;
+			map = add_new_node(line, 'C', map);
 		}
 		else
 			free(line);
 		line = get_next_line(map_fd);
 	}
-	while(line)
+	while (line)
 	{
 		map = add_new_node(line, 'M', map);
 		line = get_next_line(map_fd);
@@ -75,5 +75,5 @@ t_map *read_map(char *map_file)
 // 	map_arr = get_map(map);
 // 	if (!check_valid_map(map_arr))
 // 		printf("1 : Error\n");
-// 	return 0;
+// 	return (0);
 // }

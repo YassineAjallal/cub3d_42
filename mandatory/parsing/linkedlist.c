@@ -3,19 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   linkedlist.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yajallal <yajallal@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: mkhairou <mkhairou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/01 17:11:24 by yajallal          #+#    #+#             */
-/*   Updated: 2023/06/12 16:23:54 by yajallal         ###   ########.fr       */
+/*   Updated: 2023/07/31 17:31:37 by mkhairou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
 
-t_map *add_new_node(char *line, char config,t_map *map)
+t_map	*add_new_node(char *line, char config, t_map *map)
 {
-	t_map *head;
-	t_map *new_node;
+	t_map	*head;
+	t_map	*new_node;
 
 	head = map;
 	new_node = malloc(sizeof(t_map));
@@ -28,11 +28,11 @@ t_map *add_new_node(char *line, char config,t_map *map)
 		map = new_node;
 	else
 	{
-		while(head->next)
+		while (head->next)
 			head = head->next;
 		head->next = new_node;
 	}
-	return(map);
+	return (map);
 }
 
 t_map	*delete_node(t_map *head, char *str)

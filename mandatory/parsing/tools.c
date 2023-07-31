@@ -3,21 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   tools.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yajallal <yajallal@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: mkhairou <mkhairou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 16:44:48 by yajallal          #+#    #+#             */
-/*   Updated: 2023/06/02 16:48:03 by yajallal         ###   ########.fr       */
+/*   Updated: 2023/07/31 17:32:16 by mkhairou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
 
-int ft_strlen2d(char **str)
+int	ft_strlen2d(char **str)
 {
-	int i;
+	int	i;
 
 	i = 0;
-	while(str[i])
+	while (str[i])
 		i++;
 	return (i);
 }
