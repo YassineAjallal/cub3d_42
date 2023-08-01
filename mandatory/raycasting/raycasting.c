@@ -6,48 +6,11 @@
 /*   By: yajallal <yajallal@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 13:40:42 by mkhairou          #+#    #+#             */
-/*   Updated: 2023/07/31 21:43:32 by yajallal         ###   ########.fr       */
+/*   Updated: 2023/08/01 12:27:07 by yajallal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "raycasting.h"
-
-void	draw_texture(t_coord start, t_coord end, t_cub *game, t_ray *ray)
-{
-	float	y_incr;
-	int		*color;
-	float	text_pos_x;
-	int		i;
-	t_coord	c1;
-
-	y_incr = (float)(ray->wall_height) / (float)game->wallN->height;
-	i = 0;
-	if (ray->dir == 'v')
-	{
-		text_pos_x = (int)ray->wall_coord.y % TILE;
-		if (ray->angle > (0.5 * M_PI) && ray->angle < (1.5 * M_PI))
-			color = game->textures->color_arrayW;
-		else
-			color = game->textures->color_arrayE;
-	}
-	else
-	{
-		text_pos_x = (int)ray->wall_coord.x % TILE;
-		if (ray->angle > 0 && ray->angle < M_PI)
-			color = game->textures->color_arrayS;
-		else
-			color = game->textures->color_arrayN;
-	}
-	while (i < game->wallN->height)
-	{
-		c1.x = start.x;
-		c1.y = (int)(start.y + y_incr);
-		drawline(start, c1, game, 
-			color[(int)text_pos_x + (i * game->wallN->width)]);
-		start.y += y_incr;
-		i++;
-	}
-}
 
 void	raycast(t_cub *game, int rayx, t_ray *ray)
 {
@@ -92,6 +55,15 @@ void	rays_drawing(t_cub *game, int i, t_ray *ray, t_coord p)
 	}
 }
 
+void	init_sides(t_ray *ray)
+{
+	ray->angle = normlize_angle(ray->angle);
+	ray->down = ray->angle > 0 && ray->angle < M_PI;
+	ray->up = !ray->down;
+	ray->right = (ray->angle < (0.5 * M_PI)) || (ray->angle > (1.5 * M_PI));
+	ray->left = !ray->right;
+}
+
 void	rays(t_cub *game)
 {
 	t_ray	ray;
@@ -105,11 +77,7 @@ void	rays(t_cub *game)
 	ray.angle = game->player_angle - (FOV_ANGLE / 2);
 	while (i < WIDTH)
 	{
-		ray.angle = normlize_angle(ray.angle);
-		ray.down = ray.angle > 0 && ray.angle < M_PI;
-		ray.up = !ray.down;
-		ray.right = (ray.angle < (0.5 * M_PI)) || (ray.angle > (1.5 * M_PI));
-		ray.left = !ray.right;
+		init_sides(&ray);
 		j = -1;
 		while (++j < HEIGHT)
 		{

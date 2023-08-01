@@ -20,6 +20,7 @@ SRCS_MANDA =	mandatory/parsing/check_map_config.c \
 				mandatory/raycasting/directions.c \
 				mandatory/raycasting/raycast_algo.c  \
 				mandatory/raycasting/raycast_tools.c  \
+				mandatory/raycasting/textures.c  \
 
 SRCS_BONUS = 	bonus/parsing/check_map_config.c \
 			 	bonus/parsing/d_positions.c \
