@@ -6,13 +6,13 @@
 /*   By: yajallal <yajallal@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/11 16:25:33 by yajallal          #+#    #+#             */
-/*   Updated: 2023/07/31 20:09:13 by yajallal         ###   ########.fr       */
+/*   Updated: 2023/08/01 15:31:55 by yajallal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "raycasting.h"
 
-void	key_a(t_cub *game)
+void	key_left_rotate(t_cub *game)
 {
 	game->player_angle -= 0.05;
 	if (game->player_angle < 0)
@@ -22,7 +22,7 @@ void	key_a(t_cub *game)
 	rays(game);
 }
 
-void	key_d(t_cub *game)
+void	key_right_rotate(t_cub *game)
 {
 	game->player_angle += 0.05;
 	if (game->player_angle < 0)
@@ -39,16 +39,16 @@ void	hooks(void *ptr)
 	game = (t_cub *)ptr;
 	if (mlx_is_key_down(game->mlx, MLX_KEY_ESCAPE))
 		exit(0);
-	if (mlx_is_key_down(game->mlx, MLX_KEY_UP))
+	if (mlx_is_key_down(game->mlx, MLX_KEY_W))
 		key_up(game);
-	if (mlx_is_key_down(game->mlx, MLX_KEY_DOWN))
+	if (mlx_is_key_down(game->mlx, MLX_KEY_S))
 		key_down(game);
-	if (mlx_is_key_down(game->mlx, MLX_KEY_LEFT))
+	if (mlx_is_key_down(game->mlx, MLX_KEY_A))
 		key_left(game);
-	if (mlx_is_key_down(game->mlx, MLX_KEY_RIGHT))
+	if (mlx_is_key_down(game->mlx, MLX_KEY_D))
 		key_right(game);
-	else if (mlx_is_key_down(game->mlx, MLX_KEY_A))
-		key_a(game);
-	else if (mlx_is_key_down(game->mlx, MLX_KEY_D))
-		key_d(game);
+	else if (mlx_is_key_down(game->mlx, MLX_KEY_LEFT))
+		key_left_rotate(game);
+	else if (mlx_is_key_down(game->mlx, MLX_KEY_RIGHT))
+		key_right_rotate(game);
 }

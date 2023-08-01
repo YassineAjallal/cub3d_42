@@ -6,7 +6,7 @@
 /*   By: yajallal <yajallal@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/11 13:04:14 by yajallal          #+#    #+#             */
-/*   Updated: 2023/08/01 14:57:27 by yajallal         ###   ########.fr       */
+/*   Updated: 2023/08/01 15:36:08 by yajallal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@ t_coord	init_drawline(t_coord c0, t_coord c1);
 void	pixel_draw(t_coord c0, t_coord c1, t_cub *game, int color);
 void	drawline(t_coord c0, t_coord c1, t_cub *game, int color);
 
-void	key_a(t_cub *game);
-void	key_d(t_cub *game);
+void	key_left_rotate(t_cub *game);
+void	key_right_rotate(t_cub *game);
 void	hooks(void *ptr);
 
 void	find_player(t_cub *game);
@@ -53,9 +53,11 @@ void	rays(t_cub *game);
 int		*select_texture(t_cub *game, t_ray *ray, float *text_pos_x);
 void	draw_texture(t_coord start, t_coord end, t_cub *game, t_ray *ray);
 
-void rays_minimap(t_cub *game);
-void drawline_mini(t_coord c0, t_coord c1, t_cub *game, int color);
+void	cast_minimap_rays(t_cub *game, t_ray *ray, t_coord p);
+void	rays_minimap(t_cub *game);
+
+void	drawline_mini(t_coord c0, t_coord c1, t_cub *game, int color);
 void	draw_wall(int h, int w, t_cub *game, int color);
 void	draw_maps(t_cub *game);
-void put_minimap(t_cub *game);
+void	put_minimap(t_cub *game);
 #endif

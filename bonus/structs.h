@@ -6,7 +6,7 @@
 /*   By: yajallal <yajallal@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/11 13:38:28 by yajallal          #+#    #+#             */
-/*   Updated: 2023/08/01 14:55:39 by yajallal         ###   ########.fr       */
+/*   Updated: 2023/08/01 15:33:52 by yajallal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 #  define BUFFER_SIZE 42
 # endif
 
-#define SCALE_MINIMAP 0.2
+#define SCALE_MINIMAP 0.1
 # define TILE 64
 # define FOV_ANGLE (60 * (M_PI / 180))
 # define WIDTH 720

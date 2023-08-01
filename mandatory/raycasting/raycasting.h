@@ -6,7 +6,7 @@
 /*   By: yajallal <yajallal@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/11 13:04:14 by yajallal          #+#    #+#             */
-/*   Updated: 2023/08/01 12:36:22 by yajallal         ###   ########.fr       */
+/*   Updated: 2023/08/01 15:41:26 by yajallal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@ t_coord	init_drawline(t_coord c0, t_coord c1);
 void	pixel_draw(t_coord c0, t_coord c1, t_cub *game, int color);
 void	drawline(t_coord c0, t_coord c1, t_cub *game, int color);
 
-void	key_a(t_cub *game);
-void	key_d(t_cub *game);
+void	key_left_rotate(t_cub *game);
+void	key_right_rotate(t_cub *game);
 void	hooks(void *ptr);
 
 void	find_player(t_cub *game);
