@@ -1,5 +1,5 @@
 CC = cc
-CFLAGS =
+CFLAGS = -Wall -Werror -Wextra
 NAME_MANDA = cub3D
 NAME_BONUS = cub3D_bonus
 SRCS_MANDA =	mandatory/parsing/check_map_config.c \
@@ -23,7 +23,6 @@ SRCS_MANDA =	mandatory/parsing/check_map_config.c \
 				mandatory/raycasting/textures.c  \
 
 SRCS_BONUS = 	bonus/parsing/check_map_config.c \
-			 	bonus/parsing/d_positions.c \
 				bonus/parsing/check_valid_map.c \
 				bonus/parsing/error_print.c \
 				bonus/parsing/extract_config.c \
@@ -41,6 +40,10 @@ SRCS_BONUS = 	bonus/parsing/check_map_config.c \
 				bonus/raycasting/raycasting.c \
 				bonus/raycasting/raycast_algo.c \
 				bonus/raycasting/minimap_func.c \
+				bonus/raycasting/raycast_tools.c  \
+				bonus/raycasting/textures.c  \
+				bonus/raycasting/directions.c \
+
 
 OBJS_MANDA = $(SRCS_MANDA:.c=.o)
 OBJS_BONUS = $(SRCS_BONUS:.c=.o)
@@ -58,11 +61,11 @@ bonus: $(NAME_BONUS)
 
 $(NAME_MANDA): $(OBJS_MANDA)
 	@make -C libft
-	@$(CC) $(CFLAGS) -fsanitize=address libft/libft.a $(MLX_FLAG) $^ -o $@
+	@$(CC) $(CFLAGS) libft/libft.a $(MLX_FLAG) $^ -o $@
 
 $(NAME_BONUS): $(OBJS_BONUS)
 	@make -C libft
-	@$(CC) $(CFLAGS) -fsanitize=address libft/libft.a $(MLX_FLAG) $^ -o $@
+	@$(CC) $(CFLAGS) libft/libft.a $(MLX_FLAG) $^ -o $@
 
 clean:
 	@make -C libft clean

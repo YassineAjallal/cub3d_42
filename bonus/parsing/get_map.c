@@ -6,7 +6,7 @@
 /*   By: yajallal <yajallal@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 15:16:02 by yajallal          #+#    #+#             */
-/*   Updated: 2023/07/30 17:07:54 by yajallal         ###   ########.fr       */
+/*   Updated: 2023/07/30 16:48:27 by yajallal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ char **get_map(t_map *map, t_cub *game)
 		node = node->next;
 	}
 	map_array[i] = NULL;
+	
 	return (map_array);
 }
 

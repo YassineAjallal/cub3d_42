@@ -3,50 +3,52 @@
 /*                                                        :::      ::::::::   */
 /*   check_map_config.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yajallal <yajallal@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: mkhairou <mkhairou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/01 21:08:11 by yajallal          #+#    #+#             */
-/*   Updated: 2023/06/15 17:04:47 by yajallal         ###   ########.fr       */
+/*   Updated: 2023/07/31 17:30:12 by mkhairou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
 
-int ft_strchr2d(char **str2d, char *str)
+int	ft_strchr2d(char **str2d, char *str)
 {
-	int i;
+	int	i;
 
 	i = 0;
-	while(str2d[i])
+	while (str2d[i])
 	{
 		if (!ft_strcmp(str2d[i], str))
-			return i;
+			return (i);
 		i++;
 	}
 	return (-1);
 }
-void config_len(t_map *map)
+
+void	config_len(t_map *map)
 {
-	int config_len;
+	int	config_len;
 
 	config_len = 0;
-	while(map)
+	while (map)
 	{
 		if (map->cnofig == 'C')
 			config_len++;
 		map = map->next;
 	}
-	if (config_len != 7)
+	if (config_len != 6)
 		error_print("incomplet map\n");
 }
-t_map *config_list(char **split)
+
+t_map	*config_list(char **split)
 {
-	int  i;
-	t_map *config;
+	int		i;
+	t_map	*config;
 
 	config = NULL;
 	i = 0;
-	while(split[i])
+	while (split[i])
 	{
 		config = add_new_node(split[i], 'C', config);
 		i++;
@@ -56,26 +58,27 @@ t_map *config_list(char **split)
 
 int	array_len(char **array)
 {
-	int i;
+	int	i;
 
 	i = 0;
-	while(array[i])
+	while (array[i])
 		i++;
 	return (i);
 }
 
 int	allint(char **a)
 {
-	int i = 1;
-	char *tmp;
-	int len;
-	int j;
+	int		i;
+	char	*tmp;
+	int		len;
+	int		j;
 
+	i = 1;
 	while (i < 4)
 	{
 		len = ft_strlen(a[i]);
-		if ((!ft_strchr(a[i], ',') && i != 3) || (i == 3 && ft_strchr(a[i], ','))
-			|| ft_strlen(a[i]) > 4)
+		if ((!ft_strchr(a[i], ',') && i != 3) || (i == 3 && ft_strchr(a[i],
+					',')) || ft_strlen(a[i]) > 4)
 			error_print("invalid colors\n");
 		else if (a[i][len - 1] == ',' && !ft_isdigit(a[i][len - 2]))
 			error_print("invalid colors\n");
@@ -83,7 +86,7 @@ int	allint(char **a)
 		{
 			j = 0;
 			tmp = ft_strtrim(a[i], ",");
-			while(tmp[j])
+			while (tmp[j])
 				if (!ft_isdigit(tmp[j++]))
 					error_print("invalid colors\n");
 			if (ft_atoi(tmp) > 255 || ft_atoi(tmp) < 0)
@@ -94,13 +97,13 @@ int	allint(char **a)
 	return (rgba(ft_atoi(a[1]), ft_atoi(a[2]), ft_atoi(a[3]), 1));
 }
 
-void check_valid_config(t_map *config, t_cub *game)
+void	check_valid_config(t_map *config, t_cub *game)
 {
-	t_map *tmp;
-	char **split;
+	t_map	*tmp;
+	char	**split;
 
 	tmp = config;
-	while(tmp)
+	while (tmp)
 	{
 		if (tmp->cnofig == 'C')
 		{
@@ -119,16 +122,16 @@ void check_valid_config(t_map *config, t_cub *game)
 	}
 }
 
-void check_map_config(t_map *map, t_cub *game)
+void	check_map_config(t_map *map, t_cub *game)
 {
-	char **split;
-	char **split_line;
-	t_map *config;
-	t_map *tmp;
+	char	**split;
+	char	**split_line;
+	t_map	*config;
+	t_map	*tmp;
 
 	config_len(map);
 	tmp = map;
-	split = ft_split("NO SO WE EA DO F C", ' ');
+	split = ft_split("NO SO WE EA F C", ' ');
 	config = config_list(split);
 	while (map)
 	{

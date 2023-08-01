@@ -6,7 +6,7 @@
 /*   By: yajallal <yajallal@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/11 13:17:54 by yajallal          #+#    #+#             */
-/*   Updated: 2023/07/31 18:42:15 by yajallal         ###   ########.fr       */
+/*   Updated: 2023/07/31 20:15:33 by yajallal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,7 @@ void	find_player(t_cub *game)
 		j = -1;
 		while (game->map[i][++j])
 		{
-			if (game->map[i][j] == 'N' || game->map[i][j] == 'S'
-				|| game->map[i][j] == 'E' || game->map[i][j] == 'W')
+			if (ft_strchr("NSEW", game->map[i][j]))
 			{
 				game->p_coord.x = j;
 				game->p_coord.y = i;
@@ -38,7 +37,6 @@ void	find_player(t_cub *game)
 					game->player_angle = M_PI;
 				return ;
 			}
-			j++;
 		}
 	}
 }
@@ -77,9 +75,8 @@ int	alloc_textures(t_cub *game)
 				* game->wallW->width));
 	game->textures->color_arrayS = malloc(sizeof(int) * (game->wallS->height
 				* game->wallS->width));
-	game->textures->color_arrayD = malloc(sizeof(int) * (game->dooR->height * game->dooR->width));
 	if (!game->textures->color_arrayE || !game->textures->color_arrayN
-			|| !game->textures->color_arrayW || !game->textures->color_arrayS || !game->textures->color_arrayD)
+		|| !game->textures->color_arrayW || !game->textures->color_arrayS)
 		return (0);
 	return (1);
 }
@@ -91,7 +88,6 @@ int	init_game(t_cub *game)
 	game->wallS = mlx_load_png(game->textures_img[SO]);
 	game->wallW = mlx_load_png(game->textures_img[WE]);
 	game->wallE = mlx_load_png(game->textures_img[EA]);
-	game->dooR = mlx_load_png(game->textures_img[DO]);
 	game->map_img = mlx_new_image(game->mlx, WIDTH, HEIGHT);
 	if (!alloc_textures(game))
 		return (0);

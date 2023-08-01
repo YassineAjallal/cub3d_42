@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yajallal <yajallal@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: mkhairou <mkhairou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/21 03:34:16 by yajallal          #+#    #+#             */
-/*   Updated: 2023/06/12 13:26:43 by yajallal         ###   ########.fr       */
+/*   Updated: 2023/07/31 17:31:17 by mkhairou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,6 @@ char	*ft_copy(char *save)
 	i = 0;
 	while (save[i] != '\n' && save[i])
 		i++;
-	// if (save[i] == '\n')
-	// 	i++;
 	line = ft_substr(save, 0, i);
 	return (line);
 }

@@ -6,11 +6,12 @@
 /*   By: yajallal <yajallal@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/11 16:43:26 by yajallal          #+#    #+#             */
-/*   Updated: 2023/07/31 19:13:37 by yajallal         ###   ########.fr       */
+/*   Updated: 2023/08/01 14:57:00 by yajallal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "raycasting.h"
+
 void drawline_mini(t_coord c0, t_coord c1, t_cub *game, int color)
 {
     int dx = abs((int)c1.x - (int)c0.x);
@@ -46,10 +47,7 @@ void	draw_wall(int h, int w, t_cub *game, int color)
 		int j = w;
 		while (j <= w + TILE)
 		{
-			// if (j == w || j == w + TILE || i == h || i == h + TILE)
-			// 	mlx_put_pixel(game->map_img, i * SCALE_MINIMAP, j * SCALE_MINIMAP, rgba(20,20,20,1));
-			// else
-				mlx_put_pixel(game->map_img, i * SCALE_MINIMAP, j * SCALE_MINIMAP, color);
+			mlx_put_pixel(game->map_img, i * SCALE_MINIMAP, j * SCALE_MINIMAP, color);
 			j++;
 		}
 		i++;
