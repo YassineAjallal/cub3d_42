@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_valid_map.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mkhairou <mkhairou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yajallal <yajallal@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 16:02:14 by yajallal          #+#    #+#             */
-/*   Updated: 2023/07/31 17:30:43 by mkhairou         ###   ########.fr       */
+/*   Updated: 2023/08/02 21:44:11 by yajallal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,13 +83,13 @@ int	first_last_wall(char *line)
 
 int	space_border(char **map, int i, int j)
 {
-	if (!map[i - 1][j] || !ft_strchr("0NSEW1", map[i - 1][j]))
+	if (j + 1 > ft_strlen(map[i - 1]) || !ft_strchr("0NSEW1", map[i - 1][j]))
 		return (0);
-	if (!map[i + 1][j] || !ft_strchr("0NSEW1", map[i + 1][j]))
+	if (j + 1 > ft_strlen(map[i + 1]) || !ft_strchr("0NSEW1", map[i + 1][j]))
 		return (0);
-	if (!map[i][j - 1] || !ft_strchr("0NSEW1", map[i][j - 1]))
+	if (!ft_strchr("0NSEW1", map[i][j - 1]))
 		return (0);
-	if (!map[i][j + 1] || !ft_strchr("0NSEW1", map[i][j + 1]))
+	if (!ft_strchr("0NSEW1", map[i][j + 1]))
 		return (0);
 	return (1);
 }

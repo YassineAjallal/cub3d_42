@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yajallal < yajallal@student.1337.ma >      +#+  +:+       +#+        */
+/*   By: yajallal <yajallal@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/11 00:30:53 by yajallal          #+#    #+#             */
-/*   Updated: 2022/10/17 21:58:36 by yajallal         ###   ########.fr       */
+/*   Updated: 2023/08/02 15:19:35 by yajallal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static	size_t	ft_nbword(char *s, char c)
+size_t	ft_nbword(char *s, char c)
 {
 	int		i;
 	size_t	nb;
@@ -31,7 +31,7 @@ static	size_t	ft_nbword(char *s, char c)
 	return (nb);
 }
 
-static	size_t	ft_len(char *s, char c, int p)
+size_t	ft_len(char *s, char c, int p)
 {
 	size_t	len;
 

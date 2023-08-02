@@ -6,7 +6,7 @@
 /*   By: yajallal <yajallal@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 13:40:42 by mkhairou          #+#    #+#             */
-/*   Updated: 2023/08/01 12:27:07 by yajallal         ###   ########.fr       */
+/*   Updated: 2023/08/02 23:19:11 by yajallal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	raycast(t_cub *game, int rayx, t_ray *ray)
 	end.x = rayx;
 	start.y = (HEIGHT / 2) - (ray->wall_height / 2);
 	end.y = (HEIGHT / 2) + (ray->wall_height / 2);
-	draw_texture(start, end, game, ray);
+	draw_texture(start, game, ray);
 }
 
 void	rays_drawing(t_cub *game, int i, t_ray *ray, t_coord p)
@@ -37,8 +37,8 @@ void	rays_drawing(t_cub *game, int i, t_ray *ray, t_coord p)
 
 	ver = vertical_inter(game, p, ray);
 	hor = horizontal_inter(game, p, ray);
-	ver_dis = calc_dis(game, ver, p);
-	hor_dis = calc_dis(game, hor, p);
+	ver_dis = calc_dis(ver, p);
+	hor_dis = calc_dis(hor, p);
 	if (hor_dis > ver_dis)
 	{
 		ray->distance = ver_dis;

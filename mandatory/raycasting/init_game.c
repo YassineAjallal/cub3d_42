@@ -6,7 +6,7 @@
 /*   By: yajallal <yajallal@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/11 13:17:54 by yajallal          #+#    #+#             */
-/*   Updated: 2023/07/31 20:15:33 by yajallal         ###   ########.fr       */
+/*   Updated: 2023/08/02 23:20:10 by yajallal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,14 +67,14 @@ void	parse_image(mlx_texture_t *img, int *arr)
 
 int	alloc_textures(t_cub *game)
 {
-	game->textures->color_arrayE = malloc(sizeof(int) * (game->wallE->height
-				* game->wallE->width));
-	game->textures->color_arrayN = malloc(sizeof(int) * (game->wallN->height
-				* game->wallN->width));
-	game->textures->color_arrayW = malloc(sizeof(int) * (game->wallW->height
-				* game->wallW->width));
-	game->textures->color_arrayS = malloc(sizeof(int) * (game->wallS->height
-				* game->wallS->width));
+	game->textures->color_arrayE = ft_malloc(sizeof(int) * (game->wallE->height
+				* game->wallE->width), 1, 'A');
+	game->textures->color_arrayN = ft_malloc(sizeof(int) * (game->wallN->height
+				* game->wallN->width), 1, 'A');
+	game->textures->color_arrayW = ft_malloc(sizeof(int) * (game->wallW->height
+				* game->wallW->width), 1, 'A');
+	game->textures->color_arrayS = ft_malloc(sizeof(int) * (game->wallS->height
+				* game->wallS->width), 1, 'A');
 	if (!game->textures->color_arrayE || !game->textures->color_arrayN
 		|| !game->textures->color_arrayW || !game->textures->color_arrayS)
 		return (0);
@@ -88,6 +88,11 @@ int	init_game(t_cub *game)
 	game->wallS = mlx_load_png(game->textures_img[SO]);
 	game->wallW = mlx_load_png(game->textures_img[WE]);
 	game->wallE = mlx_load_png(game->textures_img[EA]);
+	if (!game->wallE || !game->wallS || !game->wallN || !game->wallW)
+	{
+		ft_malloc(0, 0, 'A');
+		error_print((char *)mlx_strerror(mlx_errno));
+	}
 	game->map_img = mlx_new_image(game->mlx, WIDTH, HEIGHT);
 	if (!alloc_textures(game))
 		return (0);

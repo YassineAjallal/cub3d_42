@@ -6,13 +6,13 @@
 /*   By: yajallal <yajallal@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 21:08:51 by yajallal          #+#    #+#             */
-/*   Updated: 2023/07/31 21:09:14 by yajallal         ###   ########.fr       */
+/*   Updated: 2023/08/02 23:17:10 by yajallal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "raycasting.h"
 
-double	calc_dis(t_cub *game, t_coord hit, t_coord p)
+double	calc_dis(t_coord hit, t_coord p)
 {
 	double	dis;
 

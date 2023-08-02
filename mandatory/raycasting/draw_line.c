@@ -6,13 +6,13 @@
 /*   By: yajallal <yajallal@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/11 16:24:52 by yajallal          #+#    #+#             */
-/*   Updated: 2023/08/01 18:18:03 by yajallal         ###   ########.fr       */
+/*   Updated: 2023/08/02 23:16:05 by yajallal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "raycasting.h"
 
-void	pixel_draw(t_coord c0, t_coord c1, t_cub *game, int color)
+void	pixel_draw(t_coord c0, t_cub *game, int color)
 {
 	if (c0.x >= 0 && c0.x < WIDTH && c0.y >= 0 && c0.y < HEIGHT)
 		mlx_put_pixel(game->map_img, c0.x, c0.y, color);
@@ -37,7 +37,7 @@ void	drawline(t_coord c0, t_coord c1, t_cub *game, int color)
     incr.y = dy / (float)steps;
     while (i <= steps) 
 	{
-        pixel_draw(c0, c1, game, color);
+        pixel_draw(c0, game, color);
         c0.x += incr.x;
         c0.y += incr.y;
 		i++;

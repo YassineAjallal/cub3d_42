@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_map_config.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mkhairou <mkhairou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yajallal <yajallal@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/01 21:08:11 by yajallal          #+#    #+#             */
-/*   Updated: 2023/07/31 17:30:12 by mkhairou         ###   ########.fr       */
+/*   Updated: 2023/08/02 23:15:12 by yajallal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,10 @@ void	config_len(t_map *map)
 		map = map->next;
 	}
 	if (config_len != 6)
+	{
+		ft_malloc(0, 0, 'C');
 		error_print("incomplet map\n");
+	}
 }
 
 t_map	*config_list(char **split)
@@ -50,7 +53,7 @@ t_map	*config_list(char **split)
 	i = 0;
 	while (split[i])
 	{
-		config = add_new_node(split[i], 'C', config);
+		config = add_new_node(split[i], 'C', config, 'B');
 		i++;
 	}
 	return (config);
@@ -69,38 +72,48 @@ int	array_len(char **array)
 int	allint(char **a)
 {
 	int		i;
-	char	*tmp;
-	int		len;
 	int		j;
 
-	i = 1;
-	while (i < 4)
+	i = 0;
+	while (i < 3)
 	{
-		len = ft_strlen(a[i]);
-		if ((!ft_strchr(a[i], ',') && i != 3) || (i == 3 && ft_strchr(a[i],
-					',')) || ft_strlen(a[i]) > 4)
-			error_print("invalid colors\n");
-		else if (a[i][len - 1] == ',' && !ft_isdigit(a[i][len - 2]))
-			error_print("invalid colors\n");
-		else
-		{
-			j = 0;
-			tmp = ft_strtrim(a[i], ",");
-			while (tmp[j])
-				if (!ft_isdigit(tmp[j++]))
-					error_print("invalid colors\n");
-			if (ft_atoi(tmp) > 255 || ft_atoi(tmp) < 0)
+		j = 0;
+		while (a[i][j])
+			if (!ft_isdigit(a[i][j++]))
+			{
+				ft_malloc(0, 0, 'C');
 				error_print("invalid colors\n");
+			}
+		if (ft_atoi(a[i]) > 255 || ft_atoi(a[i]) < 0)
+		{
+			ft_malloc(0, 0, 'C');
+			error_print("invalid colors\n");
 		}
 		i++;
 	}
-	return (rgba(ft_atoi(a[1]), ft_atoi(a[2]), ft_atoi(a[3]), 1));
+	return (rgba(ft_atoi(a[0]), ft_atoi(a[1]), ft_atoi(a[2]), 1));
+}
+int color_formatting(char *color)
+{
+	int i;
+
+	i = 0;
+	if (color[0] == ',' || color[ft_strlen(color) - 1] == ',')
+		return (0);
+	while(color[i])
+	{
+		if (color[i] == ',' && color[i + 1] == ',')
+			return (0);
+		i++;
+	}
+	return (1);
 }
 
 void	check_valid_config(t_map *config, t_cub *game)
 {
 	t_map	*tmp;
 	char	**split;
+	char	*tmp_str;
 
 	tmp = config;
 	while (tmp)
@@ -109,9 +122,18 @@ void	check_valid_config(t_map *config, t_cub *game)
 		{
 			if (tmp->line[0] == 'F' || tmp->line[0] == 'C')
 			{
-				split = ft_split(tmp->line, ' ');
-				if (array_len(split) != 4)
+				tmp_str = ft_strtrim_tool(tmp->line + 1, " \t", 'B');
+				if (!color_formatting(tmp_str))
+				{
+					ft_malloc(0, 0, 'C');
 					error_print("invalid colors\n");
+				}
+				split = ft_split_tool(tmp_str, ',', 'B');
+				if (array_len(split) != 3)
+				{
+					ft_malloc(0, 0, 'C');
+					error_print("invalid colors\n");
+				}
 				if (tmp->line[0] == 'F')
 					game->floor_color = allint(split);
 				else
@@ -131,7 +153,7 @@ void	check_map_config(t_map *map, t_cub *game)
 
 	config_len(map);
 	tmp = map;
-	split = ft_split("NO SO WE EA F C", ' ');
+	split = ft_split_tool("NO SO WE EA F C", ' ', 'B');
 	config = config_list(split);
 	while (map)
 	{
@@ -139,14 +161,20 @@ void	check_map_config(t_map *map, t_cub *game)
 		{
 			if (map->line[0] != ' ')
 			{
-				split_line = ft_split(map->line, ' ');
+				split_line = ft_split_tool(map->line, ' ', 'B');
 				if (ft_strchr2d(split, split_line[0]) >= 0)
 					config = delete_node(config, split_line[0]);
 				else
+				{
+					ft_malloc(0, 0, 'C');
 					error_print("invalid config\n");
+				}
 			}
 			else
+			{
+				ft_malloc(0, 0, 'C');
 				error_print("invalid config\n");
+			}
 		}
 		map = map->next;
 	}

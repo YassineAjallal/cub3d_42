@@ -1,21 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error_print.c                                      :+:      :+:    :+:   */
+/*   ft_malloc.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yajallal <yajallal@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/01 17:15:07 by yajallal          #+#    #+#             */
-/*   Updated: 2023/08/02 23:11:21 by yajallal         ###   ########.fr       */
+/*   Created: 2023/05/26 18:34:52 by yajallal          #+#    #+#             */
+/*   Updated: 2023/08/02 18:35:11 by yajallal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parsing.h"
+#ifndef FT_MALLOC_H
+# define FT_MALLOC_H
 
-void	error_print(char *error_msg)
+# include <stdlib.h>
+# include <stdio.h>
+
+typedef struct s_malloc
 {
-	ft_putstr_fd("Error\n", 2);
-	ft_putstr_fd(error_msg, 2);
-	// system("leaks cub3D");
-	exit(EXIT_FAILURE);
-}
+	void	*address;
+	char	type;
+	struct s_malloc	*next;
+}	t_malloc;
+
+void	*ft_malloc(size_t size, int mode, char type);
+
+t_malloc	*add_new_node_malloc(void *address, char type,t_malloc *head);
+t_malloc	*delete_addr(t_malloc *head);
+t_malloc	*delete_addr_before_after(t_malloc *head, char type);
+#endif

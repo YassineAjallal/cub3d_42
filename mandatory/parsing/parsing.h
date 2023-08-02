@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mkhairou <mkhairou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yajallal <yajallal@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/01 16:38:46 by yajallal          #+#    #+#             */
-/*   Updated: 2023/07/31 17:29:52 by mkhairou         ###   ########.fr       */
+/*   Updated: 2023/08/02 19:54:19 by yajallal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,14 +42,22 @@ char	*ft_copy(char *save);
 char	*ft_getnews(char *save);
 char	*get_next_line(int fd);
 
-t_map	*add_new_node(char *line, char config, t_map *map);
+t_map	*add_new_node(char *line, char config, t_map *map, char type);
 t_map	*delete_node(t_map *head, char *str);
 
 void	print(t_map *map);
 t_map	*read_map(char *map_file);
 
 int		ft_strlen2d(char **str);
+void	ft_free2d(char **str);
 void	valid_extention(char *map_file);
 
 char	**extract_textures(t_map *map);
+
+void	*ft_calloc_tool(size_t count, size_t size, char type);
+char	*ft_strdup_tool(const char *s1, char type);
+char	*ft_strjoin_tool(char const *s1, char const *s2, char type);
+char	*ft_substr_tool(char const *s, unsigned int start, size_t len, char type);
+char	**ft_split_tool(char const *s, char c, char type);
+char	*ft_strtrim_tool(char const *s1, char const *set, char type);
 #endif

@@ -6,7 +6,7 @@
 /*   By: yajallal <yajallal@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/17 00:11:58 by yajallal          #+#    #+#             */
-/*   Updated: 2023/06/01 16:59:52 by yajallal         ###   ########.fr       */
+/*   Updated: 2023/08/02 15:19:53 by yajallal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,4 +51,7 @@ size_t	ft_strlcat(char *dst, const char *src, size_t dstsize);
 char	*ft_itoa(int n);
 char	**ft_split(char const *s, char c);
 int		ft_strcmp(char *s1, char *s2);
+
+size_t	ft_nbword(char *s, char c);
+size_t	ft_len(char *s, char c, int p);
 #endif

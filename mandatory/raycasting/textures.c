@@ -6,7 +6,7 @@
 /*   By: yajallal <yajallal@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 12:26:47 by yajallal          #+#    #+#             */
-/*   Updated: 2023/08/01 12:35:47 by yajallal         ###   ########.fr       */
+/*   Updated: 2023/08/02 23:18:49 by yajallal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,13 +35,13 @@ int	*select_texture(t_cub *game, t_ray *ray, float *text_pos_x)
 	return (color);
 }
 
-void	draw_texture(t_coord start, t_coord end, t_cub *game, t_ray *ray)
+void	draw_texture(t_coord start, t_cub *game, t_ray *ray)
 {
-	float	y_incr;
-	int		*color;
-	float	text_pos_x;
-	int		i;
-	t_coord	c1;
+	float		y_incr;
+	int			*color;
+	float		text_pos_x;
+	uint32_t	i;
+	t_coord		c1;
 
 	y_incr = (float)(ray->wall_height) / (float)game->wallN->height;
 	color = select_texture(game, ray, &text_pos_x);
