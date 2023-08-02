@@ -6,7 +6,7 @@
 /*   By: yajallal <yajallal@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/11 16:43:26 by yajallal          #+#    #+#             */
-/*   Updated: 2023/08/01 15:12:28 by yajallal         ###   ########.fr       */
+/*   Updated: 2023/08/01 18:16:40 by yajallal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,31 +22,29 @@ void	pixel_draw_mini(t_coord c0, t_coord c1, t_cub *game, int color)
 
 void	drawline_mini(t_coord c0, t_coord c1, t_cub *game, int color)
 {
-	t_coord	d;
-	t_coord	s;
-	int		err;
-	int		err2;
 
-	s = init_drawline(c0, c1);
-	d.x = abs((int)c1.x - (int)c0.x);
-	d.y = abs((int)c1.y - (int)c0.y);
-	err = d.x - d.y;
-	while ((int)floorf(c0.x) != (int)floorf(c1.x) 
-		|| (int)floorf(c0.y) != (int)floorf(c1.y))
+	int dx;
+    int dy;
+	int i;
+	t_coord incr;
+    int steps;
+
+	i = 0;
+	dx = c1.x - c0.x;
+	dy = c1.y - c0.y;
+	if (abs(dx) > abs(dy))
+		steps = abs(dx);
+	else 
+		steps = abs(dy);
+    incr.x = dx / (float)steps;
+    incr.y = dy / (float)steps;
+    while (i <= steps) 
 	{
-		pixel_draw_mini(c0, c1, game, color);
-		err2 = 2 * err;
-		if (err2 > -d.y)
-		{
-			err -= d.y;
-			c0.x += s.x;
-		}
-		if (err2 < d.x)
-		{
-			err += d.x;
-			c0.y += s.y;
-		}
-	}
+        pixel_draw_mini(c0, c1, game, color);
+        c0.x += incr.x;
+        c0.y += incr.y;
+		i++;
+    }
 }
 
 void	draw_wall(int h, int w, t_cub *game, int color)
