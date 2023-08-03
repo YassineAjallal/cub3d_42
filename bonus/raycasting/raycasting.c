@@ -6,7 +6,7 @@
 /*   By: yajallal <yajallal@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 13:40:42 by mkhairou          #+#    #+#             */
-/*   Updated: 2023/08/01 14:57:39 by yajallal         ###   ########.fr       */
+/*   Updated: 2023/08/03 17:56:27 by yajallal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	raycast(t_cub *game, int rayx, t_ray *ray)
 	end.x = rayx;
 	start.y = (HEIGHT / 2) - (ray->wall_height / 2);
 	end.y = (HEIGHT / 2) + (ray->wall_height / 2);
-	draw_texture(start, end, game, ray);
+	draw_texture(start, game, ray);
 }
 
 void	rays_drawing(t_cub *game, int i, t_ray *ray, t_coord p)
@@ -37,8 +37,8 @@ void	rays_drawing(t_cub *game, int i, t_ray *ray, t_coord p)
 
 	ver = vertical_inter(game, p, ray);
 	hor = horizontal_inter(game, p, ray);
-	ver_dis = calc_dis(game, ver, p);
-	hor_dis = calc_dis(game, hor, p);
+	ver_dis = calc_dis(ver, p);
+	hor_dis = calc_dis(hor, p);
 	if (hor_dis > ver_dis)
 	{
 		ray->distance = ver_dis;
@@ -58,9 +58,9 @@ void	rays_drawing(t_cub *game, int i, t_ray *ray, t_coord p)
 void	init_sides(t_ray *ray)
 {
 	ray->angle = normlize_angle(ray->angle);
-	ray->down = ray->angle > 0 && ray->angle < M_PI;
+	ray->down = (ray->angle > 0 && ray->angle < M_PI);
 	ray->up = !ray->down;
-	ray->right = (ray->angle < (0.5 * M_PI)) || (ray->angle > (1.5 * M_PI));
+	ray->right = ((ray->angle < (0.5 * M_PI)) || (ray->angle > (1.5 * M_PI)));
 	ray->left = !ray->right;
 }
 

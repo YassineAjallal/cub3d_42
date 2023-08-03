@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read_map.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mkhairou <mkhairou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yajallal <yajallal@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/01 16:38:31 by yajallal          #+#    #+#             */
-/*   Updated: 2023/07/31 17:31:59 by mkhairou         ###   ########.fr       */
+/*   Updated: 2023/08/03 16:44:57 by yajallal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,17 +26,10 @@ void	print(t_map *map)
 	}
 }
 
-t_map	*read_map(char *map_file)
+t_map	*read_config(t_map *map, char *line, int map_fd)
 {
-	int		map_fd;
-	char	*line;
-	t_map	*map;
-	int		i;
+	int	i;
 
-	map = NULL;
-	map_fd = open(map_file, O_RDONLY);
-	if (map_fd < 0)
-		error_print("file not found\n");
 	line = get_next_line(map_fd);
 	while (line)
 	{
@@ -49,31 +42,29 @@ t_map	*read_map(char *map_file)
 				break ;
 			map = add_new_node(line, 'C', map);
 		}
-		else
-			free(line);
+		free(line);
 		line = get_next_line(map_fd);
 	}
 	while (line)
 	{
 		map = add_new_node(line, 'M', map);
+		free(line);
 		line = get_next_line(map_fd);
 	}
-	close(map_fd);
 	return (map);
 }
 
-// int main(int ac, char *av[])
-// {
-// 	t_map *map;
-// 	int i;
-// 	char **map_arr;
+t_map	*read_map(char *map_file)
+{
+	int		map_fd;
+	char	*line;
+	t_map	*map;
 
-// 	i = 0;
-// 	(void)ac;
-// 	map = read_map(av[1]);
-// 	check_map_config(map);
-// 	map_arr = get_map(map);
-// 	if (!check_valid_map(map_arr))
-// 		printf("1 : Error\n");
-// 	return (0);
-// }
+	map = NULL;
+	map_fd = open(map_file, O_RDONLY);
+	if (map_fd < 0)
+		error_print("file not found\n");
+	map = read_config(map, line, map_fd);
+	close(map_fd);
+	return (map);
+}

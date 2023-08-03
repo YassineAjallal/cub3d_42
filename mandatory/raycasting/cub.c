@@ -6,7 +6,7 @@
 /*   By: yajallal <yajallal@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/11 17:12:08 by yajallal          #+#    #+#             */
-/*   Updated: 2023/08/03 16:15:53 by yajallal         ###   ########.fr       */
+/*   Updated: 2023/08/03 17:48:59 by yajallal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,28 @@ void	error_checker(char **av, t_cub *game, t_map *map)
 	}
 }
 
+int	final_game(char **av, t_cub *game, t_map *map)
+{
+	error_checker(av, game, map);
+	if (!init_game(game))
+	{
+		free(game->textures);
+		ft_free2d(game->map);
+		free(game);
+		return (0);
+	}
+	rays(game);
+	mlx_loop_hook(game->mlx, hooks, game);
+	mlx_loop(game->mlx);
+	mlx_terminate(game->mlx);
+	free_colors(game);
+	free_texturs(game);
+	free(game->textures);
+	ft_free2d(game->map);
+	free(game);
+	return (1);
+}
+
 int	main(int ac, char **av)
 {
 	t_cub	*game;
@@ -49,35 +71,12 @@ int	main(int ac, char **av)
 			return (0);
 		map = malloc(sizeof(t_map));
 		if (!map)
-		{
-			free(game);
-			return (0);
-		}
+			return (free(game), 0);
 		game->textures = malloc(sizeof(t_textures));
 		if (!game->textures)
-		{
-			free(map);
-			free(game);
+			return (free(map), free(game), 0);
+		if (!final_game(av, game, map))
 			return (0);
-		}
-		error_checker(av, game, map);
-		if (!init_game(game))
-		{
-			free(game->textures);
-			ft_free2d(game->map);
-			free(game);
-			return (0);
-		}
-		rays(game);
-		mlx_loop_hook(game->mlx, hooks, game);
-		mlx_loop(game->mlx);
-		mlx_terminate(game->mlx);
-		free_colors(game);
-		free_texturs(game);
-		free(game->textures);
-		ft_free2d(game->map);
-		free(game);
-		system("leaks cub3D");
 	}
 	return (0);
 }

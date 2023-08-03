@@ -35,13 +35,13 @@ int	*select_texture(t_cub *game, t_ray *ray, float *text_pos_x)
 	return (color);
 }
 
-void	draw_texture(t_coord start, t_coord end, t_cub *game, t_ray *ray)
+void	draw_texture(t_coord start, t_cub *game, t_ray *ray)
 {
-	float	y_incr;
-	int		*color;
-	float	text_pos_x;
-	int		i;
-	t_coord	c1;
+	float		y_incr;
+	int			*color;
+	float		text_pos_x;
+	uint32_t	i;
+	t_coord		c1;
 
 	y_incr = (float)(ray->wall_height) / (float)game->walln->height;
 	color = select_texture(game, ray, &text_pos_x);
@@ -50,8 +50,8 @@ void	draw_texture(t_coord start, t_coord end, t_cub *game, t_ray *ray)
 	{
 		c1.x = start.x;
 		c1.y = (int)(start.y + y_incr);
-		drawline(start, c1, game,
-			color[(int)text_pos_x + (i * game->walln->width)]);
+		drawline(start, c1, game, color[(int)text_pos_x + (i
+				* game->walln->width)]);
 		start.y += y_incr;
 		i++;
 	}

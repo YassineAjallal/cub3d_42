@@ -1,0 +1,6 @@
+{
+	"files.associations": {
+		"*.cpp": "cpp",
+		"raycasting.h": "c"
+	}
+}

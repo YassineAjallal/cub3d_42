@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tools.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mkhairou <mkhairou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yajallal <yajallal@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 16:44:48 by yajallal          #+#    #+#             */
-/*   Updated: 2023/07/31 17:32:16 by mkhairou         ###   ########.fr       */
+/*   Updated: 2023/08/03 16:23:33 by yajallal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,30 @@ int	ft_strlen2d(char **str)
 
 	i = 0;
 	while (str[i])
+		i++;
+	return (i);
+}
+
+void	ft_free2d(char **str)
+{
+	int	i;
+
+	i = 0;
+	if (!str)
+		return ;
+	while (str[i])
+		free(str[i++]);
+	if (str)
+		free(str);
+	str = NULL;
+}
+
+int	array_len(char **array)
+{
+	int	i;
+
+	i = 0;
+	while (array[i])
 		i++;
 	return (i);
 }

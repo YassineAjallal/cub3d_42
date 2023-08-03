@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_game.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mkhairou <mkhairou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yajallal <yajallal@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/11 13:17:54 by yajallal          #+#    #+#             */
-/*   Updated: 2023/08/03 15:50:51 by mkhairou         ###   ########.fr       */
+/*   Updated: 2023/08/03 17:51:22 by yajallal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,18 +65,6 @@ void	parse_image(mlx_texture_t *img, int *arr)
 	}
 }
 
-void	free_colors(t_cub *game)
-{
-	if (game->textures->color_arraye)
-		free(game->textures->color_arraye);
-	if (game->textures->color_arrayn)
-		free(game->textures->color_arrayn);
-	if (game->textures->color_arrayw)
-		free(game->textures->color_arrayw);
-	if (game->textures->color_arrays)
-		free(game->textures->color_arrays);
-}
-
 int	alloc_textures(t_cub *game)
 {
 	game->textures->color_arraye = malloc(sizeof(int) * (game->walle->height
@@ -91,18 +79,6 @@ int	alloc_textures(t_cub *game)
 		|| !game->textures->color_arrayw || !game->textures->color_arrays)
 		return (0);
 	return (1);
-}
-
-void	free_texturs(t_cub *game)
-{
-	if (game->walle)
-		mlx_delete_texture(game->walle);
-	if (game->walln)
-		mlx_delete_texture(game->walln);
-	if (game->walls)
-		mlx_delete_texture(game->walls);
-	if (game->wallw)
-		mlx_delete_texture(game->wallw);
 }
 
 int	init_game(t_cub *game)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structs.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mkhairou <mkhairou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yajallal <yajallal@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/11 13:38:28 by yajallal          #+#    #+#             */
-/*   Updated: 2023/08/03 15:22:21 by mkhairou         ###   ########.fr       */
+/*   Updated: 2023/08/03 18:32:37 by yajallal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,17 +22,16 @@
 # include <stdlib.h>
 # include <unistd.h>
 
-# ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 42
-# endif
-
-#define SCALE_MINIMAP 0.1
+# define BUFFER_SIZE 42
+# define SCALE_MINIMAP 0.1
 # define TILE 64
-# define FOV_ANGLE (60 * (M_PI / 180))
+# define TO_RAD (M_PI / 180)
+# define A 60
+# define FOV_ANGLE A * TO_RAD
 # define WIDTH 720
 # define HEIGHT 720
-# define RAY_INC (FOV_ANGLE / WIDTH)
-# define HALF_FOV (FOV_ANGLE / 2)
+# define RAY_INC FOV_ANGLE / WIDTH
+# define HALF_FOV FOV_ANGLE / 2
 
 typedef enum e_side
 {

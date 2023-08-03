@@ -8,7 +8,6 @@ SRCS_MANDA =	mandatory/parsing/check_map_config.c \
 				mandatory/parsing/get_map.c \
 				mandatory/parsing/linkedlist.c \
 				mandatory/parsing/tools.c \
-				mandatory/raycasting/cub.c \
 				mandatory/raycasting/hooks.c \
 				mandatory/parsing/check_valid_map.c \
 				mandatory/parsing/check_valid_map_tool.c \
@@ -16,6 +15,7 @@ SRCS_MANDA =	mandatory/parsing/check_map_config.c \
 				mandatory/parsing/get_next_line.c \
 				mandatory/parsing/read_map.c \
 				mandatory/parsing/valid_extention.c \
+				mandatory/raycasting/cub.c \
 				mandatory/raycasting/draw_line.c \
 				mandatory/raycasting/init_game.c \
 				mandatory/raycasting/raycasting.c \
@@ -23,16 +23,20 @@ SRCS_MANDA =	mandatory/parsing/check_map_config.c \
 				mandatory/raycasting/raycast_algo.c  \
 				mandatory/raycasting/raycast_tools.c  \
 				mandatory/raycasting/textures.c  \
+				mandatory/raycasting/free_func.c  \
 
 SRCS_BONUS = 	bonus/parsing/check_map_config.c \
-				bonus/parsing/check_valid_map.c \
+				bonus/parsing/check_map_config_tool.c \
 				bonus/parsing/error_print.c \
-				bonus/parsing/extract_config.c \
 				bonus/parsing/get_map.c \
-				bonus/parsing/get_next_line.c \
 				bonus/parsing/linkedlist.c \
-				bonus/parsing/read_map.c \
 				bonus/parsing/tools.c \
+				bonus/raycasting/hooks.c \
+				bonus/parsing/check_valid_map.c \
+				bonus/parsing/check_valid_map_tool.c \
+				bonus/parsing/extract_config.c \
+				bonus/parsing/get_next_line.c \
+				bonus/parsing/read_map.c \
 				bonus/parsing/valid_extention.c \
 				bonus/raycasting/cub.c \
 				bonus/raycasting/draw_line.c \
@@ -45,6 +49,7 @@ SRCS_BONUS = 	bonus/parsing/check_map_config.c \
 				bonus/raycasting/raycast_tools.c  \
 				bonus/raycasting/textures.c  \
 				bonus/raycasting/directions.c \
+				bonus/raycasting/free_func.c  \
 
 
 OBJS_MANDA = $(SRCS_MANDA:.c=.o)

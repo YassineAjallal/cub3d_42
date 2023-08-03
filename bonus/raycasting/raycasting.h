@@ -6,7 +6,7 @@
 /*   By: yajallal <yajallal@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/11 13:04:14 by yajallal          #+#    #+#             */
-/*   Updated: 2023/08/01 15:36:08 by yajallal         ###   ########.fr       */
+/*   Updated: 2023/08/03 18:30:34 by yajallal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 
 # include "../parsing/parsing.h"
 # include "../structs.h"
-
 void	error_checker(char **av, t_cub *game, t_map *map);
 
 void	key_up(t_cub *game);
@@ -23,8 +22,7 @@ void	key_down(t_cub *game);
 void	key_right(t_cub *game);
 void	key_left(t_cub *game);
 
-t_coord	init_drawline(t_coord c0, t_coord c1);
-void	pixel_draw(t_coord c0, t_coord c1, t_cub *game, int color);
+void	pixel_draw(t_coord c0, t_cub *game, int color);
 void	drawline(t_coord c0, t_coord c1, t_cub *game, int color);
 
 void	key_left_rotate(t_cub *game);
@@ -42,7 +40,7 @@ t_coord	intersec(t_cub *game, t_ray *ray, char type);
 t_coord	horizontal_inter(t_cub *game, t_coord p, t_ray *ray);
 t_coord	vertical_inter(t_cub *game, t_coord p, t_ray *ray);
 
-double	calc_dis(t_cub *game, t_coord hit, t_coord p);
+double	calc_dis(t_coord hit, t_coord p);
 float	normlize_angle(float angle);
 
 void	raycast(t_cub *game, int rayx, t_ray *ray);
@@ -51,7 +49,7 @@ void	init_sides(t_ray *ray);
 void	rays(t_cub *game);
 
 int		*select_texture(t_cub *game, t_ray *ray, float *text_pos_x);
-void	draw_texture(t_coord start, t_coord end, t_cub *game, t_ray *ray);
+void	draw_texture(t_coord start, t_cub *game, t_ray *ray);
 
 void	cast_minimap_rays(t_cub *game, t_ray *ray, t_coord p);
 void	rays_minimap(t_cub *game);
@@ -60,4 +58,7 @@ void	drawline_mini(t_coord c0, t_coord c1, t_cub *game, int color);
 void	draw_wall(int h, int w, t_cub *game, int color);
 void	draw_maps(t_cub *game);
 void	put_minimap(t_cub *game);
+
+void	free_texturs(t_cub *game);
+void	free_colors(t_cub *game);
 #endif

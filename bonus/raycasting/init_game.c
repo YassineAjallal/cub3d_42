@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_game.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mkhairou <mkhairou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yajallal <yajallal@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/11 13:17:54 by yajallal          #+#    #+#             */
-/*   Updated: 2023/08/03 15:22:21 by mkhairou         ###   ########.fr       */
+/*   Updated: 2023/08/03 17:51:22 by yajallal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,9 +88,19 @@ int	init_game(t_cub *game)
 	game->walls = mlx_load_png(game->textures_img[SO]);
 	game->wallw = mlx_load_png(game->textures_img[WE]);
 	game->walle = mlx_load_png(game->textures_img[EA]);
+	ft_free2d(game->textures_img);
+	if (!game->walle || !game->walls || !game->walln || !game->wallw)
+	{
+		free_texturs(game);
+		error_print("image error\n");
+	}
 	game->map_img = mlx_new_image(game->mlx, WIDTH, HEIGHT);
 	if (!alloc_textures(game))
+	{
+		free_colors(game);
+		free_texturs(game);
 		return (0);
+	}
 	mlx_image_to_window(game->mlx, game->map_img, 0, 0);
 	parse_image(game->walln, game->textures->color_arrayn);
 	parse_image(game->walls, game->textures->color_arrays);
