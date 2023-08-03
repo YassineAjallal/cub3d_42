@@ -6,7 +6,7 @@
 /*   By: mkhairou <mkhairou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/11 13:38:28 by yajallal          #+#    #+#             */
-/*   Updated: 2023/08/03 19:11:32 by mkhairou         ###   ########.fr       */
+/*   Updated: 2023/08/03 19:22:44 by mkhairou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,8 @@ typedef struct s_cub
 	mlx_texture_t	*walle;
 	double			ray_inc;
 	double			fov_angle;
+	int				mouse_x;
+	int				mouse_y;
 }					t_cub;
 
 int					rgba(int r, int g, int b, float t);

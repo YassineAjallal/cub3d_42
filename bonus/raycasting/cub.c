@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yajallal <yajallal@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: mkhairou <mkhairou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/11 17:12:08 by yajallal          #+#    #+#             */
-/*   Updated: 2023/08/03 17:48:59 by yajallal         ###   ########.fr       */
+/*   Updated: 2023/08/03 19:33:20 by mkhairou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,42 @@ void	error_checker(char **av, t_cub *game, t_map *map)
 	}
 }
 
+void	move_mouse( double x, double y, void *ptr)
+{
+	t_cub	*game;
+	int		xi;
+	int		yi;
+
+	game = (t_cub *)ptr;
+	mlx_get_mouse_pos(game->mlx, &xi, &yi);
+	if (xi > game->mouse_x)
+	{
+		game->player_angle += 0.1;
+		if (game->player_angle < 0)
+			game->player_angle += 2 * M_PI;
+		else if (game->player_angle > 2 * M_PI)
+			game->player_angle -= 2 * M_PI;
+		game->mouse_x = xi;
+	}
+	else if (xi < game->mouse_x)
+	{
+		game->player_angle -= 0.1;
+		if (game->player_angle < 0)
+			game->player_angle += 2 * M_PI;
+		else if (game->player_angle > 2 * M_PI)
+			game->player_angle -= 2 * M_PI;
+		game->mouse_x = xi;
+	}
+}
+
+void	ray_cast(void *pt)
+{
+	t_cub	*game;
+
+	game = (t_cub *)pt;
+	rays(game);
+}
+
 int	final_game(char **av, t_cub *game, t_map *map)
 {
 	error_checker(av, game, map);
@@ -46,7 +82,11 @@ int	final_game(char **av, t_cub *game, t_map *map)
 		return (0);
 	}
 	rays(game);
+	mlx_set_cursor_mode(game->mlx, MLX_MOUSE_DISABLED);
+	mlx_get_mouse_pos(game->mlx, &game->mouse_x, &game->mouse_y);
 	mlx_loop_hook(game->mlx, hooks, game);
+	mlx_cursor_hook(game->mlx, move_mouse, game);
+	mlx_loop_hook(game->mlx, ray_cast, game);
 	mlx_loop(game->mlx);
 	mlx_terminate(game->mlx);
 	free_colors(game);
