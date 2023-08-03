@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structs.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yajallal <yajallal@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: mkhairou <mkhairou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/11 13:38:28 by yajallal          #+#    #+#             */
-/*   Updated: 2023/08/02 14:34:46 by yajallal         ###   ########.fr       */
+/*   Updated: 2023/08/03 15:22:21 by mkhairou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,10 +72,10 @@ typedef struct s_map
 
 typedef struct s_textures
 {
-	int				*color_arrayN;
-	int				*color_arrayS;
-	int				*color_arrayE;
-	int				*color_arrayW;
+	int				*color_arrayn;
+	int				*color_arrays;
+	int				*color_arraye;
+	int				*color_arrayw;
 }					t_textures;
 
 typedef struct s_cub
@@ -92,10 +92,10 @@ typedef struct s_cub
 	mlx_t			*mlx;
 	mlx_image_t		*map_img;
 	mlx_image_t		*player_img;
-	mlx_texture_t	*wallN;
-	mlx_texture_t	*wallS;
-	mlx_texture_t	*wallW;
-	mlx_texture_t	*wallE;
+	mlx_texture_t	*walln;
+	mlx_texture_t	*walls;
+	mlx_texture_t	*wallw;
+	mlx_texture_t	*walle;
 }					t_cub;
 
 int					rgba(int r, int g, int b, float t);

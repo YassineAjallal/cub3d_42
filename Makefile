@@ -7,7 +7,6 @@ SRCS_MANDA =	mandatory/parsing/check_map_config.c \
 				mandatory/parsing/get_map.c \
 				mandatory/parsing/linkedlist.c \
 				mandatory/parsing/tools.c \
-				mandatory/parsing/string_tools.c \
 				mandatory/raycasting/cub.c \
 				mandatory/raycasting/hooks.c \
 				mandatory/parsing/check_valid_map.c \
@@ -22,8 +21,6 @@ SRCS_MANDA =	mandatory/parsing/check_map_config.c \
 				mandatory/raycasting/raycast_algo.c  \
 				mandatory/raycasting/raycast_tools.c  \
 				mandatory/raycasting/textures.c  \
-				ft_malloc/ft_malloc.c \
-				ft_malloc/linked_list_malloc.c \
 
 SRCS_BONUS = 	bonus/parsing/check_map_config.c \
 				bonus/parsing/check_valid_map.c \
@@ -46,14 +43,12 @@ SRCS_BONUS = 	bonus/parsing/check_map_config.c \
 				bonus/raycasting/raycast_tools.c  \
 				bonus/raycasting/textures.c  \
 				bonus/raycasting/directions.c \
-				ft_malloc/ft_malloc.c \
-				ft_malloc/linked_list_malloc.c \
 
 
 OBJS_MANDA = $(SRCS_MANDA:.c=.o)
 OBJS_BONUS = $(SRCS_BONUS:.c=.o)
 GLFW = $(shell brew --prefix glfw)
-MLX_FLAG = MLX42/build/libmlx42.a -Iinclude -lglfw -L $(GLFW)/lib/ -framework Cocoa -framework OpenGL -framework IOKit
+MLX_FLAG = /Users/mkhairou/MLX42/build/libmlx42.a -Iinclude -lglfw -L $(GLFW)/lib/ -framework Cocoa -framework OpenGL -framework IOKit
 
 %.o: %.c
 	@$(CC)  -c $< -o $@

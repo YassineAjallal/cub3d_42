@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_map.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yajallal <yajallal@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: mkhairou <mkhairou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 15:16:02 by yajallal          #+#    #+#             */
-/*   Updated: 2023/08/03 13:07:21 by yajallal         ###   ########.fr       */
+/*   Updated: 2023/08/03 15:18:31 by mkhairou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,12 @@
 
 int	get_map_len(t_map *map)
 {
-	t_map *node;
-	int map_len;
+	t_map	*node;
+	int		map_len;
 
 	node = map;
 	map_len = 0;
-	while(node)
+	while (node)
 	{
 		if (node->cnofig == 'M')
 			map_len++;
@@ -28,11 +28,11 @@ int	get_map_len(t_map *map)
 	return (map_len);
 }
 
-char **get_map(t_map *map, t_cub *game)
+char	**get_map(t_map *map, t_cub *game)
 {
-	t_map *node;
-	int i;
-	char **map_array;
+	t_map	*node;
+	int		i;
+	char	**map_array;
 
 	node = map;
 	i = 0;
@@ -56,19 +56,19 @@ char **get_map(t_map *map, t_cub *game)
 	return (map_array);
 }
 
-int get_large_line(t_cub *game)
+int	get_large_line(t_cub *game)
 {
-	int i;
-	int large_line;
+	int	i;
+	int	large_line;
 
 	i = 0;
 	large_line = 0;
 	if (game->map)
 	{
 		large_line = ft_strlen(game->map[i]);
-		while(game->map[i])	
+		while (game->map[i])
 		{
-			if ( ft_strlen(game->map[i]) > large_line)
+			if (ft_strlen(game->map[i]) > large_line)
 				large_line = ft_strlen(game->map[i]);
 			i++;
 		}

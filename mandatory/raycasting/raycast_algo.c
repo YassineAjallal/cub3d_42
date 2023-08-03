@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycast_algo.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yajallal <yajallal@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: mkhairou <mkhairou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/30 16:14:19 by yajallal          #+#    #+#             */
-/*   Updated: 2023/07/31 21:09:08 by yajallal         ###   ########.fr       */
+/*   Updated: 2023/08/03 15:16:38 by mkhairou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	intersec_tool(t_cub *game, t_coord *next, t_ray *ray)
 	{
 		if ((int)floorf(next->y / TILE) >= ft_strlen2d(game->map))
 			break ;
-		if ((int)floorf(next->x / TILE) >= 
+		if ((int)floorf(next->x / TILE) >= \
 			ft_strlen(game->map[(int)floorf(next->y / TILE)]))
 			break ;
 		if (game->map[(int)floorf(next->y / TILE)]

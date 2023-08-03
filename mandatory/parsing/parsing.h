@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yajallal <yajallal@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: mkhairou <mkhairou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/01 16:38:46 by yajallal          #+#    #+#             */
-/*   Updated: 2023/08/03 11:32:04 by yajallal         ###   ########.fr       */
+/*   Updated: 2023/08/03 15:21:59 by mkhairou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,7 @@ char	*get_next_line(int fd);
 t_map	*add_new_node(char *line, char config, t_map *map);
 t_map	*delete_node(t_map *head, char *str);
 t_map	*free_list(t_map *map);
-size_t lst_size(t_map *config);
-
+size_t	lst_size(t_map *config);
 
 void	print(t_map *map);
 t_map	*read_map(char *map_file);

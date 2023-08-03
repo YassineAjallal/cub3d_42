@@ -3,19 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   extract_config.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yajallal <yajallal@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: mkhairou <mkhairou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 12:21:12 by yajallal          #+#    #+#             */
-/*   Updated: 2023/08/03 13:07:32 by yajallal         ###   ########.fr       */
+/*   Updated: 2023/08/03 15:15:52 by mkhairou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
 
-int calc_space(char *str)
+int	calc_space(char *str)
 {
-	int space;
-	int i;
+	int	space;
+	int	i;
 
 	i = 0;
 	space = 0;
@@ -28,11 +28,11 @@ int calc_space(char *str)
 	return (space);
 }
 
-char **extract_textures(t_map *map)
+char	**extract_textures(t_map *map)
 {
-	char **textures;
-	t_map *head;
-	int i;
+	char	**textures;
+	t_map	*head;
+	int		i;
 
 	head = map;
 	textures = malloc(sizeof(char *) * 5);
@@ -58,5 +58,3 @@ char **extract_textures(t_map *map)
 	free_list(map);
 	return (textures);
 }
-
-

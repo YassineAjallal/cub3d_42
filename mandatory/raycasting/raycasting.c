@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yajallal <yajallal@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: mkhairou <mkhairou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 13:40:42 by mkhairou          #+#    #+#             */
-/*   Updated: 2023/08/02 23:19:11 by yajallal         ###   ########.fr       */
+/*   Updated: 2023/08/03 15:48:00 by mkhairou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,9 +58,9 @@ void	rays_drawing(t_cub *game, int i, t_ray *ray, t_coord p)
 void	init_sides(t_ray *ray)
 {
 	ray->angle = normlize_angle(ray->angle);
-	ray->down = ray->angle > 0 && ray->angle < M_PI;
+	ray->down = (ray->angle > 0 && ray->angle < M_PI);
 	ray->up = !ray->down;
-	ray->right = (ray->angle < (0.5 * M_PI)) || (ray->angle > (1.5 * M_PI));
+	ray->right = ((ray->angle < (0.5 * M_PI)) || (ray->angle > (1.5 * M_PI)));
 	ray->left = !ray->right;
 }
 

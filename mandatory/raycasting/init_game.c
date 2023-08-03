@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_game.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yajallal <yajallal@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: mkhairou <mkhairou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/11 13:17:54 by yajallal          #+#    #+#             */
-/*   Updated: 2023/08/03 13:11:52 by yajallal         ###   ########.fr       */
+/*   Updated: 2023/08/03 15:50:51 by mkhairou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,54 +64,56 @@ void	parse_image(mlx_texture_t *img, int *arr)
 		i += img->bytes_per_pixel;
 	}
 }
-void free_colors(t_cub *game)
+
+void	free_colors(t_cub *game)
 {
-	if (game->textures->color_arrayE)
-		free(game->textures->color_arrayE);
-	if(game->textures->color_arrayN)
-		free(game->textures->color_arrayN);
-	if(game->textures->color_arrayW)
-		free(game->textures->color_arrayW);
-	if(game->textures->color_arrayS)
-		free(game->textures->color_arrayS);
+	if (game->textures->color_arraye)
+		free(game->textures->color_arraye);
+	if (game->textures->color_arrayn)
+		free(game->textures->color_arrayn);
+	if (game->textures->color_arrayw)
+		free(game->textures->color_arrayw);
+	if (game->textures->color_arrays)
+		free(game->textures->color_arrays);
 }
 
 int	alloc_textures(t_cub *game)
 {
-	game->textures->color_arrayE = ft_malloc(sizeof(int) * (game->wallE->height
-				* game->wallE->width), 1, 'A');
-	game->textures->color_arrayN = ft_malloc(sizeof(int) * (game->wallN->height
-				* game->wallN->width), 1, 'A');
-	game->textures->color_arrayW = ft_malloc(sizeof(int) * (game->wallW->height
-				* game->wallW->width), 1, 'A');
-	game->textures->color_arrayS = ft_malloc(sizeof(int) * (game->wallS->height
-				* game->wallS->width), 1, 'A');
-	if (!game->textures->color_arrayE || !game->textures->color_arrayN
-		|| !game->textures->color_arrayW || !game->textures->color_arrayS)
+	game->textures->color_arraye = malloc(sizeof(int) * (game->walle->height
+				* game->walle->width));
+	game->textures->color_arrayn = malloc(sizeof(int) * (game->walln->height
+				* game->walln->width));
+	game->textures->color_arrayw = malloc(sizeof(int) * (game->wallw->height
+				* game->wallw->width));
+	game->textures->color_arrays = malloc(sizeof(int) * (game->walls->height
+				* game->walls->width));
+	if (!game->textures->color_arraye || !game->textures->color_arrayn
+		|| !game->textures->color_arrayw || !game->textures->color_arrays)
 		return (0);
 	return (1);
 }
-void free_texturs(t_cub *game)
+
+void	free_texturs(t_cub *game)
 {
-	if (game->wallE)
-		free(game->wallE);
-	if (game->wallN)
-		free(game->wallN);
-	if (game->wallS)
-		free(game->wallS);
-	if (game->wallW)
-		free(game->wallW);
+	if (game->walle)
+		mlx_delete_texture(game->walle);
+	if (game->walln)
+		mlx_delete_texture(game->walln);
+	if (game->walls)
+		mlx_delete_texture(game->walls);
+	if (game->wallw)
+		mlx_delete_texture(game->wallw);
 }
 
 int	init_game(t_cub *game)
 {
 	game->mlx = mlx_init(WIDTH, HEIGHT, "CUB3D", 0);
-	game->wallN = mlx_load_png(game->textures_img[NO]);
-	game->wallS = mlx_load_png(game->textures_img[SO]);
-	game->wallW = mlx_load_png(game->textures_img[WE]);
-	game->wallE = mlx_load_png(game->textures_img[EA]);
+	game->walln = mlx_load_png(game->textures_img[NO]);
+	game->walls = mlx_load_png(game->textures_img[SO]);
+	game->wallw = mlx_load_png(game->textures_img[WE]);
+	game->walle = mlx_load_png(game->textures_img[EA]);
 	ft_free2d(game->textures_img);
-	if (!game->wallE || !game->wallS || !game->wallN || !game->wallW)
+	if (!game->walle || !game->walls || !game->walln || !game->wallw)
 	{
 		free_texturs(game);
 		error_print("image error\n");
@@ -124,10 +126,10 @@ int	init_game(t_cub *game)
 		return (0);
 	}
 	mlx_image_to_window(game->mlx, game->map_img, 0, 0);
-	parse_image(game->wallN, game->textures->color_arrayN);
-	parse_image(game->wallS, game->textures->color_arrayS);
-	parse_image(game->wallW, game->textures->color_arrayW);
-	parse_image(game->wallE, game->textures->color_arrayE);
+	parse_image(game->walln, game->textures->color_arrayn);
+	parse_image(game->walls, game->textures->color_arrays);
+	parse_image(game->wallw, game->textures->color_arrayw);
+	parse_image(game->walle, game->textures->color_arraye);
 	find_player(game);
 	return (1);
 }

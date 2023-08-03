@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   linkedlist.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yajallal <yajallal@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: mkhairou <mkhairou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/01 17:11:24 by yajallal          #+#    #+#             */
-/*   Updated: 2023/08/03 11:28:57 by yajallal         ###   ########.fr       */
+/*   Updated: 2023/08/03 15:18:19 by mkhairou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,10 +70,10 @@ t_map	*delete_node(t_map *head, char *str)
 	return (head);
 }
 
-size_t lst_size(t_map *config)
+size_t	lst_size(t_map *config)
 {
-	int len;
-	t_map *node;
+	int		len;
+	t_map	*node;
 
 	len = 0;
 	node = config;
@@ -85,7 +85,7 @@ size_t lst_size(t_map *config)
 	return (len);
 }
 
-t_map *free_list(t_map *map)
+t_map	*free_list(t_map *map)
 {
 	t_map	*node;
 	t_map	*remove;

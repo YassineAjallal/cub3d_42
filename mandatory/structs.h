@@ -3,19 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   structs.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yajallal <yajallal@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: mkhairou <mkhairou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/11 13:38:28 by yajallal          #+#    #+#             */
-/*   Updated: 2023/08/03 12:45:51 by yajallal         ###   ########.fr       */
+/*   Updated: 2023/08/03 15:22:28 by mkhairou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef STRUCTS_H
 # define STRUCTS_H
 
-# include "../libft/libft.h"
-# include "../MLX42/include/MLX42/MLX42.h"
 # include "../ft_malloc/ft_malloc.h"
+# include "../libft/libft.h"
+# include "/Users/mkhairou/MLX42/include/MLX42/MLX42.h"
 # include <fcntl.h>
 # include <math.h>
 # include <stdio.h>
@@ -26,12 +26,29 @@
 #  define BUFFER_SIZE 42
 # endif
 
-# define TILE 64
-# define FOV_ANGLE (60 * (M_PI / 180))
-# define WIDTH 720
-# define HEIGHT 720
-# define RAY_INC (FOV_ANGLE / WIDTH)
-# define HALF_FOV (FOV_ANGLE / 2)
+# ifndef TITLE
+#  define TILE 64
+# endif
+
+# ifndef FOV_ANGLE
+#  define FOV_ANGLE (60 * (M_PI / 180))
+# endif
+
+# ifndef WIDTH
+#  define WIDTH 720
+# endif
+
+# ifndef HEIGHT
+#  define HEIGHT 720
+# endif
+
+# ifndef RAY_INC
+#  define RAY_INC (FOV_ANGLE / WIDTH)
+# endif
+
+# ifndef HALF_FOV
+#  define HALF_FOV (FOV_ANGLE / 2)
+# endif
 
 typedef enum e_side
 {
@@ -39,7 +56,7 @@ typedef enum e_side
 	SO,
 	WE,
 	EA
-}	t_side;
+}					t_side;
 
 typedef struct s_coord
 {
@@ -71,10 +88,10 @@ typedef struct s_map
 
 typedef struct s_textures
 {
-	int				*color_arrayN;
-	int				*color_arrayS;
-	int				*color_arrayE;
-	int				*color_arrayW;
+	int				*color_arrayn;
+	int				*color_arrays;
+	int				*color_arraye;
+	int				*color_arrayw;
 }					t_textures;
 
 typedef struct s_cub
@@ -91,10 +108,10 @@ typedef struct s_cub
 	mlx_t			*mlx;
 	mlx_image_t		*map_img;
 	mlx_image_t		*player_img;
-	mlx_texture_t	*wallN;
-	mlx_texture_t	*wallS;
-	mlx_texture_t	*wallW;
-	mlx_texture_t	*wallE;
+	mlx_texture_t	*walln;
+	mlx_texture_t	*walls;
+	mlx_texture_t	*wallw;
+	mlx_texture_t	*walle;
 }					t_cub;
 
 int					rgba(int r, int g, int b, float t);

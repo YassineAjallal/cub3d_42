@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yajallal <yajallal@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: mkhairou <mkhairou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/11 13:04:14 by yajallal          #+#    #+#             */
-/*   Updated: 2023/08/03 12:59:06 by yajallal         ###   ########.fr       */
+/*   Updated: 2023/08/03 15:09:38 by mkhairou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void	rays(t_cub *game);
 int		*select_texture(t_cub *game, t_ray *ray, float *text_pos_x);
 void	draw_texture(t_coord start, t_cub *game, t_ray *ray);
 
-void free_texturs(t_cub *game);
-void free_colors(t_cub *game);
+void	free_texturs(t_cub *game);
+void	free_colors(t_cub *game);
 
 #endif

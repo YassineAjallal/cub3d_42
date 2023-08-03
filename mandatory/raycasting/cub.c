@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yajallal <yajallal@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: mkhairou <mkhairou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/11 17:12:08 by yajallal          #+#    #+#             */
-/*   Updated: 2023/08/03 13:56:13 by yajallal         ###   ########.fr       */
+/*   Updated: 2023/08/03 15:18:45 by mkhairou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int	main(int ac, char **av)
 			return (0);
 		}
 		error_checker(av, game, map);
-		if(!init_game(game))
+		if (!init_game(game))
 		{
 			free(game->textures);
 			ft_free2d(game->map);
@@ -70,12 +70,12 @@ int	main(int ac, char **av)
 		rays(game);
 		mlx_loop_hook(game->mlx, hooks, game);
 		mlx_loop(game->mlx);
+		mlx_terminate(game->mlx);
 		free_colors(game);
 		free_texturs(game);
 		free(game->textures);
 		ft_free2d(game->map);
 		free(game);
-		mlx_terminate(game->mlx);
 		system("leaks cub3D");
 	}
 	return (0);

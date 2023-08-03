@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_map_config.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yajallal <yajallal@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: mkhairou <mkhairou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/01 21:08:11 by yajallal          #+#    #+#             */
-/*   Updated: 2023/08/03 11:38:57 by yajallal         ###   ########.fr       */
+/*   Updated: 2023/08/03 15:46:29 by mkhairou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,19 +71,21 @@ int	array_len(char **array)
 
 int	allint(char **a, t_map *map)
 {
-	int		i;
-	int		j;
+	int	i;
+	int	j;
 
 	i = 0;
 	while (i < 3)
 	{
 		j = 0;
 		while (a[i][j])
+		{
 			if (!ft_isdigit(a[i][j++]))
 			{
 				free_list(map);
 				error_print("invalid colors\n");
 			}
+		}
 		if (ft_atoi(a[i]) > 255 || ft_atoi(a[i]) < 0)
 		{
 			free_list(map);
@@ -93,14 +95,15 @@ int	allint(char **a, t_map *map)
 	}
 	return (rgba(ft_atoi(a[0]), ft_atoi(a[1]), ft_atoi(a[2]), 1));
 }
-int color_formatting(char *color)
+
+int	color_formatting(char *color)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if (color[0] == ',' || color[ft_strlen(color) - 1] == ',')
 		return (0);
-	while(color[i])
+	while (color[i])
 	{
 		if (color[i] == ',' && color[i + 1] == ',')
 			return (0);

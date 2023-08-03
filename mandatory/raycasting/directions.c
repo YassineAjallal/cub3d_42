@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   directions.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yajallal <yajallal@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: mkhairou <mkhairou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 20:08:44 by yajallal          #+#    #+#             */
-/*   Updated: 2023/08/01 14:45:58 by yajallal         ###   ########.fr       */
+/*   Updated: 2023/08/03 15:11:58 by mkhairou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,9 @@ void	key_up(t_cub *game)
 	places = sin(game->player_angle) * 0.3;
 	tmp.x = game->p_coord.x + plac;
 	tmp.y = game->p_coord.y + places;
-	if (game->map[(int)floorf(tmp.y)][(int)floorf(tmp.x)] != '1' \
-	&& game->map[(int)game->p_coord.y][(int)floorf(tmp.x)] != '1' \
-	&& game->map[(int)floorf(tmp.y)][(int)game->p_coord.x] != '1')
+	if (game->map[(int)floorf(tmp.y)][(int)floorf(tmp.x)] != '1'
+		&& game->map[(int)game->p_coord.y][(int)floorf(tmp.x)] != '1'
+		&& game->map[(int)floorf(tmp.y)][(int)game->p_coord.x] != '1')
 	{
 		game->p_coord.y += playersin;
 		game->p_coord.x += playercos;
@@ -50,9 +50,9 @@ void	key_down(t_cub *game)
 	places = sin(game->player_angle) * 0.3;
 	tmp.x = game->p_coord.x - plac;
 	tmp.y = game->p_coord.y - places;
-	if (game->map[(int)floorf(tmp.y)][(int)floorf(tmp.x)] != '1' \
-	&& game->map[(int)game->p_coord.y][(int)floorf(tmp.x)] != '1' \
-	&& game->map[(int)floorf(tmp.y)][(int)game->p_coord.x] != '1')
+	if (game->map[(int)floorf(tmp.y)][(int)floorf(tmp.x)] != '1'
+		&& game->map[(int)game->p_coord.y][(int)floorf(tmp.x)] != '1'
+		&& game->map[(int)floorf(tmp.y)][(int)game->p_coord.x] != '1')
 	{
 		game->p_coord.y -= playersin;
 		game->p_coord.x -= playercos;
@@ -74,9 +74,9 @@ void	key_right(t_cub *game)
 	places = sin(game->player_angle - M_PI / 2) * 0.3;
 	tmp.x = game->p_coord.x - plac;
 	tmp.y = game->p_coord.y - places;
-	if (game->map[(int)floorf(tmp.y)][(int)floorf(tmp.x)] != '1' \
-	&& game->map[(int)game->p_coord.y][(int)floorf(tmp.x)] != '1' \
-	&& game->map[(int)floorf(tmp.y)][(int)game->p_coord.x] != '1')
+	if (game->map[(int)floorf(tmp.y)][(int)floorf(tmp.x)] != '1'
+		&& game->map[(int)game->p_coord.y][(int)floorf(tmp.x)] != '1'
+		&& game->map[(int)floorf(tmp.y)][(int)game->p_coord.x] != '1')
 	{
 		game->p_coord.y -= playersin;
 		game->p_coord.x -= playercos;
@@ -98,9 +98,9 @@ void	key_left(t_cub *game)
 	places = sin(game->player_angle + M_PI / 2) * 0.3;
 	tmp.x = game->p_coord.x - playercos;
 	tmp.y = game->p_coord.y - playersin;
-	if (game->map[(int)floorf(tmp.y)][(int)floorf(tmp.x)] != '1' \
-	&& game->map[(int)game->p_coord.y][(int)floorf(tmp.x)] != '1' \
-	&& game->map[(int)floorf(tmp.y)][(int)game->p_coord.x] != '1')
+	if (game->map[(int)floorf(tmp.y)][(int)floorf(tmp.x)] != '1'
+		&& game->map[(int)game->p_coord.y][(int)floorf(tmp.x)] != '1'
+		&& game->map[(int)floorf(tmp.y)][(int)game->p_coord.x] != '1')
 	{
 		game->p_coord.y -= playersin;
 		game->p_coord.x -= playercos;
