@@ -6,7 +6,7 @@
 /*   By: yajallal <yajallal@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 12:21:12 by yajallal          #+#    #+#             */
-/*   Updated: 2023/08/03 11:41:04 by yajallal         ###   ########.fr       */
+/*   Updated: 2023/08/03 13:07:32 by yajallal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ char **extract_textures(t_map *map)
 		head = head->next;
 	}
 	textures[4] = NULL;
+	free_list(map);
 	return (textures);
 }
 

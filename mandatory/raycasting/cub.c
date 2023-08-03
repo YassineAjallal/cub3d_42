@@ -6,7 +6,7 @@
 /*   By: yajallal <yajallal@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/11 17:12:08 by yajallal          #+#    #+#             */
-/*   Updated: 2023/08/03 13:02:29 by yajallal         ###   ########.fr       */
+/*   Updated: 2023/08/03 13:20:23 by yajallal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	error_checker(char **av, t_cub *game, t_map *map)
 	if (!game->map)
 	{
 		free(game->textures);
-		// free_list(map);
+		free_list(map);
 		free(game);
 		error_print("map not found\n");
 	}
@@ -29,7 +29,6 @@ void	error_checker(char **av, t_cub *game, t_map *map)
 	{
 		free(game->textures);
 		free(game->map);
-		// free_list(map);
 		free(game);
 		error_print("map not valid \n");
 	}
@@ -65,7 +64,6 @@ int	main(int ac, char **av)
 		{
 			free(game->textures);
 			free(game->map);
-			// free_list(map);
 			free(game);
 			return (0);
 		}
@@ -75,8 +73,7 @@ int	main(int ac, char **av)
 		free_colors(game);
 		free_texturs(game);
 		free(game->textures);
-		free(game->map);
-		// free_list(map);
+		ft_free2d(game->map);
 		free(game);
 		mlx_terminate(game->mlx);
 		system("leaks cub3D");

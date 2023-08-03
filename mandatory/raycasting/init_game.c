@@ -6,7 +6,7 @@
 /*   By: yajallal <yajallal@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/11 13:17:54 by yajallal          #+#    #+#             */
-/*   Updated: 2023/08/03 12:59:58 by yajallal         ###   ########.fr       */
+/*   Updated: 2023/08/03 13:11:52 by yajallal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,6 +110,7 @@ int	init_game(t_cub *game)
 	game->wallS = mlx_load_png(game->textures_img[SO]);
 	game->wallW = mlx_load_png(game->textures_img[WE]);
 	game->wallE = mlx_load_png(game->textures_img[EA]);
+	ft_free2d(game->textures_img);
 	if (!game->wallE || !game->wallS || !game->wallN || !game->wallW)
 	{
 		free_texturs(game);
