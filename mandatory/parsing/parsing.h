@@ -6,7 +6,7 @@
 /*   By: yajallal <yajallal@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/01 16:38:46 by yajallal          #+#    #+#             */
-/*   Updated: 2023/08/02 19:54:19 by yajallal         ###   ########.fr       */
+/*   Updated: 2023/08/03 11:32:04 by yajallal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@ int		ft_strchr2d(char **str2d, char *str);
 void	config_len(t_map *map);
 t_map	*config_list(char **split);
 int		array_len(char **array);
-int		allint(char **a);
+int		allint(char **a, t_map *map);
 void	check_map_config(t_map *map, t_cub *game);
-void	check_valid_config(t_map *config, t_cub *game);
+void	check_valid_config(t_map *map, t_cub *game);
 
 int		check_walls(char *line);
 int		check_empty_line(char *line);
@@ -42,8 +42,11 @@ char	*ft_copy(char *save);
 char	*ft_getnews(char *save);
 char	*get_next_line(int fd);
 
-t_map	*add_new_node(char *line, char config, t_map *map, char type);
+t_map	*add_new_node(char *line, char config, t_map *map);
 t_map	*delete_node(t_map *head, char *str);
+t_map	*free_list(t_map *map);
+size_t lst_size(t_map *config);
+
 
 void	print(t_map *map);
 t_map	*read_map(char *map_file);
@@ -53,11 +56,4 @@ void	ft_free2d(char **str);
 void	valid_extention(char *map_file);
 
 char	**extract_textures(t_map *map);
-
-void	*ft_calloc_tool(size_t count, size_t size, char type);
-char	*ft_strdup_tool(const char *s1, char type);
-char	*ft_strjoin_tool(char const *s1, char const *s2, char type);
-char	*ft_substr_tool(char const *s, unsigned int start, size_t len, char type);
-char	**ft_split_tool(char const *s, char c, char type);
-char	*ft_strtrim_tool(char const *s1, char const *set, char type);
 #endif

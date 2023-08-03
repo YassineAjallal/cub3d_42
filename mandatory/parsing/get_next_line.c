@@ -6,7 +6,7 @@
 /*   By: yajallal <yajallal@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/21 03:34:16 by yajallal          #+#    #+#             */
-/*   Updated: 2023/08/02 22:25:39 by yajallal         ###   ########.fr       */
+/*   Updated: 2023/08/03 10:42:31 by yajallal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ char	*ft_read(int fd, char *save)
 	char	*buff;
 
 	x = 1;
-	buff = ft_malloc(BUFFER_SIZE + 1, 1, 'B');
+	buff = malloc(BUFFER_SIZE + 1);
 	if (!buff)
 		return (NULL);
 	buff[0] = '\0';
@@ -27,11 +27,16 @@ char	*ft_read(int fd, char *save)
 	{
 		x = read(fd, buff, BUFFER_SIZE);
 		if (x < 0)
+		{
+			free(buff);
 			return (NULL);
+		}
 		buff[x] = '\0';
-		tmp = ft_strjoin_tool(save, buff, 'A');
+		tmp = ft_strjoin(save, buff);
+		free(save);
 		save = tmp;
 	}
+	free(buff);
 	return (save);
 }
 
@@ -43,7 +48,7 @@ char	*ft_copy(char *save)
 	i = 0;
 	while (save[i] != '\n' && save[i])
 		i++;
-	line = ft_substr_tool(save, 0, i, 'A');
+	line = ft_substr(save, 0, i);
 	return (line);
 }
 
@@ -65,7 +70,8 @@ char	*ft_getnews(char *save)
 		i++;
 		len++;
 	}
-	tmp = ft_substr_tool(save, i, ft_strlen(len), 'B');
+	tmp = ft_substr(save, i, ft_strlen(len));
+	free(save);
 	save = tmp;
 	return (save);
 }
@@ -76,12 +82,20 @@ char	*get_next_line(int fd)
 	char		*line;
 
 	if (fd == 1 || fd == 2 || read(fd, 0, 0) < 0)
+	{
+		free(save);
+		save = NULL;
 		return (NULL);
+	}
 	save = ft_read(fd, save);
 	if (!save)
 		return (NULL);
 	if (save[0] == '\0')
+	{
+		free(save);
+		save = NULL;
 		return (NULL);
+	}
 	line = ft_copy(save);
 	save = ft_getnews(save);
 	return (line);

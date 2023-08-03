@@ -6,7 +6,7 @@
 /*   By: yajallal <yajallal@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/11 13:17:54 by yajallal          #+#    #+#             */
-/*   Updated: 2023/08/02 23:20:10 by yajallal         ###   ########.fr       */
+/*   Updated: 2023/08/03 09:59:32 by yajallal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,10 +89,7 @@ int	init_game(t_cub *game)
 	game->wallW = mlx_load_png(game->textures_img[WE]);
 	game->wallE = mlx_load_png(game->textures_img[EA]);
 	if (!game->wallE || !game->wallS || !game->wallN || !game->wallW)
-	{
-		ft_malloc(0, 0, 'A');
 		error_print((char *)mlx_strerror(mlx_errno));
-	}
 	game->map_img = mlx_new_image(game->mlx, WIDTH, HEIGHT);
 	if (!alloc_textures(game))
 		return (0);

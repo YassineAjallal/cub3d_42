@@ -6,7 +6,7 @@
 /*   By: yajallal <yajallal@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/01 16:38:31 by yajallal          #+#    #+#             */
-/*   Updated: 2023/08/02 23:01:36 by yajallal         ###   ########.fr       */
+/*   Updated: 2023/08/03 10:55:59 by yajallal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,7 @@ t_map	*read_map(char *map_file)
 	map = NULL;
 	map_fd = open(map_file, O_RDONLY);
 	if (map_fd < 0)
-	{
-		ft_malloc(0, 0, 'C');
 		error_print("file not found\n");
-	}
 	line = get_next_line(map_fd);
 	while (line)
 	{
@@ -50,13 +47,17 @@ t_map	*read_map(char *map_file)
 		{
 			if (line[0] == '1' || line[0] == ' ')
 				break ;
-			map = add_new_node(line, 'C', map, 'B');
+			map = add_new_node(line, 'C', map);
+			free(line);
 		}
+		else
+			free(line);
 		line = get_next_line(map_fd);
 	}
 	while (line)
 	{
-		map = add_new_node(line, 'M', map, 'A');
+		map = add_new_node(line, 'M', map);
+		free(line);
 		line = get_next_line(map_fd);
 	}
 	close(map_fd);

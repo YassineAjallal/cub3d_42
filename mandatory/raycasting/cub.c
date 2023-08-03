@@ -6,7 +6,7 @@
 /*   By: yajallal <yajallal@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/11 17:12:08 by yajallal          #+#    #+#             */
-/*   Updated: 2023/08/02 23:06:03 by yajallal         ###   ########.fr       */
+/*   Updated: 2023/08/03 09:59:06 by yajallal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ void	error_checker(char **av, t_cub *game, t_map *map)
 	game->textures_img = extract_textures(map);
 	if (!check_valid_map(game->map))
 		error_print("map not valid \n");
-	ft_malloc(0, 0, 'B');
 }
 
 int	main(int ac, char **av)
@@ -44,9 +43,6 @@ int	main(int ac, char **av)
 		error_checker(av, game, map);
 		init_game(game);
 		rays(game);
-		// ft_malloc(0, 0, 'A');
-		// system("leaks cub3D");
-		// exit(0);
 		mlx_loop_hook(game->mlx, hooks, game);
 		mlx_loop(game->mlx);
 		mlx_terminate(game->mlx);

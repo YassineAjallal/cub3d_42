@@ -6,13 +6,13 @@
 /*   By: yajallal <yajallal@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/01 21:08:11 by yajallal          #+#    #+#             */
-/*   Updated: 2023/08/02 23:15:12 by yajallal         ###   ########.fr       */
+/*   Updated: 2023/08/03 11:38:57 by yajallal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
 
-int	ft_strchr2d(char **str2d, char *str)
+int	ft_strchr_lst(char **str2d, char *str)
 {
 	int	i;
 
@@ -39,7 +39,7 @@ void	config_len(t_map *map)
 	}
 	if (config_len != 6)
 	{
-		ft_malloc(0, 0, 'C');
+		free_list(map);
 		error_print("incomplet map\n");
 	}
 }
@@ -53,7 +53,7 @@ t_map	*config_list(char **split)
 	i = 0;
 	while (split[i])
 	{
-		config = add_new_node(split[i], 'C', config, 'B');
+		config = add_new_node(split[i], 'C', config);
 		i++;
 	}
 	return (config);
@@ -69,7 +69,7 @@ int	array_len(char **array)
 	return (i);
 }
 
-int	allint(char **a)
+int	allint(char **a, t_map *map)
 {
 	int		i;
 	int		j;
@@ -81,12 +81,12 @@ int	allint(char **a)
 		while (a[i][j])
 			if (!ft_isdigit(a[i][j++]))
 			{
-				ft_malloc(0, 0, 'C');
+				free_list(map);
 				error_print("invalid colors\n");
 			}
 		if (ft_atoi(a[i]) > 255 || ft_atoi(a[i]) < 0)
 		{
-			ft_malloc(0, 0, 'C');
+			free_list(map);
 			error_print("invalid colors\n");
 		}
 		i++;
@@ -109,35 +109,39 @@ int color_formatting(char *color)
 	return (1);
 }
 
-void	check_valid_config(t_map *config, t_cub *game)
+void	check_valid_config(t_map *map, t_cub *game)
 {
 	t_map	*tmp;
 	char	**split;
 	char	*tmp_str;
 
-	tmp = config;
+	tmp = map;
 	while (tmp)
 	{
 		if (tmp->cnofig == 'C')
 		{
 			if (tmp->line[0] == 'F' || tmp->line[0] == 'C')
 			{
-				tmp_str = ft_strtrim_tool(tmp->line + 1, " \t", 'B');
+				tmp_str = ft_strtrim(tmp->line + 1, " \t");
 				if (!color_formatting(tmp_str))
 				{
-					ft_malloc(0, 0, 'C');
+					free(tmp_str);
+					free_list(map);
 					error_print("invalid colors\n");
 				}
-				split = ft_split_tool(tmp_str, ',', 'B');
+				split = ft_split(tmp_str, ',');
+				free(tmp_str);
 				if (array_len(split) != 3)
 				{
-					ft_malloc(0, 0, 'C');
+					ft_free2d(split);
+					free_list(map);
 					error_print("invalid colors\n");
 				}
 				if (tmp->line[0] == 'F')
-					game->floor_color = allint(split);
+					game->floor_color = allint(split, map);
 				else
-					game->ciel_color = allint(split);
+					game->ciel_color = allint(split, map);
+				ft_free2d(split);
 			}
 		}
 		tmp = tmp->next;
@@ -153,7 +157,7 @@ void	check_map_config(t_map *map, t_cub *game)
 
 	config_len(map);
 	tmp = map;
-	split = ft_split_tool("NO SO WE EA F C", ' ', 'B');
+	split = ft_split("NO SO WE EA F C", ' ');
 	config = config_list(split);
 	while (map)
 	{
@@ -161,23 +165,27 @@ void	check_map_config(t_map *map, t_cub *game)
 		{
 			if (map->line[0] != ' ')
 			{
-				split_line = ft_split_tool(map->line, ' ', 'B');
-				if (ft_strchr2d(split, split_line[0]) >= 0)
-					config = delete_node(config, split_line[0]);
-				else
-				{
-					ft_malloc(0, 0, 'C');
-					error_print("invalid config\n");
-				}
+				split_line = ft_split(map->line, ' ');
+				config = delete_node(config, split_line[0]);
+				ft_free2d(split_line);
 			}
 			else
 			{
-				ft_malloc(0, 0, 'C');
+				ft_free2d(split);
+				free_list(map);
 				error_print("invalid config\n");
 			}
 		}
 		map = map->next;
 	}
+	if (lst_size(config) > 0)
+	{
+		ft_free2d(split);
+		free_list(config);
+		free_list(map);
+		error_print("invalid config\n");
+	}
+	ft_free2d(split);
 	map = tmp;
 	check_valid_config(map, game);
 }

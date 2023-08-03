@@ -6,7 +6,7 @@
 /*   By: yajallal <yajallal@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 15:16:02 by yajallal          #+#    #+#             */
-/*   Updated: 2023/08/02 23:15:40 by yajallal         ###   ########.fr       */
+/*   Updated: 2023/08/03 11:40:41 by yajallal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,14 +40,14 @@ char **get_map(t_map *map, t_cub *game)
 	game->map_len = get_map_len(map);
 	if (game->map_len == 0)
 		return (NULL);
-	map_array = ft_malloc(sizeof(char *) * (game->map_len + 1), 1, 'A');
+	map_array = malloc(sizeof(char *) * (game->map_len + 1));
 	if (!map_array)
 		return (NULL);
 	while (node)
 	{
 		if (node->cnofig == 'M')
 		{
-			map_array[i] = node->line;
+			map_array[i] = ft_strdup(node->line);
 			i++;
 		}
 		node = node->next;

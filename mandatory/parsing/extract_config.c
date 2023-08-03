@@ -6,7 +6,7 @@
 /*   By: yajallal <yajallal@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 12:21:12 by yajallal          #+#    #+#             */
-/*   Updated: 2023/08/02 18:41:53 by yajallal         ###   ########.fr       */
+/*   Updated: 2023/08/03 11:41:04 by yajallal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,20 +35,22 @@ char **extract_textures(t_map *map)
 	int i;
 
 	head = map;
-	textures = ft_malloc(sizeof(char *) * 5, 1, 'A');
+	textures = malloc(sizeof(char *) * 5);
+	if (!textures)
+		return (NULL);
 	while (head)
 	{
 		i = 2;
 		if (head->cnofig == 'C')
 		{
 			if (!ft_strncmp(head->line, "NO", 2))
-				textures[NO] = ft_strtrim_tool(head->line + i, " \t", 'A');
+				textures[NO] = ft_strtrim(head->line + i, " \t");
 			else if (!ft_strncmp(head->line, "SO", 2))
-				textures[SO] = ft_strtrim_tool(head->line + i, " \t", 'A');
+				textures[SO] = ft_strtrim(head->line + i, " \t");
 			if (!ft_strncmp(head->line, "WE", 2))
-				textures[WE] = ft_strtrim_tool(head->line + i, " \t", 'A');
+				textures[WE] = ft_strtrim(head->line + i, " \t");
 			else if (!ft_strncmp(head->line, "EA", 2))
-				textures[EA] = ft_strtrim_tool(head->line + i, " \t", 'A');
+				textures[EA] = ft_strtrim(head->line + i, " \t");
 		}
 		head = head->next;
 	}

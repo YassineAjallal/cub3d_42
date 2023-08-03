@@ -56,7 +56,7 @@ GLFW = $(shell brew --prefix glfw)
 MLX_FLAG = MLX42/build/libmlx42.a -Iinclude -lglfw -L $(GLFW)/lib/ -framework Cocoa -framework OpenGL -framework IOKit
 
 %.o: %.c
-	@$(CC) $(CFLAGS) -c $< -o $@
+	@$(CC)  -c $< -o $@
 
 all: $(NAME_MANDA) $(NAME_BONUS)
 
