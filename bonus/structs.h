@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structs.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yajallal <yajallal@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: mkhairou <mkhairou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/11 13:38:28 by yajallal          #+#    #+#             */
-/*   Updated: 2023/08/03 18:32:37 by yajallal         ###   ########.fr       */
+/*   Updated: 2023/08/03 19:11:32 by mkhairou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define STRUCTS_H
 
 # include "../libft/libft.h"
-# include "../MLX42/include/MLX42/MLX42.h"
+# include "/Users/mkhairou/MLX42/include/MLX42/MLX42.h"
 # include "../ft_malloc/ft_malloc.h"
 # include <fcntl.h>
 # include <math.h>
@@ -25,13 +25,8 @@
 # define BUFFER_SIZE 42
 # define SCALE_MINIMAP 0.1
 # define TILE 64
-# define TO_RAD (M_PI / 180)
-# define A 60
-# define FOV_ANGLE A * TO_RAD
 # define WIDTH 720
 # define HEIGHT 720
-# define RAY_INC FOV_ANGLE / WIDTH
-# define HALF_FOV FOV_ANGLE / 2
 
 typedef enum e_side
 {
@@ -95,6 +90,8 @@ typedef struct s_cub
 	mlx_texture_t	*walls;
 	mlx_texture_t	*wallw;
 	mlx_texture_t	*walle;
+	double			ray_inc;
+	double			fov_angle;
 }					t_cub;
 
 int					rgba(int r, int g, int b, float t);

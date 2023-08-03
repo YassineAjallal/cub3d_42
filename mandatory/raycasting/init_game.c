@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_game.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yajallal <yajallal@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: mkhairou <mkhairou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/11 13:17:54 by yajallal          #+#    #+#             */
-/*   Updated: 2023/08/03 17:51:22 by yajallal         ###   ########.fr       */
+/*   Updated: 2023/08/03 19:08:50 by mkhairou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,8 @@ int	alloc_textures(t_cub *game)
 int	init_game(t_cub *game)
 {
 	game->mlx = mlx_init(WIDTH, HEIGHT, "CUB3D", 0);
+	game->fov_angle = 60 * (M_PI / 180);
+	game->ray_inc = game->fov_angle / WIDTH;
 	game->walln = mlx_load_png(game->textures_img[NO]);
 	game->walls = mlx_load_png(game->textures_img[SO]);
 	game->wallw = mlx_load_png(game->textures_img[WE]);
@@ -96,11 +98,7 @@ int	init_game(t_cub *game)
 	}
 	game->map_img = mlx_new_image(game->mlx, WIDTH, HEIGHT);
 	if (!alloc_textures(game))
-	{
-		free_colors(game);
-		free_texturs(game);
-		return (0);
-	}
+		return (free_colors(game), free_texturs(game), 0);
 	mlx_image_to_window(game->mlx, game->map_img, 0, 0);
 	parse_image(game->walln, game->textures->color_arrayn);
 	parse_image(game->walls, game->textures->color_arrays);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minimap_func.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yajallal <yajallal@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: mkhairou <mkhairou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/28 16:45:36 by yajallal          #+#    #+#             */
-/*   Updated: 2023/08/03 18:11:24 by yajallal         ###   ########.fr       */
+/*   Updated: 2023/08/03 19:12:11 by mkhairou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	cast_minimap_rays(t_cub *game, t_ray *ray, t_coord p)
 			drawline_mini(p, ver, game, rgba(255, 0, 0, 1));
 		else
 			drawline_mini(p, hor, game, rgba(255, 0, 0, 1));
-		ray->angle += RAY_INC;
+		ray->angle += game->ray_inc;
 	}
 }
 
@@ -50,6 +50,6 @@ void	rays_minimap(t_cub *game)
 	i = 0;
 	p.x = game->p_coord.x * TILE;
 	p.y = game->p_coord.y * TILE;
-	ray.angle = game->player_angle - (FOV_ANGLE / 2);
+	ray.angle = game->player_angle - (game->fov_angle / 2);
 	cast_minimap_rays(game, &ray, p);
 }

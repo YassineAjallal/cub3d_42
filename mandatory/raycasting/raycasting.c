@@ -6,7 +6,7 @@
 /*   By: mkhairou <mkhairou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 13:40:42 by mkhairou          #+#    #+#             */
-/*   Updated: 2023/08/03 15:48:00 by mkhairou         ###   ########.fr       */
+/*   Updated: 2023/08/03 19:07:39 by mkhairou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	raycast(t_cub *game, int rayx, t_ray *ray)
 	t_coord	end;
 	int		proj_plane;
 
-	proj_plane = (WIDTH / 2) / tan(FOV_ANGLE / 2);
+	proj_plane = (WIDTH / 2) / tan(game->fov_angle / 2);
 	ray->distance = ray->distance * cos(ray->angle - game->player_angle);
 	ray->wall_height = (TILE / ray->distance) * proj_plane;
 	start.x = rayx;
@@ -74,7 +74,7 @@ void	rays(t_cub *game)
 	i = 0;
 	p.x = game->p_coord.x * TILE;
 	p.y = game->p_coord.y * TILE;
-	ray.angle = game->player_angle - (FOV_ANGLE / 2);
+	ray.angle = game->player_angle - (game->fov_angle / 2);
 	while (i < WIDTH)
 	{
 		init_sides(&ray);
@@ -87,7 +87,7 @@ void	rays(t_cub *game)
 				mlx_put_pixel(game->map_img, i, j, game->floor_color);
 		}
 		rays_drawing(game, i, &ray, p);
-		ray.angle += RAY_INC;
+		ray.angle += game->ray_inc;
 		i++;
 	}
 }
