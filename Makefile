@@ -66,7 +66,7 @@ bonus: $(NAME_BONUS)
 
 $(NAME_MANDA): $(OBJS_MANDA)
 	@make -C libft
-	@$(CC) $(CFLAGS)  libft/libft.a $(MLX_FLAG) $^ -o $@
+	@$(CC) $(CFLAGS) -fsanitize=address libft/libft.a $(MLX_FLAG) $^ -o $@
 
 $(NAME_BONUS): $(OBJS_BONUS)
 	@make -C libft

@@ -6,7 +6,7 @@
 /*   By: yajallal <yajallal@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/11 13:17:54 by yajallal          #+#    #+#             */
-/*   Updated: 2023/08/03 09:59:32 by yajallal         ###   ########.fr       */
+/*   Updated: 2023/08/03 12:59:58 by yajallal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,17 @@ void	parse_image(mlx_texture_t *img, int *arr)
 		i += img->bytes_per_pixel;
 	}
 }
+void free_colors(t_cub *game)
+{
+	if (game->textures->color_arrayE)
+		free(game->textures->color_arrayE);
+	if(game->textures->color_arrayN)
+		free(game->textures->color_arrayN);
+	if(game->textures->color_arrayW)
+		free(game->textures->color_arrayW);
+	if(game->textures->color_arrayS)
+		free(game->textures->color_arrayS);
+}
 
 int	alloc_textures(t_cub *game)
 {
@@ -80,6 +91,17 @@ int	alloc_textures(t_cub *game)
 		return (0);
 	return (1);
 }
+void free_texturs(t_cub *game)
+{
+	if (game->wallE)
+		free(game->wallE);
+	if (game->wallN)
+		free(game->wallN);
+	if (game->wallS)
+		free(game->wallS);
+	if (game->wallW)
+		free(game->wallW);
+}
 
 int	init_game(t_cub *game)
 {
@@ -89,10 +111,17 @@ int	init_game(t_cub *game)
 	game->wallW = mlx_load_png(game->textures_img[WE]);
 	game->wallE = mlx_load_png(game->textures_img[EA]);
 	if (!game->wallE || !game->wallS || !game->wallN || !game->wallW)
-		error_print((char *)mlx_strerror(mlx_errno));
+	{
+		free_texturs(game);
+		error_print("image error\n");
+	}
 	game->map_img = mlx_new_image(game->mlx, WIDTH, HEIGHT);
 	if (!alloc_textures(game))
+	{
+		free_colors(game);
+		free_texturs(game);
 		return (0);
+	}
 	mlx_image_to_window(game->mlx, game->map_img, 0, 0);
 	parse_image(game->wallN, game->textures->color_arrayN);
 	parse_image(game->wallS, game->textures->color_arrayS);
