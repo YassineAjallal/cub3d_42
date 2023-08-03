@@ -6,7 +6,7 @@
 /*   By: yajallal <yajallal@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/11 17:12:08 by yajallal          #+#    #+#             */
-/*   Updated: 2023/08/03 13:20:23 by yajallal         ###   ########.fr       */
+/*   Updated: 2023/08/03 13:56:13 by yajallal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	error_checker(char **av, t_cub *game, t_map *map)
 	if (!check_valid_map(game->map))
 	{
 		free(game->textures);
-		free(game->map);
+		ft_free2d(game->map);
 		free(game);
 		error_print("map not valid \n");
 	}
@@ -63,7 +63,7 @@ int	main(int ac, char **av)
 		if(!init_game(game))
 		{
 			free(game->textures);
-			free(game->map);
+			ft_free2d(game->map);
 			free(game);
 			return (0);
 		}
