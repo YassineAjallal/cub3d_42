@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mkhairou <mkhairou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yajallal <yajallal@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/01 16:38:46 by yajallal          #+#    #+#             */
-/*   Updated: 2023/08/03 15:21:59 by mkhairou         ###   ########.fr       */
+/*   Updated: 2023/08/03 16:20:25 by yajallal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,13 @@
 
 # include "../structs.h"
 
-int		ft_strchr2d(char **str2d, char *str);
 void	config_len(t_map *map);
 t_map	*config_list(char **split);
 int		array_len(char **array);
 int		allint(char **a, t_map *map);
+int		color_formatting(char *color);
 void	check_map_config(t_map *map, t_cub *game);
-void	check_valid_config(t_map *map, t_cub *game);
+void	check_valid_color(t_map *map, t_cub *game);
 
 int		check_walls(char *line);
 int		check_empty_line(char *line);

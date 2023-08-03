@@ -6,7 +6,7 @@
 /*   By: yajallal <yajallal@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/01 16:38:31 by yajallal          #+#    #+#             */
-/*   Updated: 2023/08/03 10:55:59 by yajallal         ###   ########.fr       */
+/*   Updated: 2023/08/03 16:44:57 by yajallal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,17 +26,10 @@ void	print(t_map *map)
 	}
 }
 
-t_map	*read_map(char *map_file)
+t_map	*read_config(t_map *map, char *line, int map_fd)
 {
-	int		map_fd;
-	char	*line;
-	t_map	*map;
-	int		i;
+	int	i;
 
-	map = NULL;
-	map_fd = open(map_file, O_RDONLY);
-	if (map_fd < 0)
-		error_print("file not found\n");
 	line = get_next_line(map_fd);
 	while (line)
 	{
@@ -48,10 +41,8 @@ t_map	*read_map(char *map_file)
 			if (line[0] == '1' || line[0] == ' ')
 				break ;
 			map = add_new_node(line, 'C', map);
-			free(line);
 		}
-		else
-			free(line);
+		free(line);
 		line = get_next_line(map_fd);
 	}
 	while (line)
@@ -60,6 +51,20 @@ t_map	*read_map(char *map_file)
 		free(line);
 		line = get_next_line(map_fd);
 	}
+	return (map);
+}
+
+t_map	*read_map(char *map_file)
+{
+	int		map_fd;
+	char	*line;
+	t_map	*map;
+
+	map = NULL;
+	map_fd = open(map_file, O_RDONLY);
+	if (map_fd < 0)
+		error_print("file not found\n");
+	map = read_config(map, line, map_fd);
 	close(map_fd);
 	return (map);
 }

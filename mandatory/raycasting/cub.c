@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mkhairou <mkhairou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yajallal <yajallal@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/11 17:12:08 by yajallal          #+#    #+#             */
-/*   Updated: 2023/08/03 15:18:45 by mkhairou         ###   ########.fr       */
+/*   Updated: 2023/08/03 16:15:53 by yajallal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ void	error_checker(char **av, t_cub *game, t_map *map)
 	if (!check_valid_map(game->map))
 	{
 		free(game->textures);
+		ft_free2d(game->textures_img);
 		ft_free2d(game->map);
 		free(game);
 		error_print("map not valid \n");
