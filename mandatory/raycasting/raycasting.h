@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mkhairou <mkhairou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yajallal <yajallal@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/11 13:04:14 by yajallal          #+#    #+#             */
-/*   Updated: 2023/08/03 15:09:38 by mkhairou         ###   ########.fr       */
+/*   Updated: 2023/08/03 19:47:19 by yajallal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ void	key_down(t_cub *game);
 void	key_right(t_cub *game);
 void	key_left(t_cub *game);
 
-// t_coord	init_drawline(t_coord c0, t_coord c1);
 void	pixel_draw(t_coord c0, t_cub *game, int color);
 void	drawline(t_coord c0, t_coord c1, t_cub *game, int color);
 

@@ -6,7 +6,7 @@
 /*   By: yajallal <yajallal@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/01 16:38:31 by yajallal          #+#    #+#             */
-/*   Updated: 2023/08/03 16:44:57 by yajallal         ###   ########.fr       */
+/*   Updated: 2023/08/03 20:02:11 by yajallal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,10 @@ void	print(t_map *map)
 	}
 }
 
-t_map	*read_config(t_map *map, char *line, int map_fd)
+t_map	*read_config(t_map *map, int map_fd)
 {
-	int	i;
+	int		i;
+	char	*line;
 
 	line = get_next_line(map_fd);
 	while (line)
@@ -57,14 +58,13 @@ t_map	*read_config(t_map *map, char *line, int map_fd)
 t_map	*read_map(char *map_file)
 {
 	int		map_fd;
-	char	*line;
 	t_map	*map;
 
 	map = NULL;
 	map_fd = open(map_file, O_RDONLY);
 	if (map_fd < 0)
 		error_print("file not found\n");
-	map = read_config(map, line, map_fd);
+	map = read_config(map, map_fd);
 	close(map_fd);
 	return (map);
 }

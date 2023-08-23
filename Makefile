@@ -55,10 +55,10 @@ SRCS_BONUS = 	bonus/parsing/check_map_config.c \
 OBJS_MANDA = $(SRCS_MANDA:.c=.o)
 OBJS_BONUS = $(SRCS_BONUS:.c=.o)
 GLFW = $(shell brew --prefix glfw)
-MLX_FLAG = /Users/mkhairou/MLX42/build/libmlx42.a -Iinclude -lglfw -L $(GLFW)/lib/ -framework Cocoa -framework OpenGL -framework IOKit
+MLX_FLAG = MLX42/build/libmlx42.a -Iinclude -lglfw -L $(GLFW)/lib/ -framework Cocoa -framework OpenGL -framework IOKit
 
 %.o: %.c
-	@$(CC)  -c $< -o $@
+	@$(CC) $(CFLAGS) -c $< -o $@
 
 all: $(NAME_MANDA) $(NAME_BONUS)
 

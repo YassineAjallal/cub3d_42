@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mkhairou <mkhairou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yajallal <yajallal@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/11 17:12:08 by yajallal          #+#    #+#             */
-/*   Updated: 2023/08/03 19:33:20 by mkhairou         ###   ########.fr       */
+/*   Updated: 2023/08/03 19:59:38 by yajallal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,25 +42,26 @@ void	move_mouse( double x, double y, void *ptr)
 	int		yi;
 
 	game = (t_cub *)ptr;
+	(void)x;
+	(void)y;
 	mlx_get_mouse_pos(game->mlx, &xi, &yi);
 	if (xi > game->mouse_x)
 	{
-		game->player_angle += 0.1;
+		game->player_angle += 0.05;
 		if (game->player_angle < 0)
 			game->player_angle += 2 * M_PI;
 		else if (game->player_angle > 2 * M_PI)
 			game->player_angle -= 2 * M_PI;
-		game->mouse_x = xi;
 	}
 	else if (xi < game->mouse_x)
 	{
-		game->player_angle -= 0.1;
+		game->player_angle -= 0.05;
 		if (game->player_angle < 0)
 			game->player_angle += 2 * M_PI;
 		else if (game->player_angle > 2 * M_PI)
 			game->player_angle -= 2 * M_PI;
-		game->mouse_x = xi;
 	}
+	game->mouse_x = xi;
 }
 
 void	ray_cast(void *pt)

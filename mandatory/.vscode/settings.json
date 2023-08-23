@@ -1,9 +1,0 @@
-{
-	"files.associations": {
-		"*.cpp": "cpp",
-		"ft_malloc.h": "c",
-		"parsing.h": "c",
-		"structs.h": "c",
-		"libft.h": "c"
-	}
-}

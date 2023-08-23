@@ -6,13 +6,13 @@
 /*   By: yajallal <yajallal@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/11 16:43:26 by yajallal          #+#    #+#             */
-/*   Updated: 2023/08/03 18:10:32 by yajallal         ###   ########.fr       */
+/*   Updated: 2023/08/03 19:53:45 by yajallal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "raycasting.h"
 
-void	pixel_draw_mini(t_coord c0, t_coord c1, t_cub *game, int color)
+void	pixel_draw_mini(t_coord c0, t_cub *game, int color)
 {
 	if (c0.x >= 0 && c0.x < game->large_length * TILE
 		&& c0.y >= 0 && c0.y < game->map_len * TILE)
@@ -39,7 +39,7 @@ void	drawline_mini(t_coord c0, t_coord c1, t_cub *game, int color)
 	incr.y = dy / (float)steps;
 	while (i <= steps)
 	{
-		pixel_draw_mini(c0, c1, game, color);
+		pixel_draw_mini(c0, game, color);
 		c0.x += incr.x;
 		c0.y += incr.y;
 		i++;

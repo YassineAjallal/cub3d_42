@@ -6,7 +6,7 @@
 /*   By: yajallal <yajallal@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/03 16:10:34 by yajallal          #+#    #+#             */
-/*   Updated: 2023/08/03 16:22:35 by yajallal         ###   ########.fr       */
+/*   Updated: 2023/08/03 20:01:29 by yajallal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,6 @@ void	is_color(t_map *map, t_map *tmp, t_cub *game)
 void	check_valid_color(t_map *map, t_cub *game)
 {
 	t_map	*tmp;
-	char	**split;
-	char	*tmp_str;
 
 	tmp = map;
 	while (tmp)
@@ -82,7 +80,6 @@ t_map	*texutre_color_checker(t_map *map, t_map *config, char **split)
 void	check_map_config(t_map *map, t_cub *game)
 {
 	char	**split;
-	char	**split_line;
 	t_map	*config;
 	t_map	*tmp;
 
